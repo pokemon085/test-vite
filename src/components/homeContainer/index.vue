@@ -1,20 +1,42 @@
 <template>
   <div class="home-container">
-    <div class="feature-wrap">
-      <div class="item" v-for="(item, index) in feature" :key="index">
-        <img :src="`/src/assets/feature/${item.icon}.webp`">
-        <div class="title">{{ item.title }}</div>
-        <div class="content">{{ item.content }}</div>
+    <div class="feature">
+      <div class="title">FEATURE</div>
+      <div class="feature-wrap">
+        <div class="item" v-for="(item, index) in feature" :key="index">
+          <img :src="`/src/assets/feature/${item.icon}.webp`">
+          <div class="item-title">{{ item.title }}</div>
+          <div class="content">{{ item.content }}</div>
+        </div>
       </div>
     </div>
+
+    <div class="news">
+      <div class="title">NEWS & EVENT</div>
+      <div class="news-wrap">
+        <div class="item" v-for="i in 3">
+          <div class="news-image">
+            <img src="https://picsum.photos/id/100/300/200" alt="">
+          </div>
+          <div class="content">
+            <div class="item-title">Lorem ipsum dolor</div>
+            <div class="date">2021-11-16</div>
+            <div class="tip">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Explicabo reprehenderit error,
+              aut ipsa perferendis assumenda nulla quae. Harum, eligendi! Possimus quo est autem omnis exercitationem
+              solutasuscipit minus necessitatibus laborum.</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
     <div class="hot-products">
       <div class="title-wrap">
-        <div class="tip">Add our hot products to your weekly lineup</div>
-        <div class="title">OUR HOT PRODUCTS</div>
+        <div class="title">HOT PRODUCTS</div>
       </div>
 
       <div class="item">
-        <swiper :spaceBetween="20" :slidesPerView="3" :centeredSlides="true" :loop="true"  :modules="modules" :navigation="true" >
+        <swiper :spaceBetween="20" :slidesPerView="3" :centeredSlides="true" :loop="true" :modules="modules"
+          :navigation="true">
           <swiper-slide v-for="(i, index) of state" :key="index" class="swiper-slide">
             <div class="custom-image">
               <img :src="`https://picsum.photos/200/200/?random=${index}`" />
@@ -107,52 +129,104 @@ const modules = [Scrollbar, Navigation];
   width: 80%;
   margin: 0 auto;
 
-  .feature-wrap {
-    padding: 30px 0 50px 0;
-    display: flex;
+  .title {
+    text-align: center;
+    font-size: 24px;
+    padding: 10px 0;
+  }
 
-    justify-content: space-around;
-    margin: 0 auto;
+  .feature {
+    width: 100%;
+    text-align: center;
+    padding: 60px 0;
     border-bottom: 1px solid #ddd;
 
-    .item {
+    .feature-wrap {
       display: flex;
-      flex-direction: column;
-      justify-content: center;
-      align-items: center;
+      justify-content: space-around;
+      margin: 0 auto;
+      
 
-      .content {
-        width: 200px;
-        font-size: 12px;
+      .item {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+
+        .content {
+          width: 200px;
+          font-size: 12px;
+        }
+
+        >img {
+          width: 80px;
+          height: 95px;
+          padding: 10px 0;
+        }
       }
 
-      >img {
-        width: 80px;
-        height: 95px;
-        padding: 10px 0;
-      }
     }
+  }
 
+
+  .news {
+    width: 100%;
+    text-align: center;
+    padding: 60px 0;
+    border-bottom: 1px solid #ddd;
+
+    .news-wrap {
+      display: flex;
+      justify-content: space-between;
+
+      .item {
+        width: 300px;
+        height: 300px;
+        margin: 0 5px;
+
+        .news-image {
+          margin: auto;      
+          >img {
+            width: 100%;
+            border-radius: 10px;
+          }
+        }
+
+        .content {
+          width: 300px;
+          height: 50px;
+
+          .item-title {
+            text-align: left;
+            color: #4358ad;
+            font-weight: bold;
+            font-size: 16px;
+          }
+
+          .date {
+            text-align: left;
+          }
+
+          .tip {
+            overflow: hidden;
+            white-space: nowrap;
+            text-overflow: ellipsis;
+          }
+        }
+
+      }
+
+    }
   }
 
   .hot-products {
-    margin: 30px auto;
+    padding: 60px 0;
 
     .title-wrap {
       width: 100%;
       height: 40px;
       text-align: center;
       margin: 20px 0;
-
-      .tip {
-        font-size: 14px;
-        font-style: italic;
-      }
-
-      .title {
-        font-size: 20px;
-        font-weight: bold;
-      }
     }
 
     .swiper-wrap {
@@ -173,7 +247,8 @@ const modules = [Scrollbar, Navigation];
 
       .text-wrap {
         text-align: center;
-        padding-top:10px;
+        padding-top: 10px;
+
         .title {
           font-weight: bold;
         }

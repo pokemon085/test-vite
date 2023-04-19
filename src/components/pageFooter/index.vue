@@ -51,17 +51,17 @@ export default defineComponent({
 <style lang="scss">
 .footer-wrap {
   display: flex;
-  justify-content: space-between;
+  justify-content: space-evenly;
   padding:20px;
   margin: 0 auto;
-  background: #6f6969 50% 50%;
+  background: #eee;;
   height: 200px;
-  // width: 80%;
+
   .text {
     display: flex;
     flex-direction: column;
 
-    .title {
+    .item-title {
       padding: 5px 0;
       font-size: 14px;
       font-weight: bold;
