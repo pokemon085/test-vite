@@ -1,5 +1,22 @@
-import * as login from './module/login';
-import * as index from './module/index';
 
-export default Object.assign({}, login, index);
+// 文件api/index.ts
+import http  from '@/utils/axios'
+
+export const todoList =()=>{
+    return http.request({
+        url: 'src/api/data/todoList.json',
+        method: 'get'
+    })
+}
+
+export const goodsList =()=>{
+  return http.request({
+      url: 'src/api/data/goods.json',
+      method: 'get'
+  })
+}
+
+
+
+
 

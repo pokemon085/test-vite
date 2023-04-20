@@ -12,6 +12,16 @@ const routes: Array<RouteRecordRaw> = [
   //   component: () => import('@/pages/login.vue')
   // },
   {
+    path: '/cart',
+    name: 'cart',
+    meta: {
+      title: 'cart',
+      keepAlive: true,
+      requireAuth: true
+    },
+    component: () => import('@/pages/cart/index.vue')
+  },
+  {
     path: '/product',
     name: 'product',
     meta: {

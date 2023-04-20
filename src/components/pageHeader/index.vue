@@ -17,7 +17,7 @@
     </div>
     <div class="function-icon">
       <div class="search"></div>
-      <div class="cart"></div>
+      <div class="cart" @click="$router.push('/cart')"></div>
       <div class="setting"></div>
     </div>
   </div>

@@ -1,26 +1,41 @@
 <template>
-  
-    <div class="item" v-for="(todo) in store.todos" :key="todo.id">
-      {{ todo.content }}
-      <!-- <div>
-        <input type="checkbox" id="scales" name="scales" checked>
-        <label for="scales">{{ todo.content }}</label>
-        <button>delete</button>
-      </div> -->
+  <div class="container">
+    <div class="good">
+      <div class="item" v-for="i in addUserCount">
+     
+        name:{{ i.name }}
+        money:{{ i.money }}
+        stock:{{ i.stock }}
+        <button @click="addCartToStore(i)">addCart</button>
+      </div>
     </div>
-  
+  </div>
 </template>
-<script lang="ts">
-import { defineComponent } from 'vue'
-import {todoStore} from "@/store/todo"
-import { storeToRefs } from 'pinia'
-export default defineComponent({
-  setup() {
-    const store=todoStore()
-    return{
-      store
-    }
-  },
+<script lang="ts" setup>
+import { Goods,Cart } from '@/store/types'
+import { defineComponent, onMounted, ref, computed } from 'vue'
+import { goodsStore } from "@/store/goods"
+import { cartStore } from "@/store/cart"
+import { readGoods } from "@/utils/localStorageUtils"
+
+const storeGoods = goodsStore()
+const storeCart=cartStore()
+onMounted(() => {
+  storeGoods.getAllGoods().then(() => {
+    storeGoods.goods = readGoods()
+  })
 })
+
+const addUserCount = computed(() => storeGoods.goods.map((item) => { return { ...item, count: 0 } }))
+
+const addCartToStore=(key:Cart)=>{
+  
+  storeCart.addCart(key)
+}
+
+
+
+
+
 
 </script>
