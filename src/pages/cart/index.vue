@@ -13,7 +13,7 @@
         </div>
       </div>
     </div>
-    <button @click="ok">ok</button>
+    <button @click="buy()">ok</button>
   </div>
 </template>
 <script lang="ts" setup>
@@ -33,8 +33,10 @@ const deleteGoodItem = (i: Cart) => {
   showDailog.value = true
 }
 
-const ok=()=>{
-  getGoodsStore.updateGoods()
+const buy=()=>{
+  getGoodsStore.updateGoods().then(() => {
+    store.clearCart()
+  })
 }
 
 </script>

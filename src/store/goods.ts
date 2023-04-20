@@ -28,20 +28,24 @@ export const goodsStore = defineStore({
           }
         })
     },
-    updateGoods(){
-      const getCurrentCart=cartStore().cart
-      console.log(getCurrentCart);
-      
-
-      //   {
-      //     "id": 1,
-      //     "categroy": "candy",
-      //     "name": "aaa",
-      //     "money": 100,
-      //     "introduce": "sdfsfs afdsfsdfdsf",
-      //     "stock": 1,
-      //     "count": 1
-      // }
+    updateGoods() {
+      return new Promise((resolve) => { 
+        const getCartStore = cartStore()
+        const currentCart = getCartStore.cart
+        
+        const changeStock=(cartItem:Cart)=>{
+          const index=this.goods.findIndex((item) => {
+              return (item.id===cartItem.id)
+          })
+          this.goods[index].stock-=cartItem.count
+        }
+  
+        currentCart.forEach(cartItem => {
+          changeStock(cartItem)
+        })
+        saveGoods(this.goods)
+        resolve(1);  
+      });
       
     }
   },

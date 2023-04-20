@@ -20,16 +20,11 @@ import { readGoods } from "@/utils/localStorageUtils"
 
 const storeGoods = goodsStore()
 const storeCart=cartStore()
-onMounted(() => {
-  storeGoods.getAllGoods().then(() => {
-    storeGoods.goods = readGoods()
-  })
-})
+storeGoods.goods = readGoods()
 
 const addUserCount = computed(() => storeGoods.goods.map((item) => { return { ...item, count: 0 } }))
 
 const addCartToStore=(key:Cart)=>{
-  
   storeCart.addCart(key)
 }
 

@@ -15,6 +15,12 @@
 <script setup lang="ts">
 import pageHeader from '@/components/pageHeader/index.vue'
 import pageFooter from '@/components/pageFooter/index.vue'
+import { goodsStore } from "@/store/goods"
+import { onMounted } from 'vue'
+const storeGoods = goodsStore()
+onMounted(() => {
+  storeGoods.getAllGoods()
+})
 </script>
 
 

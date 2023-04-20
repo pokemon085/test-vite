@@ -15,9 +15,7 @@ const routes: Array<RouteRecordRaw> = [
     path: '/cart',
     name: 'cart',
     meta: {
-      title: 'cart',
-      keepAlive: true,
-      requireAuth: true
+      title: 'cart'
     },
     component: () => import('@/pages/cart/index.vue')
   },
@@ -25,29 +23,23 @@ const routes: Array<RouteRecordRaw> = [
     path: '/product',
     name: 'product',
     meta: {
-      title: 'product',
-      keepAlive: true,
-      requireAuth: true
+      title: 'product'
     },
     component: () => import('@/pages/product/index.vue')
   },
   {
-    path: '/blog',
-    name: 'Blog',
+    path: '/contact',
+    name: 'Contact',
     meta: {
-      title: 'blog',
-      keepAlive: true,
-      requireAuth: false
+      title: 'contact'
     },
-    component: () => import('@/pages/blog/index.vue')
+    component: () => import('@/pages/contact/index.vue')
   },
   {
     path: '/catalog',
     name: 'catalog',
     meta: {
-      title: 'catalog',
-      keepAlive: true,
-      requireAuth: false
+      title: 'catalog'
     },
 
     component: () => import('@/pages/catalog/index.vue')
@@ -56,9 +48,7 @@ const routes: Array<RouteRecordRaw> = [
     path: '/faqs',
     name: 'faqs',
     meta: {
-      title: 'faqs',
-      keepAlive: true,
-      requireAuth: false
+      title: 'faqs'
     },
     component: () => import('@/pages/faqs/index.vue')
   },

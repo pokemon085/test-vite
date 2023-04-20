@@ -2,17 +2,17 @@
   <div class="header">
     <div class="logo"></div>
     <div class="list">
-      <router-link  slot="left" to="/">
+      <router-link to="/">
         home
       </router-link>
-      <router-link  slot="left" to="/catalog">
+      <router-link to="/catalog">
         catalog
       </router-link>
-      <router-link  slot="left" to="/faqs">
+      <router-link to="/faqs">
         faqs
       </router-link>
-      <router-link slot="left" to="/blog">
-        blog
+      <router-link to="/blog">
+        contact us
       </router-link>
     </div>
     <div class="function-icon">
@@ -27,19 +27,19 @@ import { defineComponent } from 'vue'
 
 export default defineComponent({
   setup() {
-    
+
   },
 })
 </script>
 <style lang="scss">
-.header{
+.header {
   width: 100%;
   height: 50px;
   background: rgb(214, 185, 185);
   display: flex;
   justify-content: space-between;
 
-  .logo{
+  .logo {
     width: 100px;
     height: 40px;
     padding-top: 10px;
@@ -47,7 +47,7 @@ export default defineComponent({
     background-size: contain;
   }
 
-  .list{
+  .list {
     display: flex;
     width: 300px;
     height: 50px;
@@ -55,25 +55,28 @@ export default defineComponent({
     align-items: center;
   }
 
-  .function-icon{
+  .function-icon {
     display: flex;
     justify-content: space-between;
     align-items: center;
     width: 100px;
     height: 50px;
-    .search{
+
+    .search {
       width: 20px;
       height: 20px;
       background: url("@/assets/header/search.png") 0 0 no-repeat;
       background-size: contain;
     }
-    .setting{
+
+    .setting {
       width: 20px;
       height: 20px;
       background: url("@/assets/header/setting.png") 0 0 no-repeat;
       background-size: contain;
     }
-    .cart{
+
+    .cart {
       width: 20px;
       height: 20px;
       background: url("@/assets/header/cart.png") 0 0 no-repeat;
@@ -81,6 +84,4 @@ export default defineComponent({
     }
   }
 }
-
-
 </style>
