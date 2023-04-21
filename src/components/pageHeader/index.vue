@@ -11,25 +11,19 @@
       <router-link to="/faqs">
         faqs
       </router-link>
-      <router-link to="/blog">
+      <router-link to="/contact">
         contact us
       </router-link>
     </div>
     <div class="function-icon">
       <div class="search"></div>
       <div class="cart" @click="$router.push('/cart')"></div>
-      <div class="setting"></div>
+      <div class="login" @click="$router.push('/login')"></div>
     </div>
   </div>
 </template>
-<script lang="ts">
-import { defineComponent } from 'vue'
-
-export default defineComponent({
-  setup() {
-
-  },
-})
+<script lang="ts" setup>
+import { ref } from 'vue'
 </script>
 <style lang="scss">
 .header {
@@ -56,6 +50,7 @@ export default defineComponent({
   }
 
   .function-icon {
+    padding: 0 10px;
     display: flex;
     justify-content: space-between;
     align-items: center;
@@ -69,10 +64,10 @@ export default defineComponent({
       background-size: contain;
     }
 
-    .setting {
+    .login {
       width: 20px;
       height: 20px;
-      background: url("@/assets/header/setting.png") 0 0 no-repeat;
+      background: url("@/assets/header/user.png") 0 0 no-repeat;
       background-size: contain;
     }
 
