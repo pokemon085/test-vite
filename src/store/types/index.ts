@@ -20,3 +20,8 @@ export interface Cart{
   stock:number,
   count:number
 }
+
+export interface User{
+  email:string,
+  password:string
+}

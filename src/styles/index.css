@@ -1,6 +1,7 @@
 @import '@/styles/reset.css';
 :root {
-  --main-bg-color: pink;
+  --main-bg-color: #ffc0cb;
+  --loading-color:#f25d7b;
 }
 ​
 body {

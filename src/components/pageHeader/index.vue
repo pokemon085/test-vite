@@ -2,28 +2,42 @@
   <div class="header">
     <div class="logo"></div>
     <div class="list">
-      <router-link to="/">
-        home
-      </router-link>
-      <router-link to="/catalog">
-        catalog
-      </router-link>
-      <router-link to="/faqs">
-        faqs
-      </router-link>
-      <router-link to="/contact">
-        contact us
-      </router-link>
+      <router-link to="/"> home </router-link>
+      <router-link to="/catalog"> catalog </router-link>
+      <router-link to="/faqs"> faqs </router-link>
+      <router-link to="/contact"> contact us </router-link>
     </div>
     <div class="function-icon">
       <div class="search"></div>
       <div class="cart" @click="$router.push('/cart')"></div>
-      <div class="login" @click="$router.push('/login')"></div>
+      <div class="login" @click="loginHandler">
+        <tool-tip>
+          <template #user>
+            <div>aaaa</div>
+          </template>
+        </tool-tip>
+      </div>
     </div>
   </div>
 </template>
 <script lang="ts" setup>
-import { ref } from 'vue'
+import { userStore } from "@/store/user";
+import { useRouter } from "vue-router";
+import toolTip from "@/components/toolTip/index.vue";
+defineProps({
+  updateUser: {
+    type: Boolean,
+    default: false,
+  },
+});
+const router = useRouter();
+const getUserStore = userStore();
+const loginHandler = () => {
+  if (getUserStore.isLogin) {
+  } else {
+    router.push("/login");
+  }
+};
 </script>
 <style lang="scss">
 .header {
@@ -52,9 +66,9 @@ import { ref } from 'vue'
   .function-icon {
     padding: 0 10px;
     display: flex;
-    justify-content: space-between;
+    justify-content: space-evenly;
     align-items: center;
-    width: 100px;
+    width: 200px;
     height: 50px;
 
     .search {
@@ -69,6 +83,19 @@ import { ref } from 'vue'
       height: 20px;
       background: url("@/assets/header/user.png") 0 0 no-repeat;
       background-size: contain;
+      position: relative;
+
+      .account-block {
+        position: absolute;
+        width: 96px;
+        height: 100px;
+        background: #fff;
+        top: 25px;
+        right: -38px;
+
+        border-radius: 10px;
+        z-index: 5;
+      }
     }
 
     .cart {

@@ -1,10 +1,10 @@
 <template>
   <div class="container" id="container">
     <div class="header"> 
-      <pageHeader />
+      <pageHeader :update-account="updateUser"/>
     </div>
     <div class="main">
-      <router-view/>
+      <router-view @updateAccount="updateAccount"/>
     </div>
     <div class="footer">
       <pageFooter />
@@ -16,11 +16,22 @@
 import pageHeader from '@/components/pageHeader/index.vue'
 import pageFooter from '@/components/pageFooter/index.vue'
 import { goodsStore } from "@/store/goods"
-import { onMounted } from 'vue'
+import { userStore } from "@/store/user"
+import { onMounted,ref } from 'vue'
 const storeGoods = goodsStore()
+const getUserList=userStore()
+const updateUser=ref(false)
 onMounted(() => {
   storeGoods.getAllGoods()
+  getUserList.saveUserList()
 })
+
+const updateAccount = (val: boolean) => {
+  console.log('ppp')
+  updateUser.value=val
+}
+
+
 </script>
 
 
