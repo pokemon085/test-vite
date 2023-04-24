@@ -6,44 +6,61 @@
     </div>
     <div class="content">
       <div v-if="findResult.length > 0">
-        <div v-for="item in findResult" class="item" @click="goProduct(item)">{{ item.name }}</div>
+        <div v-for="item in findResult" class="item" @click="goProduct(item)">
+          {{ item.name }}
+        </div>
       </div>
       <div class="no-data" v-else>No Data</div>
     </div>
+    <loading v-show="showLoading"/>
   </div>
   <div class="mask" @click="emit('close')"></div>
+  
 </template>
 <script lang="ts" setup>
-import { ref, computed } from 'vue'
-import { goodsStore } from '@/store/goods'
+import { ref, computed } from "vue";
+import { goodsStore } from "@/store/goods";
 import { useRouter } from "vue-router";
-import { Goods } from '@/store/types';
-const emit = defineEmits(['close'])
-const searchText = ref('')
+import { Goods } from "@/store/types";
+import loading from "@/components/loading/index.vue";
+const emit = defineEmits(["close"]);
 const router = useRouter();
-const getGoodsStore = goodsStore()
+const getGoodsStore = goodsStore();
+const searchText = ref("");
+const showLoading = ref(false);
 const findResult: any = computed(() => {
-  if (searchText.value === '') return []
-  return getGoodsStore.goods.filter(item => item.categroy.toLowerCase().startsWith(searchText.value) || item.name.toLowerCase().startsWith(searchText.value));
-})
-const goProduct = (item:Goods) => {
-  emit('close')
-  router.push({
-    path: '/product',
-    query: {...item}
-  })
-}
+  const textToLower = searchText.value.toLowerCase();
+  if (searchText.value === "") return [];
+  return getGoodsStore.goods.filter(
+    (item: { categroy: string; name: string }) =>
+      item.categroy.toLowerCase().startsWith(textToLower) ||
+      item.name.toLowerCase().startsWith(textToLower)
+  );
+});
+const goProduct = (item: Goods) => {
+  
+  showLoading.value = true;
 
-
+  setTimeout(() => {
+    showLoading.value = false;
+    emit("close");
+    router.replace({
+      path: "/product",
+      query: { ...item },
+    });
+  }, 300);
+};
 </script>
 <style lang="scss">
 .mask {
   position: fixed;
-  top: 0;
-  left: 0;
-  background-color: rgba(0, 0, 0, .5);
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background-color: rgba(0, 0, 0, 0.6);
   width: 100%;
   height: 100%;
+  z-index: 5;
 }
 
 .search-wrap {
@@ -58,6 +75,7 @@ const goProduct = (item:Goods) => {
   left: 50%;
   transform: translate(-50%, -50%);
   z-index: 10;
+  border-radius: 8px;
 
   .input-wrap {
     margin: 10px 0;
@@ -99,12 +117,17 @@ const goProduct = (item:Goods) => {
 
     .item {
       font-size: 16px;
-      padding: 5px 0;
+      padding: 10px 0;
       width: 300px;
 
       overflow: hidden;
       white-space: nowrap;
       text-overflow: ellipsis;
+
+      &:hover {
+        background: var(--text-background-color);
+        cursor: pointer;
+      }
     }
 
     .no-data {
@@ -116,6 +139,5 @@ const goProduct = (item:Goods) => {
       font-size: 18px;
     }
   }
-
 }
 </style>

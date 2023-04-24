@@ -8,12 +8,17 @@
       <router-link to="/contact"> contact us </router-link>
     </div>
     <div class="function-icon">
-      <div class="search" @click="showSearch=true"></div>
+      <div class="search" @click="openSearch"></div>
       <div class="cart" @click="$router.push('/cart')"></div>
       <div class="login-wrap">
-        <div class="login" v-if="Object.keys(getUserStore.isLogin).length === 0" @click="$router.push('/login')"></div>
-        <div class="member-image" v-else @click="loginHandler">{{ getUserStore.userFrontName }}
-          <tool-tip v-if="showAccountDetail">
+        <div
+          class="login"
+          v-if="Object.keys(getUserStore.isLogin).length === 0"
+          @click="$router.push('/login')"
+        ></div>
+        <div class="member-image" v-else @click="loginHandler">
+          {{ getUserStore.userFrontName }}
+          <tool-tip>
             <template #user>
               <div>{{ getUserStore.isLogin.email }}</div>
             </template>
@@ -26,36 +31,40 @@
       </div>
     </div>
   </div>
-  <search v-if="showSearch" @close="closeHandler"/>
+  <search v-if="showSearch" @close="closeHandler" />
 </template>
 <script lang="ts" setup>
 import { userStore } from "@/store/user";
 import { useRouter } from "vue-router";
-import { ref } from 'vue'
+import { ref } from "vue";
 import toolTip from "@/components/toolTip/index.vue";
-import search from "@/components/sarch/index.vue"
+import search from "@/components/search/index.vue";
 
 const router = useRouter();
 const getUserStore = userStore();
-const showAccountDetail = ref(false)
-const showSearch=ref(false)
+const showAccountDetail = ref(false);
+const showSearch = ref(false);
 const loginHandler = () => {
-  showAccountDetail.value = !showAccountDetail.value
+  showAccountDetail.value = !showAccountDetail.value;
 };
 
 const signOutHandler = () => {
-  getUserStore.signOut()
+  getUserStore.signOut();
   setTimeout(() => {
-    alert('請重新登入')
-    router.push('/')
+    alert("請重新登入");
+    router.push("/");
   }, 300);
-}
+};
 
-const closeHandler=()=>{
-  console.log('cc=');
-  
-  showSearch.value=false
-}
+const closeHandler = () => {
+  document.documentElement.style.overflow = "auto";
+  showSearch.value = false;
+};
+
+const openSearch = () => {
+  document.documentElement.style.overflow = "hidden";
+  showSearch.value = true;
+};
 </script>
 <style lang="scss">
 .header {
@@ -115,7 +124,8 @@ const closeHandler=()=>{
         height: 30px;
         text-align: center;
         line-height: 30px;
-
+        color: var(--loading-color);
+        font-weight: bold;
       }
     }
 

@@ -1,20 +1,36 @@
 <template>
-  <div class="bottom">
-    <div class="user">
-      <slot name="user"></slot>
+  <div class="hide-block">
+    <div class="bottom">
+      <div class="user">
+        <slot name="user"></slot>
+      </div>
+      <div class="item">
+        <slot name="item"></slot>
+      </div>
+      <i></i>
     </div>
-    <div class="item">
-      <slot name="item"></slot>
-    </div>
-    <i></i>
   </div>
 </template>
 
 <script setup lang="ts"></script>
 
 <style lang="scss">
+.hide-block {
+  width: 30px;
+  height: 100px;
+  background: transparent;
+  position: relative;
+  top: -30px;
+
+  &:hover {
+    .bottom {
+      display: block;
+    }
+  }
+}
+
 .bottom {
-  display: block;
+  display: none;
   min-width: 100px;
   top: 40px;
   left: 50%;
@@ -32,11 +48,11 @@
 
   .user {
     font-weight: bold;
-    padding:5px 0;
+    padding: 5px 0;
   }
 
   .item {
-    border-top:1px solid rgba(0, 0, 0, 0.2);
+    border-top: 1px solid rgba(0, 0, 0, 0.2);
     padding: 5px 0;
 
     .list-item {
@@ -49,7 +65,6 @@
       }
     }
   }
-
 }
 
 .bottom i {

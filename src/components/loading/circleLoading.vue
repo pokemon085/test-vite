@@ -33,10 +33,10 @@
   position: absolute;
   animation: ldio-agdwhbekqcj linear 1s infinite;
   background: var(--loading-color);
-  width: 12px;
-  height: 24px;
-  border-radius: 6px / 12px;
-  transform-origin: 6px 52px;
+  width: 6px;
+  height: 12px;
+  border-radius: 3px / 6px;
+  transform-origin: 3px 26px;
 }
 
 .ldio-agdwhbekqcj div:nth-child(1) {
@@ -112,8 +112,8 @@
 }
 
 .loadingio-spinner-spinner-1zrg8yebvbz {
-  width: 200px;
-  height: 200px;
+  width: 100px;
+  height: 100px;
   display: inline-block;
   overflow: hidden;
   background: transparent;
@@ -123,7 +123,7 @@
   width: 100%;
   height: 100%;
   position: relative;
-  transform: translateZ(0) scale(1);
+  transform: translateZ(0) scale(0.5);
   backface-visibility: hidden;
   transform-origin: 0 0;
   /* see note above */
