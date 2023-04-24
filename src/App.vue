@@ -3,12 +3,12 @@
     <div class="header"> 
       <pageHeader :update-account="updateUser"/>
     </div>
-    <div class="main">
+    <!-- <div class="main">
       <router-view @updateAccount="updateAccount"/>
     </div>
     <div class="footer">
       <pageFooter />
-    </div>
+    </div> -->
   </div>
 </template>
 
@@ -24,6 +24,7 @@ const updateUser=ref(false)
 onMounted(() => {
   storeGoods.getAllGoods()
   getUserList.saveUserList()
+  getUserList.saveLoginUser()
 })
 
 const updateAccount = (val: boolean) => {
