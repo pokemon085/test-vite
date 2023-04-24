@@ -35,6 +35,10 @@ export function userLogin(userLogin: User) {
   localStorage.setItem('userLogin', JSON.stringify(userLogin))
 }
 
+export function readUserLogin(): User {
+  return JSON.parse(localStorage.getItem('userLogin') || '{}')
+}
+
 export function userSignOut() {
   localStorage.removeItem('userLogin')
 }

@@ -1,6 +1,6 @@
 import { defineStore } from 'pinia'
 import { User } from './types'
-import { saveUser,readUser, userLogin, userSignOut } from '@/utils/localStorageUtils'
+import { saveUser,readUser,readUserLogin, userLogin, userSignOut } from '@/utils/localStorageUtils'
 
 export const userStore = defineStore({
   id: 'user',
@@ -11,12 +11,17 @@ export const userStore = defineStore({
     }
   },
   getters: {
-
+    userFrontName():string{
+      return this.isLogin.email.slice(0, 1)
+    }
   },
   actions: {
     saveUserData(data: User) {
       this.user.unshift(data)
       saveUser(this.user)
+    },
+    saveLoginUser(){
+      this.isLogin=readUserLogin() ?? {}
     },
     saveUserList() {
       this.user=readUser()

@@ -1,7 +1,8 @@
 @import '@/styles/reset.css';
 :root {
-  --main-bg-color: #ffc0cb;
-  --loading-color:#f25d7b;
+  --main-bg-color: #FFC0CB;
+  --loading-color:#F25D7B;
+  --text-background-color:#ECD4D4;
 }
 ​
 body {

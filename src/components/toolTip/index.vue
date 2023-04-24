@@ -1,22 +1,25 @@
 <template>
-  
   <div class="bottom">
-    <slot name="user"></slot>
-    <slot name="item" />
+    <div class="user">
+      <slot name="user"></slot>
+    </div>
+    <div class="item">
+      <slot name="item"></slot>
+    </div>
     <i></i>
   </div>
 </template>
 
 <script setup lang="ts"></script>
 
-<style lang="scss" scoped>
+<style lang="scss">
 .bottom {
   display: block;
   min-width: 100px;
   top: 40px;
   left: 50%;
   transform: translate(-50%, 0);
-  padding: 10px 20px;
+  padding: 10px 10px;
   color: #444444;
   background-color: #eeeeee;
   font-weight: normal;
@@ -26,6 +29,27 @@
   z-index: 99;
   box-sizing: border-box;
   box-shadow: 0 1px 8px rgba(0, 0, 0, 0.5);
+
+  .user {
+    font-weight: bold;
+    padding:5px 0;
+  }
+
+  .item {
+    border-top:1px solid rgba(0, 0, 0, 0.2);
+    padding: 5px 0;
+
+    .list-item {
+      width: 100px;
+      height: 30px;
+
+      &:hover {
+        background: var(--text-background-color);
+        border-radius: 5px;
+      }
+    }
+  }
+
 }
 
 .bottom i {
