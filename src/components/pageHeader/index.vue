@@ -3,13 +3,12 @@
     <div class="logo"></div>
     <div class="list">
       <router-link to="/"> home </router-link>
-      <router-link to="/catalog"> catalog 
-      </router-link>
+      <router-link to="/catalog"> catalog </router-link>
       <router-link to="/faqs"> faqs </router-link>
       <router-link to="/contact"> contact us </router-link>
     </div>
     <div class="function-icon">
-      <div class="search"></div>
+      <div class="search" @click="showSearch=true"></div>
       <div class="cart" @click="$router.push('/cart')"></div>
       <div class="login-wrap">
         <div class="login" v-if="Object.keys(getUserStore.isLogin).length === 0" @click="$router.push('/login')"></div>
@@ -27,27 +26,19 @@
       </div>
     </div>
   </div>
+  <search v-if="showSearch" @close="closeHandler"/>
 </template>
 <script lang="ts" setup>
 import { userStore } from "@/store/user";
 import { useRouter } from "vue-router";
-
-import { ref, onMounted } from 'vue'
+import { ref } from 'vue'
 import toolTip from "@/components/toolTip/index.vue";
-defineProps({
-  updateUser: {
-    type: Boolean,
-    default: false,
-  },
-});
-
+import search from "@/components/sarch/index.vue"
 
 const router = useRouter();
 const getUserStore = userStore();
 const showAccountDetail = ref(false)
-onMounted(() => {
-
-})
+const showSearch=ref(false)
 const loginHandler = () => {
   showAccountDetail.value = !showAccountDetail.value
 };
@@ -58,6 +49,12 @@ const signOutHandler = () => {
     alert('請重新登入')
     router.push('/')
   }, 300);
+}
+
+const closeHandler=()=>{
+  console.log('cc=');
+  
+  showSearch.value=false
 }
 </script>
 <style lang="scss">

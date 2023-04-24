@@ -1,14 +1,14 @@
 <template>
   <div class="container" id="container">
     <div class="header"> 
-      <pageHeader :update-account="updateUser"/>
+      <pageHeader />
     </div>
-    <!-- <div class="main">
-      <router-view @updateAccount="updateAccount"/>
+    <div class="main">
+      <router-view />
     </div>
     <div class="footer">
       <pageFooter />
-    </div> -->
+    </div>
   </div>
 </template>
 
@@ -27,10 +27,7 @@ onMounted(() => {
   getUserList.saveLoginUser()
 })
 
-const updateAccount = (val: boolean) => {
-  console.log('ppp')
-  updateUser.value=val
-}
+
 
 
 </script>

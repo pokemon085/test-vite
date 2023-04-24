@@ -13,9 +13,6 @@
     finish:{{ store.isCompleteds }}
     all length:{{ store.todos.length }}
     <button @click="store.clearAllCompletedTodos">clear all</button>
-
-  
-  
 </template>
 <script lang="ts" setup>
 import {Todo} from '@/store/types'
