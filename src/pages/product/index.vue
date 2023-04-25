@@ -20,10 +20,12 @@ import { useRoute, useRouter } from "vue-router";
 import { cartStore } from "@/store/cart"
 import { Cart } from '@/store/types';
 import { goodsStore } from "@/store/goods"
+import {userStore} from "@/store/user"
 const route = useRoute()
 const router = useRouter()
 const storeCart = cartStore()
 const getGoodsStore = goodsStore()
+const getUserStore=userStore()
 const productId: any = computed(() => route.query.id)
 const productDetail: any = computed(() => {
   return getGoodsStore.goods.find(item => +item.id === +productId.value)
@@ -39,6 +41,11 @@ const countHandler = (key: string) => {
 }
 
 const checkout = () => {
+  if(Object.keys(getUserStore.isLogin).length===0){
+    router.push("/login")
+    return 
+  }
+
   const cartItem: Cart = { ...productDetail.value, count: 0 }
   storeCart.addCart(cartItem, count.value)
   setTimeout(() => {
