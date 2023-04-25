@@ -1,7 +1,7 @@
 <template>
   <div class="container">
     <div class="good">
-      <div class="item" v-for="i in addUserCount">
+      <div class="item" v-for="i in storeGoods.goods">
         name:{{ i.name }}
         money:{{ i.money }}
         stock:{{ i.stock }}
@@ -9,35 +9,41 @@
         <button @click="addCartToStore(i)">addCart</button>
       </div>
     </div>
+
+   <pop-up v-if="showPopup" @close="showPopup=false"/>
+
   </div>
 </template>
 <script lang="ts" setup>
 import { Cart, Goods } from '@/store/types'
-import { computed , onMounted} from 'vue'
+import { onMounted, ref } from 'vue'
 import { goodsStore } from "@/store/goods"
 import { cartStore } from "@/store/cart"
 import { readGoods } from "@/utils/localStorageUtils"
 import { useRouter } from "vue-router";
+import popUp from "@/components/popUp/index.vue"
 const storeGoods = goodsStore()
-const storeCart=cartStore()
+const storeCart = cartStore()
 storeGoods.goods = readGoods()
 const router = useRouter();
-const addUserCount = computed(() => storeGoods.goods.map((item) => { return { ...item, count: 0 } }))
-onMounted(()=>{
-  
+const showPopup=ref(false)
+onMounted(() => {
+
 })
-const addCartToStore=(key:Cart)=>{
-  storeCart.addCart(key)
+const addCartToStore = (key: Goods) => {
+  showPopup.value=true
+  const cartItem: Cart = { ...key, count: 1 }
+  storeCart.addCart(cartItem, 1)
 }
 
-const goProduct=(item:Goods)=>{
+const goProduct = (item: Goods) => {
   router.push({
     path: '/product',
-    query: {...item}
+    query: { id: item.id }
   })
 }
 
-
-
-
 </script>
+<style lang="scss" scoped>
+
+</style>

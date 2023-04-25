@@ -7,9 +7,9 @@
         money:{{ i.money }}
         stock:{{ i.stock }}
         <div class="option">
-          <button @click="i.count <= 1 ? deleteGoodItem(i) : i.count--">-</button>
+          <button @click="countHandler('substract', i)">-</button>
           <input type="text" v-model="i.count" />
-          <button @click="i.count >= i.stock ? i.count = i.stock : i.count++">+</button>
+          <button @click="countHandler('add', i)">+</button>
         </div>
       </div>
     </div>
@@ -24,7 +24,7 @@ import { Cart } from '@/store/types';
 import { goodsStore } from "@/store/goods"
 const showDailog = ref(false)
 const store = cartStore()
-const getGoodsStore=goodsStore()
+const getGoodsStore = goodsStore()
 onMounted(() => {
   store.cart = readCart()
 })
@@ -33,10 +33,27 @@ const deleteGoodItem = (i: Cart) => {
   showDailog.value = true
 }
 
-const buy=()=>{
+const buy = () => {
   getGoodsStore.updateGoods().then(() => {
     store.clearCart()
   })
+}
+
+const countHandler = (key: string, i: Cart) => {
+  if (key === 'substract') {
+    if(i.count<=0){
+      i.count=0
+    }
+    store.deleteCartCount(i,1)
+  }
+
+  if (key === 'add') {
+    if (i.count === i.stock) {
+      i.count = i.stock
+    } else {
+      store.addCart(i,1)
+    }
+  }
 }
 
 </script>

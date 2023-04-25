@@ -9,7 +9,9 @@
     </div>
     <div class="function-icon">
       <div class="search" @click="openSearch"></div>
-      <div class="cart" @click="$router.push('/cart')"></div>
+      <div class="cart" @click="$router.push('/cart')">
+      <div v-if="getCartStore.cartTotal>0" class="red-pot">{{ getCartStore.cartTotal }}</div>
+      </div>
       <div class="login-wrap">
         <div
           class="login"
@@ -39,9 +41,11 @@ import { useRouter } from "vue-router";
 import { ref } from "vue";
 import toolTip from "@/components/toolTip/index.vue";
 import search from "@/components/search/index.vue";
+import {cartStore} from "@/store/cart"
 
 const router = useRouter();
 const getUserStore = userStore();
+const getCartStore=cartStore();
 const showAccountDetail = ref(false);
 const showSearch = ref(false);
 const loginHandler = () => {
@@ -134,6 +138,22 @@ const openSearch = () => {
       height: 20px;
       background: url("@/assets/header/cart.png") 0 0 no-repeat;
       background-size: contain;
+      position: relative;
+
+      .red-pot{
+        position:absolute;
+        min-width: 20px;
+        min-height: 20px;
+        font-size: 12px;
+        background-color:rgb(234, 108, 108);
+        color:#fff;
+        border-radius: 50%;
+        text-align: center;
+        line-height: 20px;
+        padding:1px;
+        bottom:10px;
+        left:10px;
+      }
     }
   }
 }

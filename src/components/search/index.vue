@@ -12,10 +12,9 @@
       </div>
       <div class="no-data" v-else>No Data</div>
     </div>
-    <loading v-show="showLoading"/>
+    <loading v-show="showLoading" />
   </div>
   <div class="mask" @click="emit('close')"></div>
-  
 </template>
 <script lang="ts" setup>
 import { ref, computed } from "vue";
@@ -38,7 +37,7 @@ const findResult: any = computed(() => {
   );
 });
 const goProduct = (item: Goods) => {
-  
+
   showLoading.value = true;
 
   setTimeout(() => {
@@ -46,7 +45,7 @@ const goProduct = (item: Goods) => {
     emit("close");
     router.replace({
       path: "/product",
-      query: { ...item },
+      query: { id: item.id }
     });
   }, 300);
 };
@@ -81,7 +80,7 @@ const goProduct = (item: Goods) => {
     margin: 10px 0;
     width: 350px;
     height: 50px;
-    background: url("/src/assets/search/search.png") 2% 50% no-repeat;
+    background: url("@/assets/search/search.png") 2% 50% no-repeat;
     background-size: 25px 25px;
     background-color: #fff;
     display: flex;

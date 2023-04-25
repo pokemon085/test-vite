@@ -1,6 +1,6 @@
 import { defineStore } from 'pinia'
 import { Cart } from './types'
-import { saveCart } from '@/utils/localStorageUtils'
+import { saveCart ,readCart} from '@/utils/localStorageUtils'
 
 export const cartStore = defineStore({
   id: 'cart',
@@ -15,28 +15,39 @@ export const cartStore = defineStore({
     }
   },
   actions: {
-    addCart(cartItem: Cart) {
+    addCart(cartItem: Cart,count:number) {
+      const exist = this.cart.findIndex(item => {
+        return (+item.id === +cartItem.id)
+      })
+
+      if (exist !== -1) {
+         this.cart[exist].count +=count
+      } else {
+        this.cart.unshift(cartItem)
+      }
+      saveCart(this.cart)
+    },
+    deleteCartCount(cartItem:Cart,count:number){
       const exist = this.cart.findIndex(item => {
         return (item.id === cartItem.id)
       })
 
-      if (exist !== -1) {
-        this.cart[exist].count += 1
-      } else {
-        cartItem.count += 1
-        this.cart.unshift(cartItem)
+      if(this.cart[exist].count<=1){
+        this.deleteCart(exist)
+      }else{
+        this.cart[exist].count-=count
       }
       saveCart(this.cart)
     },
     deleteCart(index: number) {
       this.cart.splice(index, 1)
-    },
-    modifyCart(index: number, cart: Cart) {
-      this.cart[index] = cart
       saveCart(this.cart)
     },
     clearCart(){
       saveCart([])
+    },
+    reloadReadCart(){
+      this.cart=readCart()
     }
   }
 })
