@@ -60,7 +60,7 @@ const emit = defineEmits(["close"])
     .click-wrap {
       width: 100%;
       height: 50px;
-      color: var(--text-color);
+      color: var(--main-text-color);
       background-color: rgb(242, 172, 183);
       line-height: 50px;
       border-radius: 0 0 8px 8px;
