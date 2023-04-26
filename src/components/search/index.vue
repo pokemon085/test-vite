@@ -17,7 +17,7 @@
   <div class="mask" @click="emit('close')"></div>
 </template>
 <script lang="ts" setup>
-import { ref, computed } from "vue";
+import { ref, computed, onMounted } from "vue";
 import { goodsStore } from "@/store/goods";
 import { useRouter } from "vue-router";
 import { Goods } from "@/store/types";
@@ -27,12 +27,17 @@ const router = useRouter();
 const getGoodsStore = goodsStore();
 const searchText = ref("");
 const showLoading = ref(false);
+onMounted(()=>{
+  if(getGoodsStore.goods.length===0){
+    getGoodsStore.getAllGoods()
+  }
+})
 const findResult: any = computed(() => {
   const textToLower = searchText.value.toLowerCase();
   if (searchText.value === "") return [];
   return getGoodsStore.goods.filter(
-    (item: { categroy: string; name: string }) =>
-      item.categroy.toLowerCase().startsWith(textToLower) ||
+    (item: { category: string; name: string }) =>
+      item.category.toLowerCase().startsWith(textToLower) ||
       item.name.toLowerCase().startsWith(textToLower)
   );
 });

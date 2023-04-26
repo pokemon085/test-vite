@@ -17,7 +17,7 @@ import pageHeader from '@/components/pageHeader/index.vue'
 import pageFooter from '@/components/pageFooter/index.vue'
 import { userStore } from "@/store/user"
 import {cartStore} from "@/store/cart"
-import { onMounted,ref } from 'vue'
+import { onMounted } from 'vue'
 const getUserList=userStore()
 const getCartStore=cartStore()
 
@@ -26,10 +26,6 @@ onMounted(() => {
   getUserList.saveLoginUser()
   getCartStore.reloadReadCart()
 })
-
-
-
-
 </script>
 
 
@@ -59,6 +55,5 @@ onMounted(() => {
     grid-area:footer;
   }
 }
-
 </style>
 

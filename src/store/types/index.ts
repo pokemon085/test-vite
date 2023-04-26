@@ -6,7 +6,7 @@ export interface Todo{
 
 export interface Goods{
   id:number,
-  categroy:string,
+  category:string,
   name:string,
   money:number,
   introduce:string,
@@ -24,4 +24,9 @@ export interface Cart{
 export interface User{
   email:string,
   password:string
+}
+
+export interface Category{
+  id:number,
+  name:string
 }

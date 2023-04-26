@@ -3,15 +3,18 @@ import App from './App.vue'
 
 import router from '@/router';
 import pinia from './store';
-
-
+import VueAwesomePaginate from "vue-awesome-paginate";
+import "vue-awesome-paginate/dist/style.css";
 // 创建vue实例
 const app = createApp(App);
-app.use(pinia)
+app.use(VueAwesomePaginate);
+app.use(pinia);
 app.use(router);
 
 // 挂载实例
 app.mount('#app');
+
+
 
 
 

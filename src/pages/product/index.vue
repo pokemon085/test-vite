@@ -1,6 +1,6 @@
 <template>
   <button @click="router.back()">back</button>
-  categroy:{{ productDetail.categroy }}<br />
+  category:{{ productDetail.category }}<br />
   name:{{ productDetail.name }}<br />
   money:{{ productDetail.money }}<br />
   introduce:{{ productDetail.introduce }}<br />

@@ -16,6 +16,13 @@ export const goodsList =()=>{
   })
 }
 
+export const categoryList =()=>{
+    return http.request({
+        url: 'src/api/data/category.json',
+        method: 'get'
+    })
+  }
+
 
 
 

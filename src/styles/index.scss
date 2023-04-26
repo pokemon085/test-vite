@@ -10,3 +10,35 @@
 ​ body {
   background-color: var(--main-bg-color);
 }
+
+// pagination-style
+.pagination-container {
+  display: flex;
+  column-gap: 10px;
+}
+
+.paginate-buttons {
+  height: 25px;
+  width: 25px;
+  border-radius: 20px;
+  cursor: pointer;
+  background-color: rgb(242, 242, 242);
+  border: 1px solid rgb(217, 217, 217);
+  color: #000;
+}
+
+.paginate-buttons:hover {
+  background-color: var(--text-background-color);
+}
+
+.active-page {
+  background-color: var(--main-bg-color);
+  border: 1px solid var(--main-bg-color);
+  color: #000;
+}
+
+.active-page:hover {
+  background-color: var(--text-background-color);
+}
+
+// pagination-style
