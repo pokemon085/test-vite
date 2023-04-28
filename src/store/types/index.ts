@@ -10,13 +10,17 @@ export interface Goods{
   name:string,
   money:number,
   introduce:string,
+  image:string,
   stock:number
 }
 
 export interface Cart{
   id:number,
+  category:string,
   name:string,
   money:number,
+  introduce:string,
+  image:string,
   stock:number,
   count:number
 }
