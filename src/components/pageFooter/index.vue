@@ -1,42 +1,42 @@
 <template>
   <div class="footer-wrap">
-      <div class="text">
-        <div class="title">Contanct us</div>
-        <div class="content">
-          <p>Lorem ipsum dolor sit amet consectetur adipisicing elit.</p>
-          <div class="item">
-            <img src="https://picsum.photos/10/10/?random=10">
-            <span>Lorem ipsum dolor sit amet consectetur adipisicing elit.</span>
-          </div>
-          <div class="item">
-            <img src="https://picsum.photos/10/10/?random=10">
-            <span>Lorem ipsum dolor sit amet consectetur adipisicing elit.</span>
-          </div>
-          <div class="item">
-            <img src="https://picsum.photos/10/10/?random=10">
-            <span>Lorem ipsum dolor sit amet consectetur adipisicing elit.</span>
-          </div>
+    <div class="text">
+      <div class="title">Contanct us</div>
+      <div class="content">
+        <p>Lorem ipsum dolor sit amet consectetur adipisicing elit.</p>
+        <div class="item">
+          <img src="https://picsum.photos/10/10/?random=10">
+          <span>Lorem ipsum dolor sit amet consectetur adipisicing elit.</span>
+        </div>
+        <div class="item">
+          <img src="https://picsum.photos/10/10/?random=10">
+          <span>Lorem ipsum dolor sit amet consectetur adipisicing elit.</span>
+        </div>
+        <div class="item">
+          <img src="https://picsum.photos/10/10/?random=10">
+          <span>Lorem ipsum dolor sit amet consectetur adipisicing elit.</span>
         </div>
       </div>
-      <div class="text">
-        <div class="title">main-menu</div>
-        <div class="content">
-          <p>home</p>
-          <p>catalog</p>
-          <p>contact us</p>
-          <p>pages</p>
-        </div>
+    </div>
+    <div class="text">
+      <div class="title">main-menu</div>
+      <div class="content">
+        <p>home</p>
+        <p>catalog</p>
+        <p>contact us</p>
+        <p>pages</p>
       </div>
-      <div class="text">
-        <div class="title">open-hours</div>
-        <div class="content">
-          <p>Mon - Fri: 8AM - 10PM</p>
-          <p>Sat: 9AM-8PM</p>
-          <p>Sun: Closed</p>
-          <p>National Holidays: Closed</p>
-          <p>Home Delivery Service also available!</p>
-        </div>
+    </div>
+    <div class="text">
+      <div class="title">open-hours</div>
+      <div class="content">
+        <p>Mon - Fri: 8AM - 10PM</p>
+        <p>Sat: 9AM-8PM</p>
+        <p>Sun: Closed</p>
+        <p>National Holidays: Closed</p>
+        <p>Home Delivery Service also available!</p>
       </div>
+    </div>
   </div>
 </template>
 <script lang="ts">
@@ -52,10 +52,12 @@ export default defineComponent({
 .footer-wrap {
   display: flex;
   justify-content: space-evenly;
-  padding:20px;
+  padding: 20px;
   margin: 0 auto;
-  background: #eee;;
+  background: #eee;
   height: 200px;
+  position: relative;
+  top: 50px;
 
   .text {
     display: flex;
@@ -66,7 +68,8 @@ export default defineComponent({
       font-size: 14px;
       font-weight: bold;
     }
-    .content{
+
+    .content {
       font-size: 12px;
     }
   }

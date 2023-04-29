@@ -125,6 +125,7 @@ const loadingHandler = () => {
     flex-direction: column;
     justify-content: center;
     align-items: center;
+    position: fixed;
 
     .block {
       width: 100%;
@@ -143,7 +144,7 @@ const loadingHandler = () => {
 
     .category-list {
       min-width: 180px;
-      height: 500px;
+      min-height: 500px;
       overflow-y: auto;
       text-align: center;
       padding: 10px 0;
@@ -174,6 +175,7 @@ const loadingHandler = () => {
     display: grid;
     grid-template-rows: 5fr 1fr;
     align-items: center;
+    grid-column-start: 2;
 
     .good-list {
       padding: 20px;

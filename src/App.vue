@@ -44,11 +44,13 @@ onMounted(() => {
   
   .main{
     grid-area: main;
+    position: relative;
+    top: 50px;
   }
   .header{
     grid-area:header;
-    position: sticky;
-    top: 0;
+    position: fixed;
+    top:0;
     z-index: 99;
   }
   .footer{
