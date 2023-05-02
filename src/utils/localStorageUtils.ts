@@ -1,12 +1,4 @@
-import { Todo, Goods, Cart, User, Category } from "@/store/types";
-
-export function saveTodos(todos: Todo[]) {
-  localStorage.setItem('todos_key', JSON.stringify(todos))
-}
-
-export function readTodos(): Todo[] {
-  return JSON.parse(localStorage.getItem('todos_key') || '[]')
-}
+import {Goods, Cart, User, Category } from "@/store/types";
 
 export function saveGoods(goods: Goods[]) {
   localStorage.setItem('goods', JSON.stringify(goods))

@@ -1,9 +1,3 @@
-export interface Todo{
-  id:number,
-  content:string,
-  done:boolean
-}
-
 export interface Goods{
   id:number,
   category:string,

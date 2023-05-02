@@ -32,7 +32,6 @@ export const goodsStore = defineStore({
       })
     },
     async getCategory() {
-      console.log('aaa')
       await categoryList().then((res) => {
         try {
           this.category = res.data
