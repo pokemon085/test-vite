@@ -1,9 +1,10 @@
 <template>
   <div class="product-wrap">
-
-    <div class="image">
+    <div class="left-wrap">
       <div class="back" @click="router.back()">back</div>
-      <img src="https://picsum.photos/id/130/200/200" alt="">
+      <div class="image">
+        <img src="https://picsum.photos/id/130/200/200" alt="">
+      </div>
     </div>
     <div class="detail">
       category:{{ productDetail.category }}<br />
@@ -20,7 +21,7 @@
         </div>
       </div>
       <hr />
-      <button @click="checkout()">checkout</button>
+      <div class="check-button" @click="checkout()">checkout</div>
     </div>
   </div>
 </template>
@@ -43,10 +44,10 @@ const productId: any = computed(() => route.query.id)
 const productDetail: any = computed(() => {
   return getGoodsStore.goods.find(item => +item.id === +productId.value)
 })
-const stock = ref(+productDetail.stock)
+const stock = ref(+productDetail.value.stock)
 const count = ref(0)
 const countHandler = (key: string) => {
-  console.log(stock)
+
   if (key === 'add') {
     count.value = count.value >= stock.value ? stock.value : count.value + 1
   } else {
@@ -70,21 +71,38 @@ const checkout = () => {
 </script>
 <style lang="scss" scoped>
 .product-wrap {
-  display: grid;
-  grid-template-columns: 350px 1fr;
+  display: flex;
   width: 100%;
   height: 100%;
   padding: 20px;
   box-sizing: border-box;
+  justify-content: center;
+  align-items: center;
+
+  .left-wrap{
+    display: flex;
+    flex-direction: column;
+    margin:0 30px;
+  }
 
   .back {
-    width: 40px;
+    width: 50px;
     height: 30px;
+    border-radius: 5px;
+    background-color: var(--text-background-color);
+    line-height: 30px;
+    text-align: center;
+    margin-bottom: 5px;
+
+    &:hover {
+      font-weight: bold;
+      background-color: var(--main-bg-color);
+    }
   }
 
   .image {
-    width: 300px;
-    height: 300px;
+    width: 400px;
+    height: 400px;
 
     >img {
       width: 100%;
@@ -93,11 +111,23 @@ const checkout = () => {
   }
 
   .detail {
+    width: 300px;
     padding: 10px;
 
     .option {
       width: 100px;
       height: 25px;
+    }
+
+    .check-button {
+      width: 100px;
+      height: 30px;
+      line-height: 30px;
+      border-radius: 20px;
+      background-color: var(--main-bg-color);
+      color: var(--main-text-color);
+      text-align: center;
+      font-weight: bold;
     }
   }
 
