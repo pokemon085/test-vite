@@ -55,14 +55,16 @@ const countHandler = (key: string, i: Cart) => {
     if (i.count <= 0) {
       i.count = 0
     }
-    store.deleteCartCount(i, 1)
+    i.count -=1;
+    // store.deleteCartCount(i, 1)
   }
 
   if (key === 'add') {
     if (i.count === i.stock) {
       i.count = i.stock
     } else {
-      store.addCart(i, 1)
+      i.count +=1;
+      // store.addCart(i, 1)
     }
   }
 }

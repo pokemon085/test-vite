@@ -16,6 +16,7 @@ export const cartStore = defineStore({
   },
   actions: {
     addCart(cartItem: Cart,count:number) {
+
       const exist = this.cart.findIndex(item => {
         return (+item.id === +cartItem.id)
       })
@@ -23,7 +24,7 @@ export const cartStore = defineStore({
       if (exist !== -1) {
          this.cart[exist].count +=count
       } else {
-        this.cart.unshift(cartItem)
+        this.cart.unshift({id:cartItem.id,count:cartItem.count})
       }
       saveCart(this.cart)
     },

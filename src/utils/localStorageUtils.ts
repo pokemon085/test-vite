@@ -1,4 +1,4 @@
-import {Goods, Cart, User, Category } from "@/store/types";
+import {Goods, Cart, User, Category,CartGoodsList } from "@/store/types";
 
 export function saveGoods(goods: Goods[]) {
   localStorage.setItem('goods', JSON.stringify(goods))
@@ -12,8 +12,17 @@ export function saveCart(cart: Cart[]) {
   localStorage.setItem('cart', JSON.stringify(cart))
 }
 
-export function readCart(): Cart[] {
-  return JSON.parse(localStorage.getItem('cart') || '[]')
+export function readCart(): CartGoodsList[] {
+  const currentCart: Cart[] = JSON.parse(localStorage.getItem('cart') || '[]');
+  const goods: Goods[] = readGoods();
+  
+  return currentCart.map((item: Cart) => {
+    const goodItem = goods.find(goodsItem => goodsItem.id === item.id);
+    return {
+      ...item,
+      ...goodItem
+    } as CartGoodsList;
+  });
 }
 
 export function saveUser(user: User[]) {

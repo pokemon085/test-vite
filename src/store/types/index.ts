@@ -10,12 +10,6 @@ export interface Goods{
 
 export interface Cart{
   id:number,
-  category:string,
-  name:string,
-  money:number,
-  introduce:string,
-  image:string,
-  stock:number,
   count:number
 }
 
@@ -28,3 +22,5 @@ export interface Category{
   id:number,
   name:string
 }
+
+export interface CartGoodsList extends Cart, Goods {}
