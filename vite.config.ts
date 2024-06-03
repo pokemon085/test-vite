@@ -12,10 +12,11 @@ export default defineConfig({
     },
     plugins: [vue()],
     server: {
-        port: 8080, //启动端口
+        host: '0.0.0.0',
+        port: 3007, //启动端口
         hmr: {
-            host: 'localhost',
-            port: 8080
+            host: '0.0.0.0',
+            port: 3007
         },
        // 设置 https 代理
         // proxy: {
@@ -26,4 +27,5 @@ export default defineConfig({
         //     }
         // }
     }
+
 });

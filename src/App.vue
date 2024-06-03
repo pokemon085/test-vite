@@ -1,6 +1,6 @@
 <template>
   <div class="container" id="container">
-    <div class="header"> 
+    <div class="header">
       <pageHeader />
     </div>
     <div class="main">
@@ -22,9 +22,10 @@ const getUserList=userStore()
 const getCartStore=cartStore()
 
 onMounted(() => {
-  getUserList.saveUserList()
-  getUserList.saveLoginUser()
-  getCartStore.reloadReadCart()
+ getUserList.saveUserList()
+ getUserList.saveLoginUser()
+ getCartStore.reloadReadCart()
+  console.log('aa')
 })
 </script>
 
@@ -37,11 +38,11 @@ onMounted(() => {
   height: 100vh;
   grid-template-columns: 100%;
   grid-template-rows: auto 1fr auto;
-  grid-template-areas: 
+  grid-template-areas:
   "header"
   "main"
   "footer";
-  
+
   .main{
     grid-area: main;
     position: relative;

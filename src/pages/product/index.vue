@@ -1,5 +1,5 @@
 <template>
-  <div class="product-wrap">
+  <div class="product-wrap" v-if="productDetail">
     <div class="left-wrap">
       <div class="back" @click="router.back()">back</div>
       <div class="image">
@@ -15,24 +15,30 @@
       <div class="item">
         <div class="title">stock:{{ productDetail.stock }}</div>
         <div class="option">
-          <button @click="countHandler('substract')">-</button>
+          <button @click="countHandler('subtract')">-</button>
           <input class="option-input" type="number" v-model="count" />
           <button @click="countHandler('add')">+</button>
         </div>
       </div>
       <hr />
       <div class="check-button" @click="checkout()">checkout</div>
+      <div class="check-button" @click="addCart()">addCart</div>
     </div>
+    {{ cart }}
   </div>
 </template>
 
 <script lang="ts" setup>
-import { computed, ref } from 'vue'
+import { ref, onMounted } from 'vue'
 import { useRoute, useRouter } from "vue-router";
 import { cartStore } from "@/store/cart"
-import { Cart } from '@/store/types';
+import { Goods } from '@/store/types';
 import { goodsStore } from "@/store/goods"
 import { userStore } from "@/store/user"
+import { storeToRefs } from 'pinia'
+
+// 查看商品詳情頁面
+
 const route = useRoute()
 const router = useRouter()
 const storeCart = cartStore()
@@ -40,14 +46,21 @@ const getGoodsStore = goodsStore()
 const getUserStore = userStore()
 getGoodsStore.readCategoryList()
 getGoodsStore.readGoodsList()
-const productId: any = computed(() => route.query.id)
-const productDetail: any = computed(() => {
-  return getGoodsStore.goods.find(item => +item.id === +productId.value)
-})
-const stock = ref(+productDetail.value.stock)
-const count = ref(0)
-const countHandler = (key: string) => {
 
+const { cart } = storeToRefs(storeCart)
+
+
+const productId = ref<number | null>(null) //傳進來的id
+const productDetail = ref<Goods | null>(null); //存商品資訊
+const stock = ref<number>(0) //存商品庫存
+const cartCountTotal = ref<number>(0) //該商品存在購物車的總數
+const count = ref<number>(0) //當前操作商品
+
+/**
+ * 商品操作數量(未加入購物車)
+ * @param {string} key
+ */
+const countHandler = (key: 'add' | 'subtract') => {
   if (key === 'add') {
     count.value = count.value >= stock.value ? stock.value : count.value + 1
   } else {
@@ -55,18 +68,44 @@ const countHandler = (key: string) => {
   }
 }
 
+/**
+ * 將商品數量加入購物車
+ */
+const addCart = () => {
+
+  cartCountTotal.value = cart.value.find(item => item.id === productId.value)?.count || 0
+  if (count.value + cartCountTotal.value > stock.value) {
+    count.value = 0
+    alert('max')
+    return
+  }
+
+  if(productDetail.value){
+    storeCart.addCart(productDetail.value, count.value);
+  }
+
+}
+
+/**
+ * 結帳
+ */
 const checkout = () => {
   if (Object.keys(getUserStore.isLogin).length === 0) {
     router.push("/login")
     return
   }
 
-  const cartItem: Cart = { ...productDetail.value, count: 0 }
-  storeCart.addCart(cartItem, count.value)
   setTimeout(() => {
-    router.push("/cart");
+    router.push("/cart")
   }, 300);
 }
+
+onMounted(() => {
+  productId.value = route.query.id ? +route.query.id : null;
+  productDetail.value = getGoodsStore.goods.find(item => +item.id === +productId.value!) || null
+  stock.value = productDetail.value ? productDetail.value.stock : 0
+})
+
 
 </script>
 <style lang="scss" scoped>
@@ -79,10 +118,10 @@ const checkout = () => {
   justify-content: center;
   align-items: center;
 
-  .left-wrap{
+  .left-wrap {
     display: flex;
     flex-direction: column;
-    margin:0 30px;
+    margin: 0 30px;
   }
 
   .back {

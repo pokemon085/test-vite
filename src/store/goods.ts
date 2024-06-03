@@ -39,7 +39,6 @@ export const goodsStore = defineStore({
         } catch (error) {
           this.category = []
           saveCategory(this.category)
-          console.log(error)
         }
       })
     },
@@ -53,6 +52,9 @@ export const goodsStore = defineStore({
             return (item.id === cartItem.id)
           })
           this.goods[index].stock -= cartItem.count
+          if (this.goods[index].stock === 0) {
+            this.goods.splice(index, 1)
+          }
         }
 
         currentCart.forEach(cartItem => {
@@ -61,23 +63,22 @@ export const goodsStore = defineStore({
         saveGoods(this.goods)
         resolve(1);
       });
-
     },
-    readGoodsList() {
+    async readGoodsList() {
       if (this.goods.length === 0) {
         const stashGoods = readGoods()
         if (stashGoods.length === 0) {
-          this.getAllGoods()
+          await this.getAllGoods()
         } else {
           this.goods = stashGoods;
         }
       }
     },
-    readCategoryList() {
+    async readCategoryList() {
       if (this.category.length === 0) {
         const stashCategory = readCategory()
         if (stashCategory.length === 0) {
-          this.getCategory()
+          await this.getCategory()
         } else {
           this.category = stashCategory;
 

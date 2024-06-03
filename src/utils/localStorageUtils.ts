@@ -9,20 +9,20 @@ export function readGoods(): Goods[] {
 }
 
 export function saveCart(cart: Cart[]) {
-  localStorage.setItem('cart', JSON.stringify(cart))
-}
 
-export function readCart(): CartGoodsList[] {
-  const currentCart: Cart[] = JSON.parse(localStorage.getItem('cart') || '[]');
   const goods: Goods[] = readGoods();
-  
-  return currentCart.map((item: Cart) => {
+  const result = cart.map((item: Cart) => {
     const goodItem = goods.find(goodsItem => goodsItem.id === item.id);
     return {
       ...item,
       ...goodItem
     } as CartGoodsList;
   });
+  localStorage.setItem('cart', JSON.stringify(result))
+}
+
+export function readCart(): CartGoodsList[] {
+  return JSON.parse(localStorage.getItem('cart') || '[]')
 }
 
 export function saveUser(user: User[]) {

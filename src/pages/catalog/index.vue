@@ -14,7 +14,7 @@
 
     <div class="right">
       <div class="good-list" v-if="filterGoodsRange.length > 0">
-        <div class="item" v-for="i in filterGoodsRange">
+        <div class="item" v-for="i in filterGoodsRange" >
           <div class="item-image">
             <img src="https://picsum.photos/id/100/200/200" alt="">
           </div>
@@ -38,12 +38,14 @@
   </div>
 </template>
 <script lang="ts" setup>
+import imageLoad from './imageLoad.vue'
 import { Cart, Category, Goods } from '@/store/types'
 import { ref, computed, onMounted } from 'vue'
 import { goodsStore } from "@/store/goods"
 import { cartStore } from "@/store/cart"
 import { userStore } from "@/store/user"
 import { useRouter } from "vue-router";
+import { storeToRefs } from 'pinia'
 import popUp from "@/components/popUp/index.vue"
 import loading from '@/components/loading/index.vue'
 const storeGoods = goodsStore()
@@ -54,29 +56,33 @@ const showPopup = ref(false)
 const currentPage = ref(1)
 const showLoading = ref(false)
 const currentCategory = ref('all')
-storeGoods.readGoodsList()
-storeGoods.readCategoryList()
-onMounted(() => {
+
+const { goods } = storeToRefs(storeGoods)
+
+onMounted(async () => {
+  await storeGoods.readGoodsList()
+  await storeGoods.readCategoryList()
+
+  filterCategoryHandler(currentCategory.value)
   loadingHandler()
   clickShowPageHandler(currentPage.value)
+
 })
-const goodList = computed(() => {
-  return storeGoods.goods as Goods[]
-})
+
 const categoryList = computed(() => {
   return [{ id: 0, name: "all" }, ...storeGoods.category] as Category[]
 })
 const pageInterval = ref(10)
-const filterCategoryList = ref<Goods[]>(goodList.value)
+const filterCategoryList = ref<Goods[]>(goods.value)
 const filterGoodsRange = ref<Goods[]>([])
 
 const filterCategoryHandler = (val: string): void => {
   loadingHandler()
   currentCategory.value = val
   if (val === 'all') {
-    filterCategoryList.value = goodList.value
+    filterCategoryList.value = goods.value
   } else {
-    filterCategoryList.value = goodList.value.filter(item => item.category === val)
+    filterCategoryList.value = goods.value.filter(item => item.category === val)
   }
   clickShowPageHandler(1)
 }
@@ -91,8 +97,7 @@ const addCartToStore = (key: Goods) => {
     return
   }
   showPopup.value = true
-  const cartItem: Cart = { ...key, count: 1 }
-  storeCart.addCart(cartItem, 1)
+  storeCart.addCart(key, 1)
 }
 
 const goProduct = (item: Goods) => {
@@ -193,7 +198,8 @@ const loadingHandler = () => {
       border: 1px solid #000;
 
       .item-image {
-        width: 100%;
+        width: 199px;
+        height: 200px;
 
         >img {
           width: 100%;

@@ -2,13 +2,13 @@
   <div class="cart-wrap">
     <div v-if="store.cart.length > 0">
       <button @click="$router.back()">back</button>
-      <div class="cart-list">
+      <div class="cart-list" >
         <div class="item" v-for="i in store.cart">
           name:{{ i.name }}
           money:{{ i.money }}
           stock:{{ i.stock }}
           <div class="option">
-            <button @click="countHandler('substract', i)">-</button>
+            <button @click="countHandler('subtract', i)">-</button>
             <input type="text" v-model="i.count" />
             <button @click="countHandler('add', i)">+</button>
           </div>
@@ -26,23 +26,25 @@
   </div>
 </template>
 <script lang="ts" setup>
-import { defineComponent, onMounted, ref } from 'vue'
+import { onMounted, ref } from 'vue'
 import { cartStore } from "@/store/cart"
 import { readCart } from "@/utils/localStorageUtils"
-import { Cart } from '@/store/types';
+import { CartGoodsList } from '@/store/types';
 import { goodsStore } from "@/store/goods"
 import {useRouter} from "vue-router"
-const showDailog = ref(false)
+const showDialog = ref(false)
 const store = cartStore()
 const router=useRouter()
 const getGoodsStore = goodsStore()
 onMounted(() => {
   store.cart = readCart()
+  console.log(store.cart)
 })
 
-const deleteGoodItem = (i: Cart) => {
-  showDailog.value = true
-}
+
+// const deleteGoodItem = (i: CartGoodsList) => {
+//   showDialog.value = true
+// }
 
 const buy = () => {
   getGoodsStore.updateGoods().then(() => {
@@ -50,13 +52,13 @@ const buy = () => {
   })
 }
 
-const countHandler = (key: string, i: Cart) => {
-  if (key === 'substract') {
+const countHandler = (key: string, i: CartGoodsList) => {
+  if (key === 'subtract') {
     if (i.count <= 0) {
       i.count = 0
     }
     i.count -=1;
-    // store.deleteCartCount(i, 1)
+   store.deleteCartCount(i, i.count)
   }
 
   if (key === 'add') {
@@ -64,7 +66,7 @@ const countHandler = (key: string, i: Cart) => {
       i.count = i.stock
     } else {
       i.count +=1;
-      // store.addCart(i, 1)
+      store.addCart(i, i.count)
     }
   }
 }
