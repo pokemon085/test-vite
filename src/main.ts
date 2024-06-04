@@ -5,6 +5,7 @@ import router from '@/router';
 import pinia from './store';
 import VueAwesomePaginate from "vue-awesome-paginate";
 import "vue-awesome-paginate/dist/style.css";
+import '@mdi/font/css/materialdesignicons.css';
 // 创建vue实例
 const app = createApp(App);
 app.use(VueAwesomePaginate);

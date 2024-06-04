@@ -24,7 +24,10 @@
               loginForm.password.error }}</div>
           </div>
           <div class="reset" @click="reset = true">reset</div>
-          <div class="button" @click="submitLogin()">login</div>
+          <div class="submit-button" @click="submitLogin()">
+            <i class="mdi mdi-account" />
+            login
+          </div>
         </template>
         <template v-else>
           <!-- reset -->
@@ -62,7 +65,10 @@
           <div class="error-tip" v-show="signForm.confirm.value !== '' && !signForm.confirm.isValid">{{
             signForm.confirm.error }}</div>
         </div>
-        <div class="button" @click="submitSign()">sign</div>
+          <div class="submit-button" @click="submitSign()">
+            <i class="mdi mdi-account-plus" />
+            sign
+          </div>
       </div>
     </div>
     <loading v-show="showLoading" />
@@ -82,7 +88,7 @@ const reset = ref(false)
 const showLoading = ref(false)
 const getUserStore = userStore()
 
-const loginForm: any = ref({
+const loginForm:any = ref({
   email: {
     name: 'email',
     inputType: 'text',
@@ -153,6 +159,7 @@ const validateInput = (name: string) => {
     keyValue[name].isValid = true
   }
 }
+
 const submitLogin = () => {
 
   const check = Object.keys(loginForm.value).every(item => {
@@ -205,7 +212,6 @@ const submitSign = () => {
       }, 3000);
     }
 
-
   }
 }
 
@@ -221,7 +227,7 @@ const submitSign = () => {
   .account-wrap {
     width: 600px;
     height: 350px;
-    background-color: rgb(214, 185, 185);
+    background-color: #efd7d7;
     border: 1px solid #eee;
     display: flex;
     flex-direction: column;
@@ -232,16 +238,21 @@ const submitSign = () => {
       display: flex;
       text-align: center;
       line-height: 30px;
+      font-size: 14px;
 
       .button {
         width: 50%;
         padding: 10px;
-        background: #eee;
+        background: #f9f7f7;
 
         &.active {
-          background: #d0c4c4;
+          background: #f2e3e3;
+          font-weight: bold;
+          font-size: 16px;
         }
+
       }
+
     }
 
     .form {
@@ -261,8 +272,8 @@ const submitSign = () => {
       input {
         height: 30px;
         width: 300px;
-
         outline: none;
+        border: 1px solid #fff;
       }
 
       input:focus {
@@ -293,5 +304,27 @@ const submitSign = () => {
   }
 
 
+}
+
+.submit-button {
+  height: 35px;
+  border: 1px solid #fff;
+  color: #fff;
+  padding: 0 10px;
+  border-radius: 5px;
+  display: flex;
+  align-items: center;
+  cursor: pointer;
+  background-color: #f4c4bf;
+  margin-top: 20px;
+  font-size: 16px;
+
+  &:hover {
+    transform: scale(1.1);
+  }
+
+  >i {
+    margin-right: 5px;
+  }
 }
 </style>

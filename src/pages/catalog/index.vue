@@ -14,21 +14,7 @@
 
     <div class="right">
       <div class="good-list" v-if="filterGoodsRange.length > 0">
-        <div class="item" v-for="i in filterGoodsRange" >
-          <div class="item-image">
-            <img src="https://picsum.photos/id/100/200/200" alt="">
-          </div>
-          <div class="content">
-            <div class="content-item">name:{{ i.name }}</div>
-            <div class="content-item">category:{{ i.category }}</div>
-            <div class="content-item">money:{{ i.money }}</div>
-            <div class="content-item">stock:{{ i.stock }}</div>
-          </div>
-          <div class="button-wrap">
-            <div class="button" @click="goProduct(i)">content</div>
-            <div class="button" @click="addCartToStore(i)">addCart</div>
-          </div>
-        </div>
+        <card v-for="i in filterGoodsRange" :info="i" @event="eventHandler"/>
       </div>
       <vue-awesome-paginate :total-items="filterCategoryList.length" :items-per-page="pageInterval"
         :max-pages-shown="pageInterval" v-model="currentPage" :on-click="clickShowPageHandler" />
@@ -38,8 +24,8 @@
   </div>
 </template>
 <script lang="ts" setup>
-import imageLoad from './imageLoad.vue'
-import { Cart, Category, Goods } from '@/store/types'
+import card from './card.vue'
+import { Category, Goods } from '@/store/types'
 import { ref, computed, onMounted } from 'vue'
 import { goodsStore } from "@/store/goods"
 import { cartStore } from "@/store/cart"
@@ -113,6 +99,16 @@ const loadingHandler = () => {
     showLoading.value = false
     clearTimeout(timer);
   }, 300);
+}
+
+const eventHandler=(val: { key: string; i: Goods })=>{
+  const {key,i}=val
+  if(key==='goProduct'){
+    goProduct(i)
+  }
+  if(key==='addCart'){
+    addCartToStore(i)
+  }
 }
 
 
@@ -190,60 +186,6 @@ const loadingHandler = () => {
       gap: 20px 20px;
     }
 
-    .item {
-      display: flex;
-      flex-direction: column;
-      justify-content: space-between;
-      align-items: center;
-      border: 1px solid #000;
-
-      .item-image {
-        width: 199px;
-        height: 200px;
-
-        >img {
-          width: 100%;
-          height: 100%;
-        }
-      }
-
-      .content {
-        display: flex;
-        flex-wrap: wrap;
-        flex-direction: column;
-        width: 200px;
-        padding: 0 10px;
-        box-sizing: border-box;
-
-        .content-item {
-          overflow: hidden;
-          white-space: nowrap;
-          text-overflow: ellipsis;
-          width: 180px;
-        }
-      }
-
-      .button-wrap {
-        display: flex;
-        justify-content: space-around;
-        align-items: center;
-        width: 100%;
-        height: 40px;
-
-        .button {
-          width: 70px;
-          border: 3px solid var(--text-background-color);
-          text-align: center;
-          line-height: 30px;
-
-          &:hover{
-            background-color: var(--text-background-color);
-            border: 3px solid var(--main-bg-color);
-            font-weight: bold;
-          }
-        }
-      }
-    }
   }
 }
 </style>
