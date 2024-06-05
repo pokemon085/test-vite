@@ -2,73 +2,37 @@
   <div class="page-wrap">
     <div class="account-wrap">
       <div class="tab">
-        <div :class="['button', { active: currentTab }]" @click="currentTab = true">LOGIN</div>
-        <div :class="['button', { active: !currentTab }]" @click="currentTab = false">SIGN</div>
+        <div :class="['button', { active: currentTab }]" @click="switchTab(true)">LOGIN</div>
+        <div :class="['button', { active: !currentTab }]" @click="switchTab(false)">SIGN</div>
       </div>
       <div class="form" v-if="currentTab">
         <template v-if="!reset">
           <!-- login -->
-          <div class="email label">
-            <input class="email-input" :type="loginForm.email.inputType" :placeholder="loginForm.email.placeholder"
-              @input="validateInput(loginForm.email.name)" v-model.trim="loginForm.email.value" />
-            <div class="error-tip" v-show="loginForm.email.value !== '' && !loginForm.email.isValid">{{
-              loginForm.email.error
-            }}</div>
-          </div>
-          <div class="password label">
-            <input class="password-input" :type="eye ? 'text' : loginForm.password.inputType"
-              :placeholder="loginForm.password.placeholder" @input="validateInput(loginForm.password.name)"
-              v-model.trim="loginForm.password.value" />
-            <div :class="['eye', { open: eye }]" @click="eye = !eye" />
-            <div class="error-tip" v-show="loginForm.password.value !== '' && !loginForm.password.isValid">{{
-              loginForm.password.error }}</div>
-          </div>
-          <div class="reset" @click="reset = true">reset</div>
-          <div class="submit-button" @click="submitLogin()">
-            <i class="mdi mdi-account" />
-            login
+          <write-form v-model:info="loginForm" current-tab="login" />
+          <div class="login-button-wrap">
+            <div class="reset" @click="reset = true">
+              <i class="mdi mdi-lock-reset" />forget password
+            </div>
+            <div class="login" @click="submitLogin()">
+              <i class="mdi mdi-account" />login
+            </div>
           </div>
         </template>
         <template v-else>
           <!-- reset -->
-          <div class="reset-wrap">
-            <div class="title">RESET YOUR PASSWORD</div>
-            <div class="tip">We will send you an email to reset your password.</div>
-            <input class="email-input" type="text" placeholder="email">
-            <div class="submit">submit</div>
+          <write-form v-model:info="resetPasswordForm" current-tab="reset" />
+          <div class="reset-button-wrap">
+            <div class="reset" @click="submitForget"><i class="mdi mdi-cached" />reset</div>
+            <div class="login" @click="reset = false"><i class="mdi mdi-subdirectory-arrow-right" />back to login</div>
           </div>
-          <div @click="reset = false">back to login</div>
         </template>
       </div>
       <div class="form" v-if="!currentTab">
         <!-- sign -->
-        <div class="email label">
-          <input class="email-input" :type="signForm.email.inputType" :placeholder="signForm.email.placeholder"
-            @input="validateInput(signForm.email.name)" v-model.trim="signForm.email.value" />
-          <div class="error-tip" v-show="signForm.email.value !== '' && !signForm.email.isValid">{{
-            signForm.email.error
-          }}</div>
+        <write-form v-model:info="signForm" current-tab="sign" />
+        <div class="sign" @click="submitSign()">
+          <i class="mdi mdi-account-plus" />sign
         </div>
-        <div class="password label">
-          <input class="password-input" :type="eye ? 'text' : signForm.password.inputType"
-            :placeholder="signForm.password.placeholder" @input="validateInput(signForm.password.name)"
-            v-model.trim="signForm.password.value" />
-          <div :class="['eye', { open: eye }]" @click="eye = !eye" />
-          <div class="error-tip" v-show="signForm.password.value !== '' && !signForm.password.isValid">{{
-            signForm.password.error }}</div>
-        </div>
-        <div class="confirm-password label">
-          <input class="confirm-password-input" :type="eye ? 'text' : signForm.confirm.inputType"
-            :placeholder="signForm.confirm.placeholder" @input="validateInput(signForm.confirm.name)"
-            v-model.trim="signForm.confirm.value" />
-          <div :class="['eye', { open: eye }]" @click="eye = !eye" />
-          <div class="error-tip" v-show="signForm.confirm.value !== '' && !signForm.confirm.isValid">{{
-            signForm.confirm.error }}</div>
-        </div>
-          <div class="submit-button" @click="submitSign()">
-            <i class="mdi mdi-account-plus" />
-            sign
-          </div>
       </div>
     </div>
     <loading v-show="showLoading" />
@@ -79,8 +43,8 @@ import { ref } from "vue";
 import { useRouter } from 'vue-router'
 import loading from '@/components/loading/index.vue'
 import { userStore } from '@/store/user'
-import { User } from "@/store/types";
-const emit = defineEmits(['updateAccount'])
+import { User, LoginForm, SignForm, ResetPasswordForm } from "@/store/types";
+import writeForm from './writeForm.vue'
 const router = useRouter()
 const currentTab = ref(true)
 const eye = ref(false)
@@ -88,7 +52,8 @@ const reset = ref(false)
 const showLoading = ref(false)
 const getUserStore = userStore()
 
-const loginForm:any = ref({
+//登入表單
+const loginForm = ref<LoginForm>({
   email: {
     name: 'email',
     inputType: 'text',
@@ -111,7 +76,8 @@ const loginForm:any = ref({
   },
 })
 
-const signForm: any = ref({
+//註冊表單
+const signForm = ref<SignForm>({
   email: {
     name: 'email',
     error: 'email format error',
@@ -144,79 +110,150 @@ const signForm: any = ref({
   },
 })
 
-const validateInput = (name: string) => {
-  const keyValue = currentTab.value ? loginForm.value : signForm.value
-  if (keyValue[name].value === '') return
+//忘記密碼表單
+const resetPasswordForm = ref<ResetPasswordForm>({
+  email: {
+    name: 'email',
+    error: 'email format error',
+    inputType: 'text',
+    placeholder: 'Email',
+    isInput: false,
+    value: '',
+    regExp: /^(?=.{1,40}$)(([A-Za-z0-9.\-_]{1,})+@([A-Za-z0-9.-]{1,}))+\.[A-Za-z]+$/,
+    isValid: false,
+  },
+  password: {
+    name: 'password',
+    error: 'password format error',
+    inputType: 'Password',
+    placeholder: 'New Password',
+    isInput: false,
+    value: '',
+    regExp: /^[A-Za-z0-9_+-.@!@#$%^&*]{6,20}$/,
+    isValid: false,
+  },
+  confirm: {
+    name: 'confirm',
+    error: 'not same as password',
+    inputType: 'password',
+    placeholder: 'New Password Again',
+    isInput: false,
+    value: '',
+    regExp: /^[A-Za-z0-9_+-.!@#$%^&*]{6,20}$/,
+    isValid: false,
+  },
+})
 
-
-  if (!new RegExp(keyValue[name].regExp).test(keyValue[name].value)) {
-    keyValue[name].isValid = false
-  } else {
-
-    if (keyValue[name].name === 'confirm' && keyValue[name].value !== keyValue['password'].value) {
-      keyValue[name].isValid = true
-    }
-    keyValue[name].isValid = true
-  }
+/**
+ * 檢查輸入欄位是否為空
+ * @param formData
+ */
+const fieldEmpty = (formData: LoginForm | SignForm | ResetPasswordForm): boolean => {
+  return Object.values(formData).every(field => field.value !== '' && field.isValid);
 }
 
-const submitLogin = () => {
-
-  const check = Object.keys(loginForm.value).every(item => {
-    return loginForm.value[item].value !== '' && loginForm.value[item].isValid
-  })
-
-  if (check) {
-    const params: User = {
-      email: loginForm.value['email'].value,
-      password: loginForm.value['password'].value,
-    }
-    const isMember = getUserStore.checkLogin(params)
-
-    if (isMember) {
-      showLoading.value = true
-      emit('updateAccount', check)
-      setTimeout(() => {
-        showLoading.value = false
-        router.replace('/')
-      }, 3000);
-    } else {
-      alert('not user')
-    }
-  } else {
-    alert('欄位不得為空')
-  }
-}
-
-const submitSign = () => {
+/**
+ * 送出登入
+ */
+const submitLogin = ():void => {
   showLoading.value = true
-  const check = Object.keys(signForm.value).every(item => {
-    return signForm.value[item].value !== '' && signForm.value[item].isValid
-  })
-
-  if (check) {
-    const params: User = {
-      email: signForm.value['email'].value,
-      password: signForm.value['password'].value,
-    }
-    const hasSignIn = getUserStore.findUser(params)
-
-    if (hasSignIn) {
-      alert('已註冊過')
-    } else {
-      getUserStore.saveUserData(params)
-      alert('註冊成功,請重新登入')
-      setTimeout(() => {
-        currentTab.value = true
-        showLoading.value = false
-      }, 3000);
-    }
-
+  const formValue = loginForm.value
+  const result = fieldEmpty(formValue)
+  if (!result) {
+    alert('欄位不得為空');
+    return;
   }
+
+  const params: User = {
+    email: formValue['email'].value,
+    password: formValue['password'].value,
+  }
+  const isMember = getUserStore.checkLogin(params)
+
+  if (isMember) {
+    showLoading.value = true
+    setTimeout(() => {
+      showLoading.value = false
+      router.replace('/')
+    }, 3000);
+  } else {
+    alert('not user')
+  }
+
+}
+
+/**
+ * 送出註冊
+ */
+const submitSign = ():void => {
+  showLoading.value = true
+  const formValue = signForm.value
+  const result = fieldEmpty(formValue)
+  if (!result) {
+    alert('欄位不得為空');
+    return;
+  }
+
+  const params: User = {
+    email: formValue['email'].value,
+    password: formValue['password'].value,
+  }
+  const hasSignIn = getUserStore.findUser(params)
+
+  if (hasSignIn) {
+    alert('已註冊過')
+  } else {
+    getUserStore.saveUserData(params)
+    alert('註冊成功,請重新登入')
+    setTimeout(() => {
+      currentTab.value = true
+      showLoading.value = false
+    }, 3000);
+  }
+
+}
+
+/**
+ * 送出更改密碼
+ */
+const submitForget = async ():Promise<void> => {
+  try {
+    showLoading.value = true;
+    const formValue = resetPasswordForm.value
+    const result = fieldEmpty(formValue)
+    if (!result) {
+      alert('欄位不得為空');
+      return;
+    }
+
+    const params = {
+      email: formValue.email.value,
+      password: formValue.password.value,
+    };
+
+    const submitResult = await getUserStore.forgetPassword(params);
+
+    if (submitResult === 'error') {
+      alert('找不到email');
+    } else {
+      alert('修改成功,請重新登入');
+      reset.value = false;
+      currentTab.value = true;
+    }
+  } catch (err) {
+    console.log(err);
+  } finally {
+    showLoading.value = false;
+  }
+}
+
+const switchTab = (key: boolean) => {
+  currentTab.value = key
+  reset.value = false
 }
 
 </script>
-<style lang="scss">
+<style lang="scss" scoped>
 .page-wrap {
   width: 100%;
   height: 500px;
@@ -264,67 +301,60 @@ const submitSign = () => {
       flex-direction: column;
       justify-content: center;
       align-items: center;
-
-      .label {
-        margin: 10px 0;
-      }
-
-      input {
-        height: 30px;
-        width: 300px;
-        outline: none;
-        border: 1px solid #fff;
-      }
-
-      input:focus {
-        outline: none;
-      }
-
-      .confirm-password,
-      .password {
-        position: relative;
-
-        .eye {
-          position: absolute;
-          display: block;
-          width: 15px;
-          height: 15px;
-          top: 10px;
-          right: 8px;
-          background: url("@/assets/account/hide.png") 100% 100% no-repeat;
-          background-size: contain;
-
-          &.open {
-            background: url("@/assets/account/view.png") 100% 100% no-repeat;
-            background-size: contain;
-          }
-        }
-      }
     }
   }
 
 
 }
 
-.submit-button {
+
+@mixin submit-button {
   height: 35px;
   border: 1px solid #fff;
   color: #fff;
-  padding: 0 10px;
+  padding: 0 15px;
   border-radius: 5px;
   display: flex;
   align-items: center;
   cursor: pointer;
-  background-color: #f4c4bf;
-  margin-top: 20px;
+  background-color: #fa96a7;
   font-size: 16px;
+  @content;
 
   &:hover {
-    transform: scale(1.1);
+    transform: scale(1.05);
   }
 
   >i {
     margin-right: 5px;
   }
+}
+
+
+.reset {
+  @include submit-button {
+    background-color: #82a3e4d6;
+    margin-right: 20px;
+  }
+}
+
+.login {
+  @include submit-button
+}
+
+.sign {
+  @include submit-button {
+    margin-top: 20px;
+  }
+}
+
+.login-button-wrap {
+  display: flex;
+  margin-top: 20px;
+}
+
+.reset-button-wrap {
+  display: flex;
+  margin-top: 20px;
 }
 </style>

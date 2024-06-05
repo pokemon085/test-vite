@@ -25,25 +25,31 @@ export interface Category {
 
 export interface CartGoodsList extends Cart, Goods { }
 
+
+interface FormField {
+  name: string;
+  inputType: string;
+  placeholder: string;
+  error: string;
+  isInput: boolean;
+  regExp: RegExp;
+  value: string;
+  isValid: boolean;
+}
+
 export interface LoginForm {
-  email: {
-    name: string,
-    inputType: string,
-    placeholder: string,
-    error: string,
-    isInput: boolean,
-    regExp: RegExp,
-    value: string,
-    isValid: boolean,
-  },
-  password: {
-    name: string,
-    inputType: string,
-    placeholder: string,
-    error: string,
-    isInput: boolean,
-    regExp: RegExp,
-    value: string,
-    isValid: boolean,
-  },
+  email: FormField;
+  password: FormField;
+}
+
+export interface SignForm {
+  email: FormField;
+  password: FormField;
+  confirm: FormField;
+}
+
+export interface ResetPasswordForm {
+  email: FormField;
+  password: FormField;
+  confirm: FormField;
 }
