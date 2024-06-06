@@ -97,4 +97,8 @@ input:focus {
         }
     }
 }
+
+.error-tip{
+    color:#fe4343;
+}
 </style>

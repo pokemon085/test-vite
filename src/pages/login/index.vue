@@ -36,21 +36,25 @@
       </div>
     </div>
     <loading v-show="showLoading" />
+    <pop-up v-if="showPopup" @close="showPopup = false" :data="popupData" />
   </div>
 </template>
 <script lang="ts" setup>
-import { ref } from "vue";
+import { ref, reactive } from "vue";
 import { useRouter } from 'vue-router'
 import loading from '@/components/loading/index.vue'
 import { userStore } from '@/store/user'
-import { User, LoginForm, SignForm, ResetPasswordForm } from "@/store/types";
+import { User, LoginForm, SignForm, ResetPasswordForm, Popup } from "@/store/types";
 import writeForm from './writeForm.vue'
+import popUp from "@/components/popUp/index.vue"
 const router = useRouter()
 const currentTab = ref(true)
 const eye = ref(false)
 const reset = ref(false)
 const showLoading = ref(false)
 const getUserStore = userStore()
+const showPopup = ref(false)
+const popupData = reactive<Popup>({ title: '', content: '', button: 'ok', type: 'success' })
 
 //登入表單
 const loginForm = ref<LoginForm>({
@@ -155,12 +159,15 @@ const fieldEmpty = (formData: LoginForm | SignForm | ResetPasswordForm): boolean
 /**
  * 送出登入
  */
-const submitLogin = ():void => {
+const submitLogin = (): void => {
   showLoading.value = true
   const formValue = loginForm.value
   const result = fieldEmpty(formValue)
   if (!result) {
-    alert('欄位不得為空');
+    popupData.content = '欄位不得為空'
+    popupData.type = 'warning'
+    showPopup.value = true
+    showLoading.value = false
     return;
   }
 
@@ -177,7 +184,9 @@ const submitLogin = ():void => {
       router.replace('/')
     }, 3000);
   } else {
-    alert('not user')
+    popupData.content = '無這個使用者'
+    popupData.type = 'error'
+    showPopup.value = true
   }
 
 }
@@ -185,12 +194,14 @@ const submitLogin = ():void => {
 /**
  * 送出註冊
  */
-const submitSign = ():void => {
+const submitSign = (): void => {
   showLoading.value = true
   const formValue = signForm.value
   const result = fieldEmpty(formValue)
   if (!result) {
-    alert('欄位不得為空');
+    popupData.content = '欄位不得為空'
+    popupData.type = 'warning'
+    showLoading.value = false
     return;
   }
 
@@ -201,10 +212,14 @@ const submitSign = ():void => {
   const hasSignIn = getUserStore.findUser(params)
 
   if (hasSignIn) {
-    alert('已註冊過')
+    popupData.content = '已註冊過'
+    popupData.type = 'warning'
+    showPopup.value = true
   } else {
     getUserStore.saveUserData(params)
-    alert('註冊成功,請重新登入')
+    popupData.content = '註冊成功,請重新登入'
+    popupData.type = 'success'
+    showPopup.value = true
     setTimeout(() => {
       currentTab.value = true
       showLoading.value = false
@@ -216,13 +231,16 @@ const submitSign = ():void => {
 /**
  * 送出更改密碼
  */
-const submitForget = async ():Promise<void> => {
+const submitForget = async (): Promise<void> => {
   try {
     showLoading.value = true;
     const formValue = resetPasswordForm.value
     const result = fieldEmpty(formValue)
     if (!result) {
-      alert('欄位不得為空');
+      popupData.content = '欄位不得為空'
+      popupData.type = 'warning'
+      showPopup.value = true
+      showLoading.value = false
       return;
     }
 
@@ -234,9 +252,13 @@ const submitForget = async ():Promise<void> => {
     const submitResult = await getUserStore.forgetPassword(params);
 
     if (submitResult === 'error') {
-      alert('找不到email');
+      popupData.content = '找不到email'
+      popupData.type = 'warning'
+      showPopup.value = true
     } else {
-      alert('修改成功,請重新登入');
+      popupData.content = '修改成功,請重新登入'
+      popupData.type = 'success'
+      showPopup.value = true
       reset.value = false;
       currentTab.value = true;
     }

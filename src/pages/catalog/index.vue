@@ -1,5 +1,5 @@
 <template>
-  <div class="catelog-wrap">
+  <div class="category-wrap">
     <div class="left">
       <div class="block">
         <div class="title">Category</div>
@@ -14,18 +14,18 @@
 
     <div class="right">
       <div class="good-list" v-if="filterGoodsRange.length > 0">
-        <card v-for="i in filterGoodsRange" :info="i" @event="eventHandler"/>
+        <card v-for="i in filterGoodsRange" :info="i" @event="eventHandler" />
       </div>
       <vue-awesome-paginate :total-items="filterCategoryList.length" :items-per-page="pageInterval"
         :max-pages-shown="pageInterval" v-model="currentPage" :on-click="clickShowPageHandler" />
     </div>
-    <pop-up v-if="showPopup" @close="showPopup = false" />
+    <pop-up v-if="showPopup" @close="showPopup = false" :data="popupData" />
     <loading v-show="showLoading" />
   </div>
 </template>
 <script lang="ts" setup>
 import card from './card.vue'
-import { Category, Goods } from '@/store/types'
+import { Category, Goods, Popup } from '@/store/types'
 import { ref, computed, onMounted } from 'vue'
 import { goodsStore } from "@/store/goods"
 import { cartStore } from "@/store/cart"
@@ -44,6 +44,12 @@ const showLoading = ref(false)
 const currentCategory = ref('all')
 
 const { goods } = storeToRefs(storeGoods)
+
+const popupData: Popup = {
+  title: 'Tip',
+  content: 'add cart success!',
+  button: 'ok'
+}
 
 onMounted(async () => {
   await storeGoods.readGoodsList()
@@ -101,12 +107,12 @@ const loadingHandler = () => {
   }, 300);
 }
 
-const eventHandler=(val: { key: string; i: Goods })=>{
-  const {key,i}=val
-  if(key==='goProduct'){
+const eventHandler = (val: { key: string; i: Goods }) => {
+  const { key, i } = val
+  if (key === 'goProduct') {
     goProduct(i)
   }
-  if(key==='addCart'){
+  if (key === 'addCart') {
     addCartToStore(i)
   }
 }
@@ -114,7 +120,7 @@ const eventHandler=(val: { key: string; i: Goods })=>{
 
 </script>
 <style lang="scss" scoped>
-.catelog-wrap {
+.category-wrap {
   display: grid;
   width: 100%;
   height: 100%;
@@ -160,7 +166,7 @@ const eventHandler=(val: { key: string; i: Goods })=>{
         box-shadow: 2px 2px 2px 1px rgba(0, 0, 0, 0.2);
         cursor: pointer;
 
-        &:hover{
+        &:hover {
           scale: 1.1;
         }
 

@@ -1,23 +1,48 @@
 <template>
   <Teleport to="#container">
-      <div class="popup-wrap">
-        <div class="popup-container">
-          <div class="icon"></div>
-          <div class="title">Tip</div>
-          <div class="content">
-            add cart success !
-          </div>
-          <div class="click-wrap" @click="emit('close')">OK</div>
+    <div class="popup-wrap">
+      <div class="popup-container">
+        <div class="icon">
+          <i :class="['mdi', iconType]" />
         </div>
+        <div v-if="data.title!==''" class="title">{{ data.title }}</div>
+        <div class="content">
+          {{ data.content }}
+        </div>
+        <div class="click-wrap" @click="emit('close')">{{ data.button }}</div>
       </div>
+    </div>
   </Teleport>
-
 </template>
 <script lang="ts" setup>
+import { Popup } from '@/store/types'
+import { computed } from 'vue'
+
+const props = defineProps({
+  data: {
+    type: Object as () => Popup,
+    required: true
+  }
+})
 const emit = defineEmits(["close"])
+
+/**
+ * icon類別
+ * @returns {string} icon類別
+ */
+const iconType = computed<string>(() => {
+  const icon = props.data.type || 'success'
+  switch (icon) {
+    case 'success':
+      return 'mdi-check-circle-outline success'
+    case 'warning':
+      return 'mdi-alert-circle-outline warning'
+    case 'error':
+      return 'mdi-close-circle-outline error'
+  }
+})
 </script>
 <style lang="scss" scoped>
-
 .popup-wrap {
   position: fixed;
   width: 100%;
@@ -38,10 +63,19 @@ const emit = defineEmits(["close"])
     border-radius: 8px;
 
     .icon {
-      width: 100%;
-      height: 80px;
-      background: url("@/assets/dialog/check.png") 50% 50% no-repeat;
-      background-size: 50px 50px;
+      padding:10px 0;
+      font-size: 60px;
+      .success{
+        color:#618f54;
+      }
+
+      .warning{
+        color:#f48f14;
+      }
+
+      .error{
+        color:#f9685b;
+      }
     }
 
     .title {
@@ -61,7 +95,7 @@ const emit = defineEmits(["close"])
       width: 100%;
       height: 50px;
       color: var(--main-text-color);
-      background-color: rgb(242, 172, 183);
+      background-color: #f2acb7;
       line-height: 50px;
       border-radius: 0 0 8px 8px;
       font-weight: bold;
@@ -72,8 +106,5 @@ const emit = defineEmits(["close"])
     }
   }
 }
-
-
-
 </style>
 

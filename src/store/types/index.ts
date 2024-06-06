@@ -53,3 +53,10 @@ export interface ResetPasswordForm {
   password: FormField;
   confirm: FormField;
 }
+
+export interface Popup {
+  title: string,
+  content: string,
+  button: string,
+  type?: 'success' | 'error' | 'warning'
+}
