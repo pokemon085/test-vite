@@ -19,7 +19,10 @@ export const goodsStore = defineStore({
     }
   },
   actions: {
-    async getAllGoods() {
+    /**
+     * 商品列表儲存到localstorage
+     */
+    async getAllGoods():Promise<void> {
       await goodsList().then((res) => {
         try {
           this.goods = res.data
@@ -31,7 +34,10 @@ export const goodsStore = defineStore({
         }
       })
     },
-    async getCategory() {
+    /**
+     * 商品分類列表儲存到localstorage
+     */
+    async getCategory():Promise<void> {
       await categoryList().then((res) => {
         try {
           this.category = res.data
@@ -42,10 +48,22 @@ export const goodsStore = defineStore({
         }
       })
     },
-    updateGoods() {
+    /**
+     * 更新商品數量
+     * @param {array} selectCartList 結帳頁面勾選要結帳的項目
+     * @returns {Promise}
+     */
+    updateGoods(selectCartList: number[]): Promise<number> {
       return new Promise((resolve) => {
+        //取得購物車清單
         const getCartStore = cartStore()
         const currentCart = getCartStore.cart
+
+        //已勾選的購物車清單
+        const readyCheckoutCart=currentCart.filter(item=>selectCartList.includes(item.id))
+
+        //未勾選的購物車清單
+        const newCart=currentCart.filter(item=>!selectCartList.includes(item.id))
 
         const changeStock = (cartItem: Cart) => {
           const index = this.goods.findIndex((item) => {
@@ -57,14 +75,19 @@ export const goodsStore = defineStore({
           }
         }
 
-        currentCart.forEach(cartItem => {
+        // 更新總商品清單及購物車
+        readyCheckoutCart.forEach(cartItem => {
           changeStock(cartItem)
         })
         saveGoods(this.goods)
+        getCartStore.saveCartHandler(newCart)
         resolve(1);
       });
     },
-    async readGoodsList() {
+     /**
+     * 取得商品列表
+     */
+    async readGoodsList():Promise<void> {
       if (this.goods.length === 0) {
         const stashGoods = readGoods()
         if (stashGoods.length === 0) {
@@ -74,7 +97,10 @@ export const goodsStore = defineStore({
         }
       }
     },
-    async readCategoryList() {
+    /**
+     * 取得商品分類列表
+     */
+    async readCategoryList():Promise<void> {
       if (this.category.length === 0) {
         const stashCategory = readCategory()
         if (stashCategory.length === 0) {

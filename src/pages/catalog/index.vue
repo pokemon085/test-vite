@@ -55,8 +55,10 @@ onMounted(async () => {
   await storeGoods.readGoodsList()
   await storeGoods.readCategoryList()
 
+  // 分類
   filterCategoryHandler(currentCategory.value)
   loadingHandler()
+  //預設頁碼第一頁
   clickShowPageHandler(currentPage.value)
 
 })
@@ -68,6 +70,10 @@ const pageInterval = ref(10)
 const filterCategoryList = ref<Goods[]>(goods.value)
 const filterGoodsRange = ref<Goods[]>([])
 
+/**
+ * 篩選分類的結果
+ * @param {string} val
+ */
 const filterCategoryHandler = (val: string): void => {
   loadingHandler()
   currentCategory.value = val
