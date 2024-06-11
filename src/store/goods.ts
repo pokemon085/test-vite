@@ -22,7 +22,7 @@ export const goodsStore = defineStore({
     /**
      * 商品列表儲存到localstorage
      */
-    async getAllGoods():Promise<void> {
+    async getAllGoods(): Promise<void> {
       await goodsList().then((res) => {
         try {
           this.goods = res.data
@@ -37,7 +37,7 @@ export const goodsStore = defineStore({
     /**
      * 商品分類列表儲存到localstorage
      */
-    async getCategory():Promise<void> {
+    async getCategory(): Promise<void> {
       await categoryList().then((res) => {
         try {
           this.category = res.data
@@ -54,29 +54,34 @@ export const goodsStore = defineStore({
      * @returns {Promise}
      */
     updateGoods(selectCartList: number[]): Promise<number> {
-      return new Promise((resolve) => {
+      return new Promise(async (resolve) => {
         //取得購物車清單
         const getCartStore = cartStore()
         const currentCart = getCartStore.cart
+        // 更新商品列表
+        await this.readGoodsList()
 
         //已勾選的購物車清單
-        const readyCheckoutCart=currentCart.filter(item=>selectCartList.includes(item.id))
+        const readyCheckoutCart = currentCart.filter(item => selectCartList.includes(item.id))
 
         //未勾選的購物車清單
-        const newCart=currentCart.filter(item=>!selectCartList.includes(item.id))
+        const newCart = currentCart.filter(item => !selectCartList.includes(item.id))
+
 
         const changeStock = (cartItem: Cart) => {
-          const index = this.goods.findIndex((item) => {
-            return (item.id === cartItem.id)
-          })
-          this.goods[index].stock -= cartItem.count
-          if (this.goods[index].stock === 0) {
-            this.goods.splice(index, 1)
+          const index = this.goods.findIndex((item) => (item.id === cartItem.id))
+
+          if (index) {
+            this.goods[index].stock -= cartItem.count
+            if (this.goods[index].stock === 0) {
+              this.goods.splice(index, 1)
+            }
           }
         }
 
         // 更新總商品清單及購物車
         readyCheckoutCart.forEach(cartItem => {
+
           changeStock(cartItem)
         })
         saveGoods(this.goods)
@@ -84,10 +89,10 @@ export const goodsStore = defineStore({
         resolve(1);
       });
     },
-     /**
-     * 取得商品列表
-     */
-    async readGoodsList():Promise<void> {
+    /**
+    * 取得商品列表
+    */
+    async readGoodsList(): Promise<void> {
       if (this.goods.length === 0) {
         const stashGoods = readGoods()
         if (stashGoods.length === 0) {
@@ -100,7 +105,7 @@ export const goodsStore = defineStore({
     /**
      * 取得商品分類列表
      */
-    async readCategoryList():Promise<void> {
+    async readCategoryList(): Promise<void> {
       if (this.category.length === 0) {
         const stashCategory = readCategory()
         if (stashCategory.length === 0) {

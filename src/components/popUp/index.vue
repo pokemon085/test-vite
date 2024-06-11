@@ -1,17 +1,35 @@
 <template>
   <Teleport to="#container">
-    <div class="popup-wrap">
+    <!-- 選擇對話框 -->
+    <div class="popup-wrap" v-if="data.dialog">
       <div class="popup-container">
         <div class="icon">
           <i :class="['mdi', iconType]" />
         </div>
-        <div v-if="data.title!==''" class="title">{{ data.title }}</div>
+        <div v-if="data.title !== ''" class="title">{{ data.title }}</div>
+        <div class="content">
+          {{ data.content }}
+        </div>
+        <div class="dialog-button-wrap">
+          <div class="close" @click="emit('close')">{{ data.button }}</div>
+          <slot />
+        </div>
+      </div>
+    </div>
+    <!-- 通知 -->
+    <div class="popup-wrap" v-else>
+      <div class="popup-container">
+        <div class="icon">
+          <i :class="['mdi', iconType]" />
+        </div>
+        <div v-if="data.title !== ''" class="title">{{ data.title }}</div>
         <div class="content">
           {{ data.content }}
         </div>
         <div class="click-wrap" @click="emit('close')">{{ data.button }}</div>
       </div>
     </div>
+
   </Teleport>
 </template>
 <script lang="ts" setup>
@@ -52,7 +70,6 @@ const iconType = computed<string>(() => {
 
   .popup-container {
     width: 300px;
-    max-height: 300px;
     background: #eee;
     position: fixed;
     top: 50%;
@@ -63,32 +80,38 @@ const iconType = computed<string>(() => {
     border-radius: 8px;
 
     .icon {
-      padding:10px 0;
+      padding: 10px 0;
       font-size: 60px;
-      .success{
-        color:#618f54;
+
+      .success {
+        color: #618f54;
       }
 
-      .warning{
-        color:#f48f14;
+      .warning {
+        color: #f48f14;
       }
 
-      .error{
-        color:#f9685b;
+      .error {
+        color: #f9685b;
       }
     }
 
     .title {
       font-size: 18px;
-      width: 100%;
-      height: 40px;
+      min-height: 40px;
+      height: auto;
       font-weight: bold;
+      width: 100%;
     }
 
     .content {
       font-size: 16px;
       width: 100%;
-      height: 40px;
+      min-height: 40px;
+      height: auto;
+      box-sizing: border-box;
+      word-break: break-all;
+      padding: 0 10px;
     }
 
     .click-wrap {
@@ -105,6 +128,23 @@ const iconType = computed<string>(() => {
       }
     }
   }
+}
+
+.dialog-button-wrap {
+  display: flex;
+  width: 100%;
+  padding: 20px 0;
+  justify-content: center;
+
+  //TODO:按鈕樣式共用
+  .close {
+    padding: 5px;
+    margin: 0 5px;
+    border: 1px solid;
+    cursor: pointer;
+    border-radius: 5px;
+  }
+
 }
 </style>
 

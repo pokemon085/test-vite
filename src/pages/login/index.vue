@@ -54,7 +54,7 @@ const reset = ref(false)
 const showLoading = ref(false)
 const getUserStore = userStore()
 const showPopup = ref(false)
-const popupData = reactive<Popup>({ title: '', content: '', button: 'ok', type: 'success' })
+const popupData = reactive<Popup>({ title: '', content: '', button: 'ok', type: 'success', dialog: false })
 
 //登入表單
 const loginForm = ref<LoginForm>({

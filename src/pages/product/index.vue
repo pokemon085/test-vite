@@ -3,28 +3,33 @@
     <div class="left-wrap">
       <div class="back" @click="router.back()">back</div>
       <div class="image">
-        <img src="https://picsum.photos/id/130/200/200" alt="">
+        <div v-if="imageLoading" class="image-loading">
+          <skeleton />
+        </div>
+        <img v-show="!imageLoading" src="https://picsum.photos/id/130/200/200" alt="" @load="onImgLoad">
       </div>
     </div>
     <div class="detail">
-      category:{{ productDetail.category }}<br />
-      name:{{ productDetail.name }}<br />
-      money:{{ productDetail.money }}<br />
-      introduce:{{ productDetail.introduce }}<br />
-
+      <div class="detail-item name">{{ productDetail.name }}</div>
+      <div class="detail-item introduce">introduce:{{ productDetail.introduce }}</div>
+      <div class="detail-item category">category:{{ productDetail.category }}</div>
+      <div class="detail-item price">price:{{ productDetail.money }}</div>
+      <div class="detail-item stock">stock:{{ productDetail.stock }}</div>
       <div class="item">
-        <div class="title">stock:{{ productDetail.stock }}</div>
         <div class="option">
-          <button @click="countHandler('subtract')">-</button>
+          <button class="option-button" @click="countHandler('subtract')">-</button>
           <input class="option-input" type="number" v-model="count" />
-          <button @click="countHandler('add')">+</button>
+          <button class="option-button" @click="countHandler('add')">+</button>
         </div>
       </div>
       <hr />
-      <div class="check-button" @click="checkout()">checkout</div>
-      <div class="check-button" @click="addCart()">addCart</div>
+      <div class="check-button" @click="addCart()">
+        <i class="mdi mdi-cart" />addCart
+      </div>
+      <div class="check-button" @click="checkout()">
+        <i class="mdi mdi-basket-check-outline" />checkout
+      </div>
     </div>
-    {{ cart }}
   </div>
 </template>
 
@@ -36,7 +41,7 @@ import { Goods } from '@/store/types';
 import { goodsStore } from "@/store/goods"
 import { userStore } from "@/store/user"
 import { storeToRefs } from 'pinia'
-
+import skeleton from '@/components/skeleton/index.vue'
 // 查看商品詳情頁面
 
 const route = useRoute()
@@ -55,6 +60,7 @@ const productDetail = ref<Goods | null>(null); //存商品資訊
 const stock = ref<number>(0) //存商品庫存
 const cartCountTotal = ref<number>(0) //該商品存在購物車的總數
 const count = ref<number>(0) //當前操作商品
+const imageLoading = ref<boolean>(true)
 
 /**
  * 商品操作數量(未加入購物車)
@@ -80,7 +86,7 @@ const addCart = () => {
     return
   }
 
-  if(productDetail.value){
+  if (productDetail.value) {
     storeCart.addCart(productDetail.value, count.value);
   }
 
@@ -98,6 +104,10 @@ const checkout = () => {
   setTimeout(() => {
     router.push("/cart")
   }, 300);
+}
+
+const onImgLoad = () => {
+  imageLoading.value = false
 }
 
 onMounted(() => {
@@ -143,6 +153,14 @@ onMounted(() => {
     width: 400px;
     height: 400px;
 
+    .image-loading {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 100%;
+      height: 100%;
+    }
+
     >img {
       width: 100%;
       height: 100%;
@@ -150,13 +168,33 @@ onMounted(() => {
   }
 
   .detail {
-    width: 300px;
+    min-width: 300px;
+    width: auto;
     padding: 10px;
 
-    .option {
-      width: 100px;
-      height: 25px;
+    .detail-item {
+      padding: 5px 0;
     }
+
+    .name {
+      font-size: 20px;
+      font-weight: 600;
+    }
+
+    .option {
+      min-width: 100px;
+      height: 25px;
+
+      .option-button {
+        margin: 0 5px;
+      }
+
+      >input {
+        text-align: center;
+      }
+    }
+
+
 
     .check-button {
       width: 100px;
@@ -167,6 +205,15 @@ onMounted(() => {
       color: var(--main-text-color);
       text-align: center;
       font-weight: bold;
+      margin-bottom: 10px;
+      cursor: pointer;
+      padding: 0 5px;
+      font-size: 16px;
+
+      >i {
+        padding-right: 5px;
+        font-size: 16px;
+      }
     }
   }
 

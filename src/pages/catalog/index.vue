@@ -26,7 +26,7 @@
 <script lang="ts" setup>
 import card from './card.vue'
 import { Category, Goods, Popup } from '@/store/types'
-import { ref, computed, onMounted } from 'vue'
+import { ref, computed, onMounted, reactive } from 'vue'
 import { goodsStore } from "@/store/goods"
 import { cartStore } from "@/store/cart"
 import { userStore } from "@/store/user"
@@ -42,33 +42,28 @@ const showPopup = ref(false)
 const currentPage = ref(1)
 const showLoading = ref(false)
 const currentCategory = ref('all')
+const { cart } = storeToRefs(storeCart)
 
 const { goods } = storeToRefs(storeGoods)
 
-const popupData: Popup = {
+const popupData = reactive<Popup>({
   title: 'Tip',
   content: 'add cart success!',
-  button: 'ok'
-}
-
-onMounted(async () => {
-  await storeGoods.readGoodsList()
-  await storeGoods.readCategoryList()
-
-  // 分類
-  filterCategoryHandler(currentCategory.value)
-  loadingHandler()
-  //預設頁碼第一頁
-  clickShowPageHandler(currentPage.value)
-
+  button: 'ok',
+  type: 'success',
+  dialog: false
 })
 
-const categoryList = computed(() => {
-  return [{ id: 0, name: "all" }, ...storeGoods.category] as Category[]
-})
 const pageInterval = ref(10)
 const filterCategoryList = ref<Goods[]>(goods.value)
 const filterGoodsRange = ref<Goods[]>([])
+
+/**
+ * 分類列表
+ */
+const categoryList = computed(() => {
+  return [{ id: 0, name: "all" }, ...storeGoods.category] as Category[]
+})
 
 /**
  * 篩選分類的結果
@@ -94,8 +89,21 @@ const addCartToStore = (key: Goods) => {
     router.push("/login")
     return
   }
-  showPopup.value = true
-  storeCart.addCart(key, 1)
+
+  const findCartCount = cart.value.find(item => item.id === key.id)?.count
+  //判斷購物車是否有跟庫存一樣數量
+  if (findCartCount === key.stock) {
+    popupData.title= 'alert',
+    popupData.content='your cart as same as stock'
+    popupData.type= 'warning'
+    showPopup.value = true
+  } else {
+    popupData.content='add cart success!'
+    popupData.type= 'success'
+    showPopup.value = true
+    storeCart.addCart(key, 1)
+  }
+
 }
 
 const goProduct = (item: Goods) => {
@@ -122,6 +130,18 @@ const eventHandler = (val: { key: string; i: Goods }) => {
     addCartToStore(i)
   }
 }
+
+onMounted(async () => {
+  await storeGoods.readGoodsList()
+  await storeGoods.readCategoryList()
+
+  // 分類
+  filterCategoryHandler(currentCategory.value)
+  loadingHandler()
+  //預設頁碼第一頁
+  clickShowPageHandler(currentPage.value)
+
+})
 
 
 </script>

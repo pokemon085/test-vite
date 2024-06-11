@@ -58,5 +58,6 @@ export interface Popup {
   title: string,
   content: string,
   button: string,
-  type?: 'success' | 'error' | 'warning'
+  type?: 'success' | 'error' | 'warning',
+  dialog: boolean
 }

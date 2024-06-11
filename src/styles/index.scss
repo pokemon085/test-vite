@@ -7,7 +7,7 @@
   --main-text-color: #FFF;
 }
 
-​ body {
+​body {
   background-color: var(--main-bg-color);
 }
 
@@ -40,4 +40,15 @@
 
 .active-page:hover {
   background-color: var(--text-background-color);
+}
+
+// 輸入框類型數字 不要上下按鈕
+input[type=number]::-webkit-inner-spin-button,
+input[type=number]::-webkit-outer-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+input[type=number] {
+  -moz-appearance: textfield;
 }
