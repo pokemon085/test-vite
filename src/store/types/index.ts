@@ -5,7 +5,8 @@ export interface Goods {
   money: number,
   introduce: string,
   image: string,
-  stock: number
+  stock: number,
+  sale: number
 }
 
 export interface Cart {
@@ -60,4 +61,12 @@ export interface Popup {
   button: string,
   type?: 'success' | 'error' | 'warning',
   dialog: boolean
+}
+
+export interface News {
+  id: string,
+  name: string,
+  content: string,
+  image: string,
+  date: string
 }

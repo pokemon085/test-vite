@@ -1,4 +1,4 @@
-import {Goods, Cart, User, Category,CartGoodsList } from "@/store/types";
+import { Goods, Cart, User, Category, CartGoodsList, News } from "@/store/types";
 
 export function saveGoods(goods: Goods[]) {
   localStorage.setItem('goods', JSON.stringify(goods))
@@ -50,5 +50,13 @@ export function saveCategory(category: Category[]) {
 
 export function readCategory(): Category[] {
   return JSON.parse(localStorage.getItem('category') || '[]')
+}
+
+export function saveNewItem(data: News) {
+  localStorage.setItem('news', JSON.stringify(data))
+}
+
+export function readNewsItem(): News {
+  return JSON.parse(localStorage.getItem('news') || '{}')
 }
 

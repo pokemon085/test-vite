@@ -29,7 +29,10 @@
       </div>
     </div>
   </div>
-  <search v-if="showSearch" @close="closeHandler" />
+  <teleport to="body">
+    <search v-if="showSearch" @close="closeHandler" />
+  </teleport>
+
 </template>
 <script lang="ts" setup>
 import { userStore } from "@/store/user";

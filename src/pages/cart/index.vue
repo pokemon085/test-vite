@@ -28,7 +28,7 @@
         </div>
       </div>
       <button v-if="selectCartList.length > 0" :class="['buy-button-wrap']" @click="buy">
-        <i class="mdi mdi-cart-arrow-right checkout" />
+        <i class="mdi mdi-cash-register checkout" />
         checkout</button>
     </div>
     <div v-else>

@@ -54,7 +54,6 @@ getGoodsStore.readGoodsList()
 
 const { cart } = storeToRefs(storeCart)
 
-
 const productId = ref<number | null>(null) //傳進來的id
 const productDetail = ref<Goods | null>(null); //存商品資訊
 const stock = ref<number>(0) //存商品庫存
@@ -66,7 +65,7 @@ const imageLoading = ref<boolean>(true)
  * 商品操作數量(未加入購物車)
  * @param {string} key
  */
-const countHandler = (key: 'add' | 'subtract') => {
+const countHandler = (key: 'add' | 'subtract'):void => {
   if (key === 'add') {
     count.value = count.value >= stock.value ? stock.value : count.value + 1
   } else {
@@ -77,7 +76,7 @@ const countHandler = (key: 'add' | 'subtract') => {
 /**
  * 將商品數量加入購物車
  */
-const addCart = () => {
+const addCart = ():void => {
 
   cartCountTotal.value = cart.value.find(item => item.id === productId.value)?.count || 0
   if (count.value + cartCountTotal.value > stock.value) {
@@ -95,7 +94,7 @@ const addCart = () => {
 /**
  * 結帳
  */
-const checkout = () => {
+const checkout = ():void => {
   if (Object.keys(getUserStore.isLogin).length === 0) {
     router.push("/login")
     return
@@ -106,7 +105,7 @@ const checkout = () => {
   }, 300);
 }
 
-const onImgLoad = () => {
+const onImgLoad = ():void => {
   imageLoading.value = false
 }
 
@@ -114,6 +113,9 @@ onMounted(() => {
   productId.value = route.query.id ? +route.query.id : null;
   productDetail.value = getGoodsStore.goods.find(item => +item.id === +productId.value!) || null
   stock.value = productDetail.value ? productDetail.value.stock : 0
+  if(productDetail.value === null){
+    router.replace('/')
+  }
 })
 
 

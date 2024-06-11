@@ -10,6 +10,14 @@ const routes: Array<RouteRecordRaw> = [
     component: () => import('@/pages/login/index.vue')
   },
   {
+    path: '/news',
+    name: 'news',
+    meta: {
+      title: 'news'
+    },
+    component: () => import('@/pages/news/index.vue')
+  },
+  {
     path: '/cart',
     name: 'cart',
     meta: {
@@ -68,6 +76,6 @@ const router = createRouter({
 });
 
 router.afterEach((to, from, next) => {
-	window.scrollTo(0, 0);
+  window.scrollTo(0, 0);
 });
 export default router;

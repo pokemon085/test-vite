@@ -22,16 +22,13 @@ import { goodsStore } from "@/store/goods";
 import { useRouter } from "vue-router";
 import { Goods } from "@/store/types";
 import loading from "@/components/loading/index.vue";
+
 const emit = defineEmits(["close"]);
 const router = useRouter();
 const getGoodsStore = goodsStore();
 const searchText = ref("");
 const showLoading = ref(false);
-onMounted(()=>{
-  if(getGoodsStore.goods.length===0){
-    getGoodsStore.getAllGoods()
-  }
-})
+
 const findResult: any = computed(() => {
   const textToLower = searchText.value.toLowerCase();
   if (searchText.value === "") return [];
@@ -41,8 +38,8 @@ const findResult: any = computed(() => {
       item.name.toLowerCase().startsWith(textToLower)
   );
 });
-const goProduct = (item: Goods) => {
 
+const goProduct = (item: Goods):void => {
   showLoading.value = true;
 
   setTimeout(() => {
@@ -54,17 +51,22 @@ const goProduct = (item: Goods) => {
     });
   }, 300);
 };
+
+onMounted(() => {
+  if (getGoodsStore.goods.length === 0) {
+    getGoodsStore.getAllGoods()
+  }
+})
 </script>
 <style lang="scss">
 .mask {
-  position: fixed;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
   background-color: rgba(0, 0, 0, 0.6);
+  height: 100vh;
+  left: 0;
+  position: fixed;
+  top: 0;
   width: 100%;
-  height: 100%;
-  z-index: 5;
+  z-index: 200;
 }
 
 .search-wrap {
@@ -78,7 +80,7 @@ const goProduct = (item: Goods) => {
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
-  z-index: 10;
+  z-index: 201;
   border-radius: 8px;
 
   .input-wrap {
