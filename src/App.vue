@@ -34,7 +34,7 @@ onMounted(() => {
 @import '@/styles/index.scss';
 
 .container{
-  min-width: 600px;
+  width: 100%;
   display: grid;
   height: 100vh;
   grid-template-columns: 100%;

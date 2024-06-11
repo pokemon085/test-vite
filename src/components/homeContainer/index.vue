@@ -128,18 +128,20 @@ onMounted(async () => {
     .feature-wrap {
       display: flex;
       justify-content: space-around;
-      margin: 0 auto;
-
+      width:100%;
+      flex-wrap: wrap;
 
       .item {
         display: flex;
         flex-direction: column;
         justify-content: center;
         align-items: center;
+        width: 200px;
+        margin: 10px;
 
         .content {
-          width: 200px;
           font-size: 12px;
+          word-break: break-all;
         }
 
         >i {
@@ -180,11 +182,11 @@ onMounted(async () => {
     .news-wrap {
       display: flex;
       justify-content: space-between;
-
+      flex-wrap: wrap;
 
       .item {
         min-width: 100px;
-        margin: 0 15px;
+        margin: 0 15px 15px 15px;
 
         .news-image {
           margin: auto;

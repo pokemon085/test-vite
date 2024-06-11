@@ -171,7 +171,6 @@ onMounted(() => {
 
   .cart-list {
     width: 100%;
-    min-width: 600px;
     border: 2px solid #eee;
     border-radius: 5px;
     margin-bottom: 10px;

@@ -60,7 +60,7 @@
 </script>
 <style lang="scss" scoped>
 .contact {
-  width: 1000px;
+  width: 100%;
   height: 100%;
   display: flex;
   flex-direction: column;
@@ -85,10 +85,12 @@
 
   .container {
     width: 100%;
-    height: 400px;
+    // height: 400px;
     display: flex;
-    justify-content: space-around;
-    margin-top: 40px;
+    // justify-content: space-around;
+    // margin-top: 40px;
+    flex-wrap: wrap;
+    justify-content: center;
 
     .block {
       display: flex;
@@ -101,6 +103,8 @@
       border-top: 5px solid var(--main-bg-color);
       padding: 0 20px;
       box-sizing: border-box;
+      margin: 0 5px;
+
 
       .content {
         font-size: 14px;

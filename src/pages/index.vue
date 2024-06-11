@@ -10,4 +10,7 @@ import homeSwiper from '@/components/homeSwiper/index.vue'
 </script>
 
 <style lang="scss">
+.home{
+  width: 100%;
+}
 </style>
