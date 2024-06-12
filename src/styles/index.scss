@@ -52,3 +52,9 @@ input[type=number]::-webkit-outer-spin-button {
 input[type=number] {
   -moz-appearance: textfield;
 }
+
+.clearfix::after {
+  content: '';
+  display: block;
+  clear: both;
+}

@@ -1,7 +1,9 @@
 <template>
-    <div class="item" >
+    <div class="item">
         <div class="item-image">
-            <div v-if="imageLoading" class="image-loading"><skeleton /></div>
+            <div v-if="imageLoading" class="image-loading">
+                <skeleton />
+            </div>
             <img v-show="!imageLoading" src="https://picsum.photos/id/100/200/200" alt="" @load="onImgLoad">
         </div>
         <template v-if="!imageLoading">
@@ -17,8 +19,12 @@
             </div>
         </template>
         <div v-else class="card-bottom-loading">
-            <div class="block"><skeleton /></div>
-            <div class="block"><skeleton /></div>
+            <div class="block">
+                <skeleton />
+            </div>
+            <div class="block">
+                <skeleton />
+            </div>
         </div>
     </div>
 </template>
@@ -48,7 +54,7 @@ const onImgLoad = () => {
 </script>
 <style lang="scss" scoped>
 .item {
-    width: 100%;
+    width: 200px;
     border: 1px solid #000;
     height: 315px;
 
@@ -110,13 +116,14 @@ const onImgLoad = () => {
 
     .card-bottom-loading {
         padding: 0 10px;
-        .block{
+
+        .block {
             width: 100%;
             height: 30px;
             margin-top: 20px;
         }
 
-        .block{
+        .block {
             width: 100%;
             height: 20px;
             margin-top: 20px;

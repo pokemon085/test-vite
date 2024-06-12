@@ -16,7 +16,7 @@
     </div>
   </div>
 </template>
-<style type="text/css">
+<style type="text/css" scoped>
 @keyframes ldio-agdwhbekqcj {
   0% {
     opacity: 1

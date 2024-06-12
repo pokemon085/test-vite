@@ -1,11 +1,22 @@
 <template>
   <div class="header">
-    <div class="logo"></div>
+    <div class="logo-wrap">
+      <i class="mdi mdi-bread-slice"></i>
+      <div class="logo-name">LOGO</div>
+    </div>
     <div class="list">
-      <router-link to="/"> home </router-link>
-      <router-link to="/catalog"> catalog </router-link>
-      <router-link to="/faqs"> faqs </router-link>
-      <router-link to="/contact"> contact us </router-link>
+      <router-link class="path" to="/"><i class="mdi mdi-home"></i>
+        <div class="path-name">home</div>
+      </router-link>
+      <router-link class="path" to="/catalog"><i class="mdi mdi-list-box-outline"></i>
+        <div class="path-name">category</div>
+      </router-link>
+      <router-link class="path" to="/faqs"><i class="mdi mdi-comment-question"></i>
+        <div class="path-name">faqs</div>
+      </router-link>
+      <router-link class="path" to="/contact"><i class="mdi mdi-information-slab-box"></i>
+        <div class="path-name">contact us</div>
+      </router-link>
     </div>
     <div class="function-icon">
       <div class="search" @click="openSearch"></div>
@@ -32,7 +43,6 @@
   <teleport to="body">
     <search v-if="showSearch" @close="closeHandler" />
   </teleport>
-
 </template>
 <script lang="ts" setup>
 import { userStore } from "@/store/user";
@@ -69,7 +79,7 @@ const openSearch = () => {
   showSearch.value = true;
 };
 </script>
-<style lang="scss">
+<style lang="scss" scoped>
 .header {
   width: 100%;
   height: 50px;
@@ -77,12 +87,17 @@ const openSearch = () => {
   display: flex;
   justify-content: space-between;
 
-  .logo {
+  .logo-wrap {
     width: 100px;
-    height: 40px;
-    padding-top: 10px;
-    // background: url("@/assets/header/logo.png") 50% 50% no-repeat;
-    background-size: contain;
+    height: 50px;
+    display: flex;
+    align-items: center;
+    margin-left: 10px;
+
+    >i {
+      margin: 0 5px;
+      font-size: 30px;
+    }
   }
 
   .list {
@@ -91,10 +106,24 @@ const openSearch = () => {
     height: 50px;
     justify-content: space-between;
     align-items: center;
+
+    .path {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      text-decoration: none;
+      font-size: 12px;
+      min-width: 60px;
+
+      >i {
+        text-align: center;
+        font-size: 25px;
+      }
+    }
   }
 
   .function-icon {
-    padding: 0 20px;
     display: flex;
     justify-content: space-evenly;
     align-items: center;
@@ -102,6 +131,7 @@ const openSearch = () => {
     height: 50px;
 
     .search {
+      min-width: 20px;
       width: 20px;
       height: 20px;
       background: url("@/assets/header/search.png") 0 0 no-repeat;
@@ -109,6 +139,7 @@ const openSearch = () => {
     }
 
     .login-wrap {
+      min-width: 30px;
       width: 30px;
       height: 30px;
       position: relative;
@@ -116,6 +147,7 @@ const openSearch = () => {
       .login {
         background: url("/src/assets/header/user.png") 50% 50% no-repeat;
         background-size: contain;
+        min-width: 20px;
         width: 20px;
         height: 30px;
       }
@@ -155,5 +187,16 @@ const openSearch = () => {
       }
     }
   }
+}
+
+@media screen and (max-width: 767px) {
+
+  /* 在螢幕寬度小於 767px 時使用以下 CSS 規則 */
+  .logo-wrap {
+    .logo-name {
+      display: none;
+    }
+  }
+
 }
 </style>

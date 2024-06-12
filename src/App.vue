@@ -25,13 +25,14 @@ onMounted(() => {
  getUserList.saveUserList()
  getUserList.saveLoginUser()
  getCartStore.reloadReadCart()
-  console.log('aa')
 })
 </script>
 
 
-<style lang="scss">
-@import '@/styles/index.scss';
+<style lang="scss" scoped>
+.aa{
+  border: 1px solid;
+}
 
 .container{
   width: 100%;
@@ -52,6 +53,7 @@ onMounted(() => {
   .header{
     grid-area:header;
     position: fixed;
+    width: 100%;
     top:0;
     z-index: 99;
   }

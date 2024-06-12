@@ -58,7 +58,7 @@ onMounted(() => {
   }
 })
 </script>
-<style lang="scss">
+<style lang="scss" scoped>
 .mask {
   background-color: rgba(0, 0, 0, 0.6);
   height: 100vh;

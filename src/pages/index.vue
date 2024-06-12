@@ -9,7 +9,7 @@ import homeContainer from '@/components/homeContainer/index.vue'
 import homeSwiper from '@/components/homeSwiper/index.vue'
 </script>
 
-<style lang="scss">
+<style lang="scss" scoped>
 .home{
   width: 100%;
 }

@@ -61,7 +61,7 @@ const validateInput = (name: string) => {
 }
 
 </script>
-<style lang="scss">
+<style lang="scss" scoped>
 .label {
     margin: 10px 0;
 }

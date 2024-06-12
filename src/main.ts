@@ -1,6 +1,6 @@
 import { createApp } from 'vue'
 import App from './App.vue'
-
+import '@/styles/index.scss';
 import router from '@/router';
 import pinia from './store';
 import VueAwesomePaginate from "vue-awesome-paginate";

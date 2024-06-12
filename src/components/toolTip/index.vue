@@ -14,7 +14,7 @@
 
 <script setup lang="ts"></script>
 
-<style lang="scss">
+<style lang="scss" scoped>
 .hide-block {
   width: 30px;
   height: 100px;

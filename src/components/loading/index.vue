@@ -8,7 +8,7 @@
 import circleLoading from "./circleLoading.vue";
 </script>
 
-<style lang="scss">
+<style lang="scss" scoped>
 .loading-wrap {
   width: 100%;
   height: 100%;

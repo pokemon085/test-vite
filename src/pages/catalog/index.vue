@@ -54,7 +54,7 @@ const popupData = reactive<Popup>({
   dialog: false
 })
 
-const pageInterval = ref(10)
+const pageInterval = ref<number>(10)
 const filterCategoryList = ref<Goods[]>(goods.value)
 const filterGoodsRange = ref<Goods[]>([])
 
@@ -82,6 +82,7 @@ const filterCategoryHandler = (val: string): void => {
 
 const clickShowPageHandler = (page: number): void => {
   filterGoodsRange.value = filterCategoryList.value.filter((i, index) => index >= (page - 1) * pageInterval.value && index <= (page * pageInterval.value) - 1);
+  window.scroll(0,0)
 };
 
 const addCartToStore = (key: Goods) => {
@@ -93,13 +94,13 @@ const addCartToStore = (key: Goods) => {
   const findCartCount = cart.value.find(item => item.id === key.id)?.count
   //判斷購物車是否有跟庫存一樣數量
   if (findCartCount === key.stock) {
-    popupData.title= 'alert',
-    popupData.content='your cart as same as stock'
-    popupData.type= 'warning'
+    popupData.title = 'alert',
+      popupData.content = 'your cart as same as stock'
+    popupData.type = 'warning'
     showPopup.value = true
   } else {
-    popupData.content='add cart success!'
-    popupData.type= 'success'
+    popupData.content = 'add cart success!'
+    popupData.type = 'success'
     showPopup.value = true
     storeCart.addCart(key, 1)
   }
@@ -150,7 +151,7 @@ onMounted(async () => {
   display: grid;
   width: 100%;
   height: 100%;
-  grid-template-columns: 200px 1fr;
+  grid-template-columns: 1fr 5fr;
   grid-template-rows: 1fr;
 
   .left {
@@ -158,12 +159,15 @@ onMounted(async () => {
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    position: fixed;
+    width: 100%;
+    position: sticky;
+    top: 50px;
+    left: 0;
+    height: 400px;
 
     .block {
       width: 100%;
       height: 100%;
-      margin: 0 5px;
       background: rgb(190, 164, 164);
       text-align: center;
     }
@@ -176,15 +180,11 @@ onMounted(async () => {
     }
 
     .category-list {
-      min-width: 180px;
-      min-height: 500px;
-      overflow-y: auto;
       text-align: center;
-      padding: 10px 0;
+      padding: 10px;
 
       .category-item {
         margin: 20px auto 20px auto;
-        width: 100px;
         height: 30px;
         line-height: 30px;
         border-radius: 30px;
@@ -205,18 +205,27 @@ onMounted(async () => {
   }
 
   .right {
-    display: grid;
-    grid-template-rows: 5fr 1fr;
-    align-items: center;
-    grid-column-start: 2;
+    text-align: center;
 
     .good-list {
       padding: 20px;
       display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
       justify-content: center;
-      grid-template-columns: repeat(5, minmax(200px, 200px));
-      gap: 20px 20px;
+      justify-items: center;
+      grid-gap: 15px;
     }
+
+  }
+}
+
+@media screen and (max-width: 767px) {
+  .category-wrap {
+    display: grid;
+    width: 100%;
+    height: 100%;
+    grid-template-columns: 100px 2fr;
+    grid-template-rows: 1fr;
 
   }
 }
