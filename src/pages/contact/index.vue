@@ -7,49 +7,40 @@
 
     <div class="container">
       <div class="block">
-        <div class="content">
-          <div class="title">
-            Press
+          <div class="major">
+            <i class="mdi mdi-map-marker"></i>
+            <div class="title">
+              ADDRESS
+            </div>
           </div>
           <div class="tip">
-            Lorem, ipsum dolor sit amet consectetur adipisicing elit. Sunt exercitationem labore dolor inventore quos,
-            assumenda nobis quidem maiores omnis! Veniam molestias atque tempora suscipit accusamus facere consequuntur
-            qui, quisquam eum.
+            Street: 21F., NO. 447, SEC. 3<br />
+            City: Wensin Rd.<br />
+            State/province/area: TAICHUNG CITY<br />
+            Country: Taiwan(China)<br />
+          </div>
+      </div>
+      <div class="block">
+        <div class="major">
+          <i class="mdi mdi-phone-classic"></i>
+          <div class="title">
+            PHONE
           </div>
         </div>
-        <div class="button">
-          Visit Press Page
+        <div class="tip phone">
+          Phone number: 886-4-3703-3939<br />
+          Country calling code: +886<br />
         </div>
       </div>
       <div class="block">
-
-        <div class="content">
+        <div class="major">
+          <i class="mdi mdi-email"></i>
           <div class="title">
-            Help & Support
-          </div>
-          <div class="tip">
-            Lorem, ipsum dolor sit amet consectetur adipisicing elit. Sunt exercitationem labore dolor inventore quos,
-            assumenda nobis quidem maiores omnis! Veniam molestias atque tempora suscipit accusamus facere consequuntur
-            qui, quisquam eum.
+            EMAIL
           </div>
         </div>
-        <div class="button">
-          View Support Page
-        </div>
-      </div>
-      <div class="block">
-        <div class="content">
-          <div class="title">
-            Sales
-          </div>
-          <div class="tip">
-            Lorem, ipsum dolor sit amet consectetur adipisicing elit. Sunt exercitationem labore dolor inventore quos,
-            assumenda nobis quidem maiores omnis! Veniam molestias atque tempora suscipit accusamus facere consequuntur
-            qui, quisquam eum.
-          </div>
-        </div>
-        <div class="button">
-          Contact Sales
+        <div class="tip email">
+          dettedoweijei-2207@yopmail.com
         </div>
       </div>
     </div>
@@ -65,6 +56,7 @@
   display: flex;
   flex-direction: column;
   margin: 0 auto;
+  justify-content: center;
 
   .title-wrap {
     width: 100%;
@@ -85,49 +77,51 @@
 
   .container {
     width: 100%;
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: center;
     margin-bottom: 10px;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, 300px);
+    grid-gap: 15px;
+    justify-content: center;
+    justify-items: center;
 
     .block {
       display: flex;
       flex-direction: column;
-      justify-content: center;
-      min-width: 200px;
-      max-width: 300px;
-      height: 300px;
+      height: 280px;
       border: 1px solid #DDD;
       border-top: 5px solid var(--main-bg-color);
       padding: 0 20px;
       box-sizing: border-box;
       margin: 10px;
 
-
-      .content {
-        font-size: 14px;
-
-        .title {
-          font-size: 16px;
-          font-weight: bold;
-          padding: 10px;
+        .major {
+          width: 100%;
+          height: 100px;
           text-align: center;
+          margin: 30px 0;
+
+          .title {
+            font-size: 20px;
+            font-weight: bold;
+            padding: 10px;
+          }
+
+          >i {
+            font-size: 40px;
+            color: gray;
+          }
         }
 
-        .tip{
-          color:#999;
-        }
-      }
+        .tip {
+          color: #999;
+          text-align: center;
+          font-size: 14px;
 
-      .button {
-        width: 200px;
-        height: 30px;
-        text-align: center;
-        line-height: 30px;
-        background-color: var(--main-bg-color);
-        border-radius: 20px;
-        margin: 15px auto;
-      }
+          &.email {
+            font-size: 16px;
+          }
+        }
+
     }
   }
 }
