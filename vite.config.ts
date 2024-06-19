@@ -1,6 +1,7 @@
 import { defineConfig } from 'vite';
 import vue from '@vitejs/plugin-vue';
 import * as path from 'path';
+import mkcert from 'vite-plugin-mkcert'; //http ->https 因為chrome會擋
 
 // https://vitejs.dev/config/
 export default defineConfig({
@@ -10,8 +11,9 @@ export default defineConfig({
             '@': path.resolve(__dirname, 'src')
         }
     },
-    plugins: [vue()],
+    plugins: [vue(),mkcert()],
     server: {
+        https: true,
         host: '0.0.0.0',
         port: 3007, //启动端口
         hmr: {

@@ -115,8 +115,10 @@ const openSearch = () => {
       text-decoration: none;
       font-size: 12px;
       min-width: 60px;
+      color:#333234;
 
       >i {
+        color:#333234;
         text-align: center;
         font-size: 25px;
       }

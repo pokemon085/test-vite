@@ -21,5 +21,7 @@ If the standalone TypeScript plugin doesn't feel fast enough to you, Volar has a
 
 https://juejin.cn/post/7079785777692934174
 
-https://www.jianshu.com/p/ff5abde951ac 
+https://www.jianshu.com/p/ff5abde951ac
 
+## vite-plugin-mkcert
+https://www.npmjs.com/package/vite-plugin-mkcert
