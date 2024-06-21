@@ -86,6 +86,8 @@ const openSearch = () => {
   background: rgb(214, 185, 185);
   display: flex;
   justify-content: space-between;
+  position: fixed;
+  top:0;
 
   .logo-wrap {
     width: 100px;

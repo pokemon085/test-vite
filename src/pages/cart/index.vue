@@ -1,30 +1,33 @@
 <template>
   <div class="cart-wrap clearfix">
-    <div v-if="cart.length > 0">
-      <div class="back-button-wrap" @click="$router.back()">
-        <i class="mdi mdi-arrow-left-bold back" />back
-      </div>
+    <div class="cart-list-wrap" v-if="cart.length > 0">
       <div class="cart-list">
+        <div class="back-button-wrap" @click="$router.back()">
+          <i class="mdi mdi-arrow-left-bold back" />back
+        </div>
         <div class="title">cart list</div>
-        <div class="item" v-for="i in cart">
+        <div class="item" v-for="(i, index) in cart" :key="i.id">
           <div class="check-wrap">
+            <div class="order">{{ index + 1 }}</div>
             <input type="checkbox" :value="i.id" v-model="selectCartList">
+
           </div>
           <div class="content">
             <div class="image"><img src="https://picsum.photos/id/100/100/200" /></div>
-            <div class="content-item">
-              name:{{ i.name }}<br />
-              price:{{ i.money }}<br />
-              stock:{{ i.stock }}<br />
+            <div class="wrap">
+              <div class="content-item">
+                name:{{ i.name }}<br />
+                price:{{ i.money }}<br />
+                stock:{{ i.stock }}<br />
+              </div>
+              <div class="option">
+                <button @click="countHandler('subtract', i)">-</button>
+                <input type="text" v-model="i.count" />
+                <button @click="countHandler('add', i)">+</button>
+              </div>
+              <div class="money">total: {{ i.count * i.money }}</div>
             </div>
-
           </div>
-          <div class="option">
-            <button @click="countHandler('subtract', i)">-</button>
-            <input type="text" v-model="i.count" />
-            <button @click="countHandler('add', i)">+</button>
-          </div>
-          <div class="money">total: {{ i.count * i.money }}</div>
         </div>
       </div>
       <button v-if="selectCartList.length > 0" :class="['buy-button-wrap']" @click="buy">
@@ -150,8 +153,7 @@ const countHandler = (key: string, i: CartGoodsList) => {
     if (i.count === i.stock) {
       count = i.stock
     } else {
-      count += 1;
-      store.addCart(i, count)
+      store.addCart(i, 1)
     }
   }
 }
@@ -161,17 +163,20 @@ onMounted(() => {
 })
 
 </script>
-<style lang="scss">
+<style lang="scss" scoped>
 .cart-wrap {
   width: 100%;
-  height: 500px;
   display: flex;
   justify-content: center;
   margin-top: 30px;
 
+  .cart-list-wrap {
+    width: 80%;
+    margin: 0 auto;
+  }
+
   .cart-list {
     width: 100%;
-    border: 2px solid #eee;
     border-radius: 5px;
     margin-bottom: 10px;
 
@@ -183,6 +188,8 @@ onMounted(() => {
       align-items: center;
       background-color: #eee;
       border-radius: 5px 5px 0 0;
+      position: sticky;
+      top: 0;
 
     }
 
@@ -190,18 +197,27 @@ onMounted(() => {
       padding: 10px 5px;
       display: flex;
       align-items: center;
+      border-bottom: 1px solid #eee;
 
       .check-wrap {
-        justify-self: center;
+        display: flex;
         width: 50px;
         text-align: center;
+
+        .order {
+          margin: 0 5px;
+        }
       }
 
       .content {
         display: flex;
-        width: calc(100% - 50px - 150px - 150px);
-        padding-right: 5px;
+        width:100%;
 
+        .wrap{
+          margin-left: 8px;
+          width: 100%;
+          padding: 10px;
+        }
         .image {
           min-width: 50px;
           width: 50px;
@@ -216,7 +232,6 @@ onMounted(() => {
         }
 
         .content-item {
-          padding-left: 10px;
           display: flex;
           flex-direction: column;
           word-break: break-all;
@@ -237,11 +252,7 @@ onMounted(() => {
       }
 
       .money {
-        min-width: 150px;
-        display: flex;
-        height: 100%;
-        justify-content: center;
-        align-items: center;
+        margin-top: 5px;
       }
     }
   }
@@ -297,6 +308,7 @@ onMounted(() => {
 }
 
 .back-button-wrap {
+  position: relative;
   display: inline-flex;
   align-items: center;
   border-radius: 30px;

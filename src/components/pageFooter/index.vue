@@ -55,7 +55,7 @@ export default defineComponent({
   padding: 20px;
   margin: 0 auto;
   background: #eee;
-  height: 200px;
+  min-height: 200px;
   position: relative;
   top: 50px;
 

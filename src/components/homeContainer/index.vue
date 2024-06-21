@@ -107,7 +107,7 @@ onMounted(async () => {
 
 </script>
 
-<style lang="scss">
+<style lang="scss" scoped>
 .home-container {
   width: 100%;
   width: 80%;
