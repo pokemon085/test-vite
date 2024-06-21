@@ -79,6 +79,7 @@ const countHandler = (key: 'add' | 'subtract'):void => {
 const addCart = ():void => {
 
   cartCountTotal.value = cart.value.find(item => item.id === productId.value)?.count || 0
+
   if (count.value + cartCountTotal.value > stock.value) {
     count.value = 0
     alert('max')

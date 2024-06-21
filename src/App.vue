@@ -30,10 +30,6 @@ onMounted(() => {
 
 
 <style lang="scss" scoped>
-.aa{
-  border: 1px solid;
-}
-
 .container{
   width: 100%;
   display: grid;

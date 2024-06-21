@@ -33,13 +33,12 @@ export const cartStore = defineStore({
      * @param {number} count
      */
     addCart(cartItem: CartGoodsList | Goods, count: number): void {
-      console.log(count)
       const exist = this.cart.findIndex(item => {
         return (+item.id === +cartItem.id)
       })
 
       if (exist !== -1) {
-        this.cart[exist].count = count
+        this.cart[exist].count += count
       } else {
         this.cart.unshift({ ...cartItem, count })
       }

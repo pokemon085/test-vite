@@ -1,9 +1,10 @@
 import { defineStore } from 'pinia'
-import { Goods } from './types'
+import { CartGoodsList, Goods } from './types'
 import { goodsList, categoryList } from '@/api/index'
-import { saveGoods, readGoods, saveCategory, readCategory } from "@/utils/localStorageUtils"
+import { saveGoods, readGoods, saveCategory, readCategory, saveBuyHistory} from "@/utils/localStorageUtils"
 import { Cart, Category } from '@/store/types';
 import { cartStore } from './cart';
+import { buyHistoryStore } from './buyHistory';
 
 export const goodsStore = defineStore({
   id: 'goods', // id必填，且需要唯一
@@ -58,11 +59,12 @@ export const goodsStore = defineStore({
         //取得購物車清單
         const getCartStore = cartStore()
         const currentCart = getCartStore.cart
+        const buyHistory = buyHistoryStore()
         // 更新商品列表
         await this.readGoodsList()
 
         //已勾選的購物車清單
-        const readyCheckoutCart = currentCart.filter(item => selectCartList.includes(item.id))
+        const readyCheckoutCart:CartGoodsList[] = currentCart.filter(item => selectCartList.includes(item.id))
 
         //未勾選的購物車清單
         const newCart = currentCart.filter(item => !selectCartList.includes(item.id))
@@ -81,8 +83,8 @@ export const goodsStore = defineStore({
 
         // 更新總商品清單及購物車
         readyCheckoutCart.forEach(cartItem => {
-
           changeStock(cartItem)
+          buyHistory.setBuyHistoryList(cartItem)
         })
         saveGoods(this.goods)
         getCartStore.saveCartHandler(newCart)

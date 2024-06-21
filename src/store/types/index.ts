@@ -1,17 +1,17 @@
 export interface Goods {
-  id: number,
-  category: string,
-  name: string,
-  money: number,
-  introduce: string,
-  image: string,
-  stock: number,
-  sale: number
+  id: number, //商品id
+  category: string, //商品類別
+  name: string, //商品名稱
+  money: number, //商品價格
+  introduce: string, //商品介紹
+  image: string, //商品圖片
+  stock: number, //商品庫存
+  sale: number //商品已銷售數量
 }
 
 export interface Cart {
-  id: number,
-  count: number
+  id: number, //商品id
+  count: number // 所選的商品數量
 }
 
 export interface User {
@@ -25,7 +25,6 @@ export interface Category {
 }
 
 export interface CartGoodsList extends Cart, Goods { }
-
 
 interface FormField {
   name: string;

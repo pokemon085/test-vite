@@ -24,6 +24,9 @@ export const newsList = () => {
 }
 
 
-
-
-
+export const buyHistoryList = () => {
+  return http.request({
+    url: 'src/api/data/buyHistory.json',
+    method: 'get'
+  })
+}
