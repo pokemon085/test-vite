@@ -32,7 +32,7 @@
               <div>{{ getUserStore.isLogin.email }}</div>
             </template>
             <template #item>
-              <div class="list-item">history</div>
+              <div class="list-item" @click="$router.push('/buyHistory')">history</div>
               <div class="list-item" @click="signOutHandler()">sign-out</div>
             </template>
           </tool-tip>
@@ -191,6 +191,10 @@ const openSearch = () => {
       }
     }
   }
+}
+
+.list-item{
+  cursor: pointer;
 }
 
 @media screen and (max-width: 767px) {

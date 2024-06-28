@@ -59,6 +59,14 @@ const routes: Array<RouteRecordRaw> = [
     component: () => import('@/pages/faqs/index.vue')
   },
   {
+    path: '/buyHistory',
+    name: 'buyHistory',
+    meta: {
+      title: 'buyHistory'
+    },
+    component: () => import('@/pages/buyHistory/index.vue')
+  },
+  {
     path: '/',
     name: 'Index',
     meta: {
