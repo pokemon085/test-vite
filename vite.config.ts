@@ -14,10 +14,10 @@ export default defineConfig({
     plugins: [vue(),mkcert()],
     server: {
         https: true,
-        host: '0.0.0.0',
+        host: '127.0.0.1',
         port: 3007, //启动端口
         hmr: {
-            host: '0.0.0.0',
+            host: '127.0.0.1',
             port: 3007
         },
        // 设置 https 代理
