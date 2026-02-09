@@ -1,9 +1,12 @@
 <template>
     <div class="news-wrap">
         <div class="news-content-wrap">
-            <i @click="router.back()" class="mdi mdi-arrow-left-circle back"></i>
+            <i
+                @click="router.back()"
+                class="mdi mdi-arrow-left-circle back"
+            ></i>
             <div class="image-banner">
-                <img src="https://picsum.photos/id/10/1000/200" alt="">
+                <img :src="news.image" alt="" />
             </div>
             <div class="title">{{ news.name }}</div>
             <div class="news-content">{{ news.content }}</div>
@@ -12,27 +15,25 @@
     </div>
 </template>
 <script lang="ts" setup>
-import { ref, onBeforeMount, onBeforeUnmount } from 'vue'
+import { onBeforeMount, onBeforeUnmount } from 'vue';
 import { storeToRefs } from 'pinia';
-import { newsStore } from "@/store/news";
-import { useRouter } from "vue-router";
+import { newsStore } from '@/store/news';
+import { useRouter } from 'vue-router';
 
-const router = useRouter()
-const storeNews = newsStore()
-const { news } = storeToRefs(storeNews)
+const router = useRouter();
+const storeNews = newsStore();
+const { news } = storeToRefs(storeNews);
 
 onBeforeMount(async () => {
-    await storeNews.readNewsDetail()
+    await storeNews.readNewsDetail();
     if (Object.keys(news.value).length === 0) {
-        router.replace('/')
+        router.replace('/');
     }
-})
+});
 
 onBeforeUnmount(() => {
-    storeNews.setNewsData({})
-})
-
-
+    storeNews.setNewsData();
+});
 </script>
 
 <style lang="scss" scoped>
@@ -58,9 +59,11 @@ onBeforeUnmount(() => {
         }
 
         .image-banner {
-            width: 100%;
+            min-width: 200px;
+            width: auto;
+            max-width: 800px;
 
-            >img {
+            > img {
                 width: 100%;
             }
         }

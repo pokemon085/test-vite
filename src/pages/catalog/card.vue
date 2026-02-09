@@ -4,18 +4,25 @@
             <div v-if="imageLoading" class="image-loading">
                 <skeleton />
             </div>
-            <img v-show="!imageLoading" src="https://picsum.photos/id/100/200/200" alt="" @load="onImgLoad">
+            <img
+                v-show="!imageLoading"
+                :src="info.image"
+                alt="goods-image"
+                @load="onImgLoad"
+            />
         </div>
         <template v-if="!imageLoading">
             <div class="content">
-                <div class="content-item ">name:{{ info.name }}</div>
-                <div class="content-item">category:{{ info.category }}</div>
-                <div class="content-item">money:{{ info.money }}</div>
-                <div class="content-item">stock:{{ info.stock }}</div>
+                <div class="content-item">{{ info.name }}</div>
+                <div class="content-item">價格:${{ info.price }}</div>
             </div>
             <div class="button-wrap">
-                <div class="button" @click="clickHandler('goProduct', info)">content</div>
-                <div class="button" @click="clickHandler('addCart', info)">addCart</div>
+                <div class="button" @click="clickHandler('goProduct', info)">
+                    詳情
+                </div>
+                <div class="button" @click="clickHandler('addCart', info)">
+                    加入購物車
+                </div>
             </div>
         </template>
         <div v-else class="card-bottom-loading">
@@ -29,34 +36,40 @@
     </div>
 </template>
 <script lang="ts" setup>
-import { ref } from 'vue'
-import { Goods } from '@/store/types'
-import skeleton from '@/components/skeleton/index.vue'
+import { ref } from 'vue';
+import { Goods } from '@/store/types';
+import skeleton from '@/components/skeleton/index.vue';
 
 defineProps({
     info: {
         type: Object as () => Goods,
-        required: true
-    }
-})
+        required: true,
+    },
+});
 
-const emit = defineEmits(['event'])
+const emit = defineEmits(['event']);
 
-const imageLoading = ref(true)
+const imageLoading = ref(true);
 const clickHandler = (key: string, i: Goods) => {
-    emit('event', { key, i })
-}
+    emit('event', { key, i });
+};
 
 const onImgLoad = () => {
-    imageLoading.value = false
-}
-
+    imageLoading.value = false;
+};
 </script>
 <style lang="scss" scoped>
 .item {
     width: 200px;
     border: 1px solid #000;
     height: 315px;
+    display: grid;
+    grid-template-rows: 200px auto 50px;
+    transition: all 0.1s linear;
+
+    &:hover {
+        transform: translateY(-3px);
+    }
 
     .image-loading {
         display: flex;
@@ -70,21 +83,19 @@ const onImgLoad = () => {
         width: 199px;
         height: 200px;
 
-        >img {
+        > img {
             width: 100%;
             height: 100%;
         }
     }
 
     .content {
-        display: flex;
-        flex-wrap: wrap;
-        flex-direction: column;
-        width: 200px;
+        width: 100%;
         padding: 0 10px;
         box-sizing: border-box;
 
         .content-item {
+            padding-top: 8px;
             overflow: hidden;
             white-space: nowrap;
             text-overflow: ellipsis;
@@ -100,10 +111,13 @@ const onImgLoad = () => {
         height: 40px;
 
         .button {
-            width: 70px;
+            min-width: 70px;
+            padding: 0 5px;
             border: 3px solid var(--text-background-color);
             text-align: center;
             line-height: 30px;
+            cursor: pointer;
+            font-size: 14px;
 
             &:hover {
                 background-color: var(--text-background-color);
@@ -111,7 +125,6 @@ const onImgLoad = () => {
                 font-weight: bold;
             }
         }
-
     }
 
     .card-bottom-loading {

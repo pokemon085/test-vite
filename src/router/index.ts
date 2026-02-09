@@ -1,89 +1,89 @@
 import { createRouter, createWebHistory, RouteRecordRaw } from 'vue-router';
 
 const routes: Array<RouteRecordRaw> = [
-  {
-    path: '/login',
-    name: 'login',
-    meta: {
-      title: 'login'
+    {
+        path: '/login',
+        name: 'login',
+        meta: {
+            title: 'login',
+        },
+        component: () => import('@/pages/login/index.vue'),
     },
-    component: () => import('@/pages/login/index.vue')
-  },
-  {
-    path: '/news',
-    name: 'news',
-    meta: {
-      title: 'news'
+    {
+        path: '/news',
+        name: 'news',
+        meta: {
+            title: 'news',
+        },
+        component: () => import('@/pages/news/index.vue'),
     },
-    component: () => import('@/pages/news/index.vue')
-  },
-  {
-    path: '/cart',
-    name: 'cart',
-    meta: {
-      title: 'cart'
+    {
+        path: '/cart',
+        name: 'cart',
+        meta: {
+            title: 'cart',
+        },
+        component: () => import('@/pages/cart/index.vue'),
     },
-    component: () => import('@/pages/cart/index.vue')
-  },
-  {
-    path: '/product',
-    name: 'product',
-    meta: {
-      title: 'product'
+    {
+        path: '/product',
+        name: 'product',
+        meta: {
+            title: 'product',
+        },
+        component: () => import('@/pages/product/index.vue'),
     },
-    component: () => import('@/pages/product/index.vue')
-  },
-  {
-    path: '/contact',
-    name: 'Contact',
-    meta: {
-      title: 'contact'
+    {
+        path: '/contact',
+        name: 'Contact',
+        meta: {
+            title: 'contact',
+        },
+        component: () => import('@/pages/contact/index.vue'),
     },
-    component: () => import('@/pages/contact/index.vue')
-  },
-  {
-    path: '/catalog',
-    name: 'catalog',
-    meta: {
-      title: 'catalog'
-    },
+    {
+        path: '/catalog',
+        name: 'catalog',
+        meta: {
+            title: 'catalog',
+        },
 
-    component: () => import('@/pages/catalog/index.vue')
-  },
-  {
-    path: '/faqs',
-    name: 'faqs',
-    meta: {
-      title: 'faqs'
+        component: () => import('@/pages/catalog/index.vue'),
     },
-    component: () => import('@/pages/faqs/index.vue')
-  },
-  {
-    path: '/buyHistory',
-    name: 'buyHistory',
-    meta: {
-      title: 'buyHistory'
+    {
+        path: '/faqs',
+        name: 'faqs',
+        meta: {
+            title: 'faqs',
+        },
+        component: () => import('@/pages/faqs/index.vue'),
     },
-    component: () => import('@/pages/buyHistory/index.vue')
-  },
-  {
-    path: '/',
-    name: 'Index',
-    meta: {
-      title: 'home',
-      keepAlive: true,
-      requireAuth: true
+    {
+        path: '/buyHistory',
+        name: 'buyHistory',
+        meta: {
+            title: 'buyHistory',
+        },
+        component: () => import('@/pages/buyHistory/index.vue'),
     },
-    component: () => import('@/pages/index.vue')
-  },
-]
+    {
+        path: '/',
+        name: 'Index',
+        meta: {
+            title: 'home',
+            keepAlive: true,
+            requireAuth: true,
+        },
+        component: () => import('@/pages/index.vue'),
+    },
+];
 
 const router = createRouter({
-  history: createWebHistory(),
-  routes
+    history: createWebHistory(),
+    routes,
 });
 
 router.afterEach((to, from, next) => {
-  window.scrollTo(0, 0);
+    window.scrollTo(0, 0);
 });
 export default router;

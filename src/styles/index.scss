@@ -1,60 +1,68 @@
 @import '@/styles/reset.css';
 
 :root {
-  --main-bg-color: #FFC0CB;
-  --loading-color: #F25D7B;
-  --text-background-color: #ECD4D4;
-  --main-text-color: #FFF;
+    --main-bg-color: #ffc0cb;
+    --loading-color: #f25d7b;
+    --text-background-color: #ecd4d4;
+    --main-text-color: #fff;
+    --block-bg-color: #f7e9e9;
+
+    --header-z-index: 99;
+    --popup-z-index: 101;
+    --popup-mask-z-index: calc(var(--popup-z-index) - 1);
+    --loading-z-index: 102;
+}
+
+html {
+    overflow-y: scroll;
 }
 
 ​body {
-  background-color: var(--main-bg-color);
+    background-color: var(--main-bg-color);
 }
 
 // pagination-style
 .pagination-container {
-  display: flex;
-  column-gap: 10px;
-  justify-content: center;
+    display: flex;
+    column-gap: 10px;
+    justify-content: center;
 }
 
 .paginate-buttons {
-  height: 25px;
-  width: 25px;
-  border-radius: 20px;
-  cursor: pointer;
-  background-color: rgb(242, 242, 242);
-  border: 1px solid rgb(217, 217, 217);
-  color: #000;
+    height: 25px;
+    width: 25px;
+    border-radius: 20px;
+    cursor: pointer;
+    background-color: rgb(242, 242, 242);
+    border: 1px solid rgb(217, 217, 217);
+    color: #000;
 }
 
 .paginate-buttons:hover {
-  background-color: var(--text-background-color);
+    background-color: var(--text-background-color);
 }
 
 .active-page {
-  background-color: var(--main-bg-color);
-  border: 1px solid var(--main-bg-color);
-  color: #000;
+    background-color: var(--main-bg-color);
+    border: 1px solid var(--main-bg-color);
+    color: #000;
 }
 
 .active-page:hover {
-  background-color: var(--text-background-color);
+    background-color: var(--text-background-color);
 }
 
 // 輸入框類型數字 不要上下按鈕
-input[type=number]::-webkit-inner-spin-button,
-input[type=number]::-webkit-outer-spin-button {
-  -webkit-appearance: none;
-  margin: 0;
+input[type='number']::-webkit-inner-spin-button,
+input[type='number']::-webkit-outer-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
 }
 
-input[type=number] {
-  -moz-appearance: textfield;
+input[type='number'] {
+    -moz-appearance: textfield;
 }
 
-.clearfix::after {
-  content: '';
-  display: block;
-  clear: both;
+.button + .button {
+    margin-left: 20px;
 }

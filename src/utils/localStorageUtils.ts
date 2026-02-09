@@ -1,11 +1,19 @@
-import { Goods, Cart, User, Category, CartGoodsList, News } from "@/store/types";
+import {
+    Goods,
+    Cart,
+    User,
+    Category,
+    CartGoodsList,
+    News,
+    BuyHistory,
+} from '@/store/types';
 
 /**
  * 儲存商品
  * @param goods
  */
 export function saveGoods(goods: Goods[]) {
-  localStorage.setItem('goods', JSON.stringify(goods))
+    localStorage.setItem('goods', JSON.stringify(goods));
 }
 
 /**
@@ -13,7 +21,7 @@ export function saveGoods(goods: Goods[]) {
  * @returns 商品
  */
 export function readGoods(): Goods[] {
-  return JSON.parse(localStorage.getItem('goods') || '[]')
+    return JSON.parse(localStorage.getItem('goods') || '[]');
 }
 
 /**
@@ -21,16 +29,21 @@ export function readGoods(): Goods[] {
  * @param cart
  */
 export function saveCart(cart: Cart[]) {
+    const userId = readUserLogin()?.id;
+    if (!userId) return;
 
-  const goods: Goods[] = readGoods();
-  const result = cart.map((item: Cart) => {
-    const goodItem = goods.find(goodsItem => goodsItem.id === item.id);
-    return {
-      ...item,
-      ...goodItem
-    } as CartGoodsList;
-  });
-  localStorage.setItem('cart', JSON.stringify(result))
+    const goods: Goods[] = readGoods();
+    const cartList = cart.map((item: Cart) => {
+        const goodItem = goods.find((goodsItem) => goodsItem.id === item.id);
+        return {
+            ...item,
+            ...goodItem,
+        } as CartGoodsList;
+    });
+
+    const readAllCart = JSON.parse(localStorage.getItem('cart') || '{}');
+    const result = { ...readAllCart, [userId]: cartList };
+    localStorage.setItem('cart', JSON.stringify(result));
 }
 
 /**
@@ -38,7 +51,9 @@ export function saveCart(cart: Cart[]) {
  * @returns 購物車
  */
 export function readCart(): CartGoodsList[] {
-  return JSON.parse(localStorage.getItem('cart') || '[]')
+    const userId = readUserLogin()?.id;
+    const result = JSON.parse(localStorage.getItem('cart') || '{}');
+    return userId ? result[userId] || [] : [];
 }
 
 /**
@@ -46,7 +61,7 @@ export function readCart(): CartGoodsList[] {
  * @param user
  */
 export function saveUser(user: User[]) {
-  localStorage.setItem('user', JSON.stringify(user))
+    localStorage.setItem('user', JSON.stringify(user));
 }
 
 /**
@@ -54,7 +69,7 @@ export function saveUser(user: User[]) {
  * @returns 使用者
  */
 export function readUser(): User[] {
-  return JSON.parse(localStorage.getItem('user') || '[]')
+    return JSON.parse(localStorage.getItem('user') || '[]');
 }
 
 /**
@@ -62,7 +77,7 @@ export function readUser(): User[] {
  * @param userLogin
  */
 export function userLogin(userLogin: User) {
-  localStorage.setItem('userLogin', JSON.stringify(userLogin))
+    localStorage.setItem('userLogin', JSON.stringify(userLogin));
 }
 
 /**
@@ -70,14 +85,14 @@ export function userLogin(userLogin: User) {
  * @returns 使用者列表
  */
 export function readUserLogin(): User {
-  return JSON.parse(localStorage.getItem('userLogin') || '{}')
+    return JSON.parse(localStorage.getItem('userLogin') || '{}');
 }
 
 /**
  * 使用者登出
  */
 export function userSignOut() {
-  localStorage.removeItem('userLogin')
+    localStorage.removeItem('userLogin');
 }
 
 /**
@@ -85,7 +100,7 @@ export function userSignOut() {
  * @param category
  */
 export function saveCategory(category: Category[]) {
-  localStorage.setItem('category', JSON.stringify(category))
+    localStorage.setItem('category', JSON.stringify(category));
 }
 
 /**
@@ -93,7 +108,7 @@ export function saveCategory(category: Category[]) {
  * @returns
  */
 export function readCategory(): Category[] {
-  return JSON.parse(localStorage.getItem('category') || '[]')
+    return JSON.parse(localStorage.getItem('category') || '[]');
 }
 
 /**
@@ -101,7 +116,7 @@ export function readCategory(): Category[] {
  * @param data
  */
 export function saveNewItem(data: News) {
-  localStorage.setItem('news', JSON.stringify(data))
+    localStorage.setItem('news', JSON.stringify(data));
 }
 
 /**
@@ -109,23 +124,38 @@ export function saveNewItem(data: News) {
  * @returns 消息
  */
 export function readNewsItem(): News {
-  return JSON.parse(localStorage.getItem('news') || '{}')
+    return JSON.parse(localStorage.getItem('news') || '{}');
 }
-
 
 /**
  * 儲存購買紀錄
  * @param data
  */
 export function saveBuyHistory(data: CartGoodsList[]) {
-  localStorage.setItem('history', JSON.stringify(data))
+    const userId = readUserLogin()?.id;
+    if (!userId) return;
+
+    const history = JSON.parse(localStorage.getItem('history') || '{}');
+    const now = new Date().toLocaleString();
+
+    const record = {
+        time: now,
+        items: data,
+    };
+
+    history[userId] = [...(history[userId] || []), record];
+
+    localStorage.setItem('history', JSON.stringify(history));
 }
 
 /**
  * 讀取購買紀錄
  * @returns 購買紀錄
  */
-export function readBuyHistory() {
-  return JSON.parse(localStorage.getItem('history') || '[]')
-}
+export function readBuyHistory(): BuyHistory[] {
+    const userId = readUserLogin()?.id;
+    if (!userId) return [];
 
+    const history = JSON.parse(localStorage.getItem('history') || '{}');
+    return history[userId] || [];
+}

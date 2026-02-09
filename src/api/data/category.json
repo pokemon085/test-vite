@@ -1,7 +1,7 @@
 {
-  "data": [
-    {"id":1,"name":"candy"},
-    {"id":2,"name":"cookie"},
-    {"id":3,"name":"other"}
-  ]
+    "data": [
+        { "id": 1, "category": "candy", "name": "手工糖果" },
+        { "id": 2, "category": "cookie", "name": "精緻餅乾" },
+        { "id": 3, "category": "other", "name": "烘焙周邊" }
+    ]
 }
