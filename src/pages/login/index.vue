@@ -3,13 +3,13 @@
         <div class="account-wrap">
             <div class="tab">
                 <div
-                    :class="['button', { active: currentTab }]"
+                    :class="['tab-button', { active: currentTab }]"
                     @click="switchTab(true)"
                 >
                     登入
                 </div>
                 <div
-                    :class="['button', { active: !currentTab }]"
+                    :class="['tab-button', { active: !currentTab }]"
                     @click="switchTab(false)"
                 >
                     註冊
@@ -335,7 +335,7 @@ const switchTab = (key: boolean) => {
             line-height: 30px;
             font-size: 14px;
 
-            .button {
+            .tab-button {
                 width: 50%;
                 padding: 10px;
                 background: #f9f7f7;
