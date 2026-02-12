@@ -1,4 +1,4 @@
-import { createRouter, createWebHistory, RouteRecordRaw } from 'vue-router';
+import { createRouter, createWebHashHistory , RouteRecordRaw } from 'vue-router';
 
 const routes: Array<RouteRecordRaw> = [
     {
@@ -78,8 +78,9 @@ const routes: Array<RouteRecordRaw> = [
     },
 ];
 
+// createWebHistory 改成 createWebHashHistory 因為 GitHub Pages 只知道靜態檔案，找不到 History 路由對應的檔案
 const router = createRouter({
-    history: createWebHistory(),
+    history: createWebHashHistory(),
     routes,
 });
 
