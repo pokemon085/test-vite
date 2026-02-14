@@ -1,0 +1,124 @@
+{
+    "data": [
+        {
+            "id": 1,
+            "category": "candy",
+            "name": "法式手作草莓牛軋糖",
+            "price": 180,
+            "description": "選用大湖草莓乾與優質紐西蘭奶粉，口感 Q 彈不黏牙。",
+            "stock": 50,
+            "image": "french_handmade_strawberry_nougat.jpg",
+            "saleCount": 125
+        },
+        {
+            "id": 2,
+            "category": "cookie",
+            "name": "經典焦糖海鹽脆餅",
+            "price": 120,
+            "description": "手工熬製焦糖配上微鹹海鹽，層次豐富的酥脆體驗。",
+            "stock": 30,
+            "image": "classic_caramel_sea_salt_crisps.jpg",
+            "saleCount": 89
+        },
+        {
+            "id": 3,
+            "category": "candy",
+            "name": "手工玫瑰荔枝軟糖",
+            "price": 150,
+            "description": "淡淡的玫瑰香氣與荔枝果香，像是初戀的味道。",
+            "stock": 15,
+            "image": "handmade_rose_lychee_soft_candy.jpg",
+            "saleCount": 42
+        },
+        {
+            "id": 4,
+            "category": "cookie",
+            "name": "濃厚黑巧克力燕麥餅",
+            "price": 140,
+            "description": "使用 70% 比利時巧克力，搭配高纖燕麥，健康與美味兼具。",
+            "stock": 45,
+            "image": "dense_black_chocolate_oat_cookie.jpg",
+            "saleCount": 210
+        },
+        {
+            "id": 5,
+            "category": "cookie",
+            "name": "京都抹茶白巧克力餅",
+            "price": 160,
+            "description": "選用宇治一番茶製作，微苦抹茶完美中和白巧克力的甜膩。",
+            "stock": 20,
+            "image": "kyoto_matcha_white_chocolate_cookie.jpg",
+            "saleCount": 67
+        },
+        {
+            "id": 6,
+            "category": "candy",
+            "name": "慢熬琥珀紅韻紅茶糖",
+            "price": 135,
+            "description": "嚴選日月潭紅玉紅茶入味，每一顆都能品嚐到深沉茶香。",
+            "stock": 60,
+            "image": "amber_red_flavor_black_tea_sugar.jpg",
+            "saleCount": 54
+        },
+        {
+            "id": 7,
+            "category": "other",
+            "name": "午茶壺組",
+            "price": 880,
+            "description": "獨家手繪插畫圖案，陶瓷材質保溫性佳，下午茶的最佳良伴。",
+            "stock": 5,
+            "image": "afternoon_teapot_set.jpg",
+            "saleCount": 12
+        },
+        {
+            "id": 8,
+            "category": "cookie",
+            "name": "手工酥餅",
+            "price": 150,
+            "description": "口感酥鬆，適合搭配鮮奶享用。",
+            "stock": 38,
+            "image": "handmade_shortbread.jpg",
+            "saleCount": 143
+        },
+        {
+            "id": 9,
+            "category": "candy",
+            "name": "清新薄荷萊姆手工糖",
+            "price": 110,
+            "description": "萊姆的微酸結合薄荷清涼，最適合飯後提神的一款糖果。",
+            "stock": 100,
+            "image": "fresh_mint_lime_handmade_candy.jpg",
+            "saleCount": 31
+        },
+        {
+            "id": 10,
+            "category": "other",
+            "name": "天然棉麻防燙隔熱墊",
+            "price": 190,
+            "description": "純棉麻織造，極簡無印風格，保護桌面同時也美化空間。",
+            "stock": 25,
+            "image": "heat_insulation_pad.jpg",
+            "saleCount": 18
+        },
+        {
+            "id": 11,
+            "category": "other",
+            "name": "質感烘焙木製托盤",
+            "price": 350,
+            "description": "質感溫潤的原木托盤，讓您的下午茶時光更有儀式感。",
+            "stock": 10,
+            "image": "wooden_baking_tray.jpg",
+            "saleCount": 5
+        },
+        {
+            "id": 12,
+            "category": "cookie",
+            "name": "法式羅密亞盾牌餅乾",
+            "price": 220,
+            "description": "複雜的擠花工法，中心填入焦糖杏仁片，是極致的工藝點心。",
+            "stock": 12,
+            "image": "french_royal_shield_cookie.jpg",
+            "saleCount": 92
+        }
+    ]
+}

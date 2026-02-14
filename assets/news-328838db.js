@@ -1,0 +1,1 @@
+import{U as t,V as a,W as n,X as r}from"./index-81740dba.js";const i=t({id:"news",state:()=>({newsListResult:[],news:{}}),actions:{async getNewList(){await a().then(e=>{try{this.newsListResult=e.data}catch(s){console.log(s)}})},setNewsData(e={}){n(e)},readNewsDetail(){this.news=r()}}});export{i as n};

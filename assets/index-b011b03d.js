@@ -1,0 +1,1 @@
+import{_ as o,o as _,a,b as s,K as t}from"./index-81740dba.js";const c={},n={class:"subject-title"},d={class:"title"},r={class:"extra"};function i(e,l){return _(),a("div",n,[s("div",d,[t(e.$slots,"default",{},void 0,!0)]),s("div",r,[t(e.$slots,"extra",{},void 0,!0)])])}const f=o(c,[["render",i],["__scopeId","data-v-2f275a30"]]);export{f as s};
