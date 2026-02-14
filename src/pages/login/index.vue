@@ -255,13 +255,13 @@ const submitSign = (): void => {
         return;
     }
 
-    getUserStore.saveUserData(params);
-    popupData.content = '註冊成功,請重新登入';
-    popupData.type = 'success';
-    showPopup.value = true;
     setTimeout(() => {
-        currentTab.value = true;
         showLoading.value = false;
+        getUserStore.saveUserData(params);
+        popupData.content = '註冊成功,請重新登入';
+        popupData.type = 'success';
+        showPopup.value = true;
+        currentTab.value = true;
     }, 3000);
 };
 
