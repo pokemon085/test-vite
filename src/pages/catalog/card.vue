@@ -6,7 +6,7 @@
             </div>
             <img
                 v-show="!imageLoading"
-                :src="info.image"
+                :src="getImage(`goods/${info.image}`)"
                 alt="goods-image"
                 @load="onImgLoad"
             />
@@ -39,6 +39,7 @@
 import { ref } from 'vue';
 import { Goods } from '@/store/types';
 import skeleton from '@/components/skeleton/index.vue';
+import { getImage } from '@/utils';
 
 defineProps({
     info: {

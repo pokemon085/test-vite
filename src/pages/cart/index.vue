@@ -16,7 +16,9 @@
                         />
                     </div>
                     <div class="content">
-                        <div class="image"><img :src="i.image" /></div>
+                        <div class="image">
+                            <img :src="getImage(`goods/${i.image}`)" />
+                        </div>
                         <div class="wrap">
                             <div class="content-item">
                                 名稱: {{ i.name }}<br />
@@ -86,6 +88,7 @@ import { useRouter } from 'vue-router';
 import loading from '@/components/loading/index.vue';
 import popUp from '@/components/popUp/index.vue';
 import { storeToRefs } from 'pinia';
+import { getImage } from '@/utils';
 
 const showLoading = ref(false);
 const store = cartStore();

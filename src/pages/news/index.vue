@@ -6,7 +6,7 @@
                 class="mdi mdi-arrow-left-circle back"
             ></i>
             <div class="image-banner">
-                <img :src="news.image" alt="" />
+                <img :src="getImage(`news/${news.image}`)" alt="new-image" />
             </div>
             <div class="title">{{ news.name }}</div>
             <div class="news-content">{{ news.content }}</div>
@@ -19,6 +19,7 @@ import { onBeforeMount, onBeforeUnmount } from 'vue';
 import { storeToRefs } from 'pinia';
 import { newsStore } from '@/store/news';
 import { useRouter } from 'vue-router';
+import { getImage } from '@/utils';
 
 const router = useRouter();
 const storeNews = newsStore();

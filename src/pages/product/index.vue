@@ -8,7 +8,7 @@
                 </div>
                 <img
                     v-show="!imageLoading"
-                    :src="productDetail.image"
+                    :src="getImage(`goods/${productDetail.image}`)"
                     alt=""
                     @load="onImgLoad"
                 />
@@ -61,6 +61,7 @@ import { userStore } from '@/store/user';
 import { storeToRefs } from 'pinia';
 import skeleton from '@/components/skeleton/index.vue';
 import popUp from '@/components/popUp/index.vue';
+import { getImage } from '@/utils';
 // 查看商品詳情頁面
 
 const route = useRoute();

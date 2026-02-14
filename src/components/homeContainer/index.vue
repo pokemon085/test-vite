@@ -30,7 +30,7 @@
                         @click="goProduct(i)"
                     >
                         <div class="custom-image">
-                            <img :src="i.image" />
+                            <img :src="getImage(`goods/${i.image}`)" />
                         </div>
                         <div class="text-wrap">
                             <div class="title">{{ i.name }}</div>
@@ -71,6 +71,7 @@ import { newsStore } from '@/store/news';
 import { storeToRefs } from 'pinia';
 import { useRouter } from 'vue-router';
 import { Goods, News } from '@/store/types';
+import { getImage } from '@/utils';
 
 const router = useRouter();
 const modules = [Scrollbar, Navigation];
@@ -213,6 +214,7 @@ onMounted(async () => {
                 display: flex;
                 margin: 0 15px 15px 15px;
                 justify-content: space-between;
+                flex-wrap: wrap;
 
                 .content {
                     display: flex;
@@ -222,9 +224,12 @@ onMounted(async () => {
                         color: #4358ad;
                         font-weight: bold;
                         font-size: 16px;
+                        text-align: left;
+                        line-height: 20px;
                     }
 
                     .date {
+                        flex: 0 0 auto;
                         margin-right: 10px;
                     }
                 }

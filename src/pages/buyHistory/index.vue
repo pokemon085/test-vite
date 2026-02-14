@@ -18,7 +18,7 @@
             >
                 <div class="order">{{ index + 1 }}</div>
                 <div class="image">
-                    <img :src="item.image" />
+                    <img :src="getImage(`goods/${item.image}`)" />
                 </div>
                 <div class="content">
                     <div class="name">{{ item.name }}</div>
@@ -37,6 +37,7 @@ import { storeToRefs } from 'pinia';
 import { onMounted } from 'vue';
 import { CartGoodsList } from '@/store/types';
 import subjectTitle from '@/components/subjectTitle/index.vue';
+import { getImage } from '@/utils';
 
 const history = buyHistoryStore();
 const { historyList } = storeToRefs(history);
