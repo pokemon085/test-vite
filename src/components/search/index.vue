@@ -9,7 +9,7 @@
             ></div>
         </div>
         <div class="content">
-            <div v-if="findResult.length > 0">
+            <div v-if="findResult.length > 0" class="item-wrap">
                 <div
                     v-for="item in findResult"
                     class="item"
@@ -75,7 +75,8 @@ onMounted(() => {
 
 .search-wrap {
     position: fixed;
-    width: 400px;
+    width: 80%;
+    max-width: 400px;
     height: 400px;
     background: var(--block-bg-color);
     display: flex;
@@ -86,10 +87,12 @@ onMounted(() => {
     transform: translate(-50%, -50%);
     z-index: var(--popup-z-index);
     border-radius: 8px;
+    padding: 15px;
+    box-sizing: border-box;
 
     .input-wrap {
         margin: 10px 0;
-        width: 350px;
+        width: 100%;
         height: 50px;
         background: url('@/assets/search/search.png') 2% 50% no-repeat;
         background-size: 25px 25px;
@@ -97,6 +100,7 @@ onMounted(() => {
         display: flex;
         align-items: center;
         padding: 0 5px;
+        box-sizing: border-box;
 
         input {
             height: 44px;
@@ -123,13 +127,16 @@ onMounted(() => {
         width: 100%;
         height: 400px;
         display: flex;
-        justify-content: center;
         overflow-y: auto;
+
+        .item-wrap {
+            width: 100%;
+        }
 
         .item {
             font-size: 16px;
             padding: 10px 0;
-            width: 300px;
+            width: 100%;
             overflow: hidden;
             white-space: nowrap;
             text-overflow: ellipsis;

@@ -253,4 +253,18 @@ onMounted(async () => {
         grid-template-columns: repeat(2, 200px);
     }
 }
+
+@media screen and (max-width: 640px) {
+    .category-wrap {
+        display: grid;
+        width: 100%;
+        height: 100%;
+        grid-template-columns: 100px 1fr;
+        grid-template-rows: 1fr;
+    }
+    .category-wrap .right .good-list {
+        padding: 10px;
+        grid-template-columns: 1fr;
+    }
+}
 </style>

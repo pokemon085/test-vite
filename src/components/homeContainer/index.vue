@@ -16,11 +16,15 @@
                 <div class="title"><i class="mdi mdi-fire" />熱門商品</div>
             </div>
             <div class="item">
-                <swiper
+                <swiper 
                     :spaceBetween="20"
-                    :slidesPerView="3"
                     :loop="true"
                     :modules="modules"
+                    :breakpoints="{
+                        0: { slidesPerView: 1 },
+                        854: { slidesPerView: 2 },
+                        1200: { slidesPerView: 3 },
+                    }"
                     :navigation="true"
                 >
                     <swiper-slide
