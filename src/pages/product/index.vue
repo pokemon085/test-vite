@@ -61,7 +61,8 @@ import { userStore } from '@/store/user';
 import { storeToRefs } from 'pinia';
 import skeleton from '@/components/skeleton/index.vue';
 import popUp from '@/components/popUp/index.vue';
-import { getImage } from '@/utils';
+import { getImage, delay } from '@/utils';
+
 // 查看商品詳情頁面
 
 const route = useRoute();
@@ -142,15 +143,14 @@ const addCart = (): void => {
 /**
  * 結帳
  */
-const checkout = (): void => {
+const checkout = async (): Promise<void> => {
     if (getUserStore.isLoginUser() === false) {
         router.push('/login');
         return;
     }
 
-    setTimeout(() => {
-        router.push('/cart');
-    }, 300);
+    await delay(300);
+    router.push('/cart');
 };
 
 const onImgLoad = (): void => {

@@ -72,6 +72,7 @@ import {
 } from '@/store/types';
 import writeForm from './writeForm.vue';
 import popUp from '@/components/popUp/index.vue';
+import { delay } from '@/utils';
 const router = useRouter();
 const currentTab = ref(true);
 const eye = ref(false);
@@ -194,7 +195,7 @@ const fieldEmpty = (
 /**
  * 送出登入
  */
-const submitLogin = (): void => {
+const submitLogin = async (): Promise<void> => {
     showLoading.value = true;
     const formValue = loginForm.value;
     const result = fieldEmpty(formValue);
@@ -221,10 +222,9 @@ const submitLogin = (): void => {
     }
 
     showLoading.value = true;
-    setTimeout(() => {
-        showLoading.value = false;
-        router.replace('/');
-    }, 3000);
+    await delay(3000);
+    showLoading.value = false;
+    router.replace('/');
 };
 
 /**
@@ -254,15 +254,13 @@ const submitSign = (): void => {
         showLoading.value = false;
         return;
     }
-
-    setTimeout(() => {
-        showLoading.value = false;
-        getUserStore.saveUserData(params);
-        popupData.content = '註冊成功,請重新登入';
-        popupData.type = 'success';
-        showPopup.value = true;
-        currentTab.value = true;
-    }, 3000);
+    delay(3000);
+    showLoading.value = false;
+    getUserStore.saveUserData(params);
+    popupData.content = '註冊成功,請重新登入';
+    popupData.type = 'success';
+    showPopup.value = true;
+    currentTab.value = true;
 };
 
 /**

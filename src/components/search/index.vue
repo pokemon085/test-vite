@@ -30,6 +30,7 @@ import { goodsStore } from '@/store/goods';
 import { useRouter } from 'vue-router';
 import { Goods } from '@/store/types';
 import loading from '@/components/loading/index.vue';
+import { delay } from '@/utils';
 
 const emit = defineEmits(['close']);
 const router = useRouter();
@@ -46,17 +47,16 @@ const findResult = computed<Goods[]>(() => {
     );
 });
 
-const goProduct = (item: Goods): void => {
+const goProduct = async (item: Goods): Promise<void> => {
     showLoading.value = true;
 
-    setTimeout(() => {
-        showLoading.value = false;
-        emit('close');
-        router.replace({
-            path: '/product',
-            query: { id: item.id },
-        });
-    }, 300);
+    await delay(300);
+    showLoading.value = false;
+    emit('close');
+    router.replace({
+        path: '/product',
+        query: { id: item.id },
+    });
 };
 
 onMounted(() => {

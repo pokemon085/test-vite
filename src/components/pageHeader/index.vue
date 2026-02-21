@@ -68,6 +68,7 @@ import { ref } from 'vue';
 import toolTip from '@/components/toolTip/index.vue';
 import search from '@/components/search/index.vue';
 import { cartStore } from '@/store/cart';
+import { delay } from '@/utils';
 
 const router = useRouter();
 const getUserStore = userStore();
@@ -78,12 +79,12 @@ const loginHandler = () => {
     showAccountDetail.value = !showAccountDetail.value;
 };
 
-const signOutHandler = () => {
+const signOutHandler = async () => {
     getUserStore.signOut();
-    setTimeout(() => {
-        alert('請重新登入');
-        router.push('/');
-    }, 300);
+
+    await delay(300);
+    alert('請重新登入');
+    router.push('/');
 };
 
 const closeHandler = () => {

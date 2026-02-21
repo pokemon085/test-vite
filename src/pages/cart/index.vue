@@ -88,7 +88,7 @@ import { useRouter } from 'vue-router';
 import loading from '@/components/loading/index.vue';
 import popUp from '@/components/popUp/index.vue';
 import { storeToRefs } from 'pinia';
-import { getImage } from '@/utils';
+import { getImage, delay } from '@/utils';
 
 const showLoading = ref(false);
 const store = cartStore();
@@ -128,9 +128,9 @@ const init = () => {
     store.reloadReadCart();
 };
 
-const buy = () => {
+const buy = async () => {
     showLoading.value = true;
-    getGoodsStore.updateGoods(selectCartList.value).then((result) => {
+    getGoodsStore.updateGoods(selectCartList.value).then(async (result) => {
         if (result.status === 0) {
             showLoading.value = false;
             popupData.title = '錯誤';
@@ -143,11 +143,9 @@ const buy = () => {
         popupData.title = '通知';
         popupData.content = result.message;
         popupData.type = 'success';
-
-        setTimeout(() => {
-            showLoading.value = false;
-            showPopup.value = true;
-        }, 300);
+        await delay(300);
+        showLoading.value = false;
+        showPopup.value = true;
     });
 };
 
@@ -168,14 +166,13 @@ const deleteGoodsHandler = (info: CartGoodsList, count: number) => {
     store.deleteCartCount(info, count);
 };
 
-const clickDelete = (info: CartGoodsList, count: number) => {
+const clickDelete = async (info: CartGoodsList, count: number) => {
     deleteGoodsHandler(info, count);
     showDeletePopup.value = false;
     showLoading.value = true;
     init();
-    setTimeout(() => {
-        showLoading.value = false;
-    }, 300);
+    await delay(300);
+    showLoading.value = false;
 };
 
 const countHandler = (key: string, i: CartGoodsList) => {

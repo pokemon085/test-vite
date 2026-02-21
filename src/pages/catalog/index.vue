@@ -50,6 +50,8 @@ import { useRouter } from 'vue-router';
 import { storeToRefs } from 'pinia';
 import popUp from '@/components/popUp/index.vue';
 import loading from '@/components/loading/index.vue';
+import { delay } from '@/utils';
+
 const storeGoods = goodsStore();
 const storeCart = cartStore();
 const getUserStore = userStore();
@@ -139,12 +141,11 @@ const goProduct = (item: Goods) => {
     });
 };
 
-const loadingHandler = () => {
+const loadingHandler = async () => {
     showLoading.value = true;
-    let timer = setTimeout(() => {
-        showLoading.value = false;
-        clearTimeout(timer);
-    }, 300);
+
+    await delay(300);
+    showLoading.value = false;
 };
 
 const eventHandler = (val: { key: string; i: Goods }) => {
