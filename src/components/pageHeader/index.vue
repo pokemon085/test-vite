@@ -87,12 +87,10 @@
             <div class="main-function">其他</div>
             <div class="main-function-wrap" @click="showDropDown = false">
                 <div class="search" @click="openSearch">
-                    <i class="mdi mdi-magnify"></i>
-                    搜尋
+                    <i class="mdi mdi-magnify"></i>搜尋
                 </div>
                 <div class="cart" @click="$router.push('/cart')">
-                    <i class="mdi mdi-cart-outline"></i>
-                    購物車
+                    <i class="mdi mdi-cart-outline"></i>購物車
                     <div v-if="getCartStore.cartTotal > 0" class="red-pot">
                         {{ cartCount }}
                     </div>
@@ -106,8 +104,7 @@
                     @click="$router.push('/login')"
                     class="login"
                 >
-                    <i class="mdi mdi-login"></i>
-                    登入
+                    <i class="mdi mdi-login"></i>登入
                 </div>
                 <div v-else>
                     <div class="email">
@@ -296,12 +293,13 @@ const cartCount = computed(() => {
 
         .drop-down {
             padding: 5px 0;
+            border-bottom: 2px solid var(--block-bg-color);
         }
 
         .main-function {
             font-size: 18px;
             padding: 5px;
-            background-color: bisque;
+            background-color: var(--block-bg-color);
         }
 
         .path {
@@ -330,6 +328,10 @@ const cartCount = computed(() => {
             .history,
             .logout {
                 padding: 10px;
+
+                > i {
+                    margin-right: 5px;
+                }
             }
 
             .cart {

@@ -94,18 +94,20 @@ onMounted(() => {
         margin: 10px 0;
         height: 50px;
         background: url('@/assets/search/search.png') 2% 50% no-repeat;
-        background-size: 25px 25px;
+        background-size: 20px 20px;
         background-color: #fff;
         display: flex;
         align-items: center;
         padding: 0 5px;
         box-sizing: border-box;
+        width: 100%;
 
         input {
+            min-width: 0;
+            width: 100%;
             height: 44px;
-            width: 280px;
             outline: none;
-            margin-left: 40px;
+            margin-left: 25px;
             border: none;
         }
 
@@ -116,7 +118,7 @@ onMounted(() => {
         .cancel {
             width: 20px;
             height: 20px;
-            background: url('/src/assets/search/cancel.png') 0 0 no-repeat;
+            background: url('/src/assets/search/cancel.png') center no-repeat;
             background-size: contain;
             cursor: pointer;
         }

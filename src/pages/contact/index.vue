@@ -62,7 +62,6 @@ import subjectTitle from '@/components/subjectTitle/index.vue';
         .block {
             display: flex;
             flex-direction: column;
-            height: 280px;
             border: 1px solid #ddd;
             border-top: 5px solid var(--main-bg-color);
             padding: 0 20px;
@@ -93,6 +92,7 @@ import subjectTitle from '@/components/subjectTitle/index.vue';
                 text-align: center;
                 font-size: 16px;
                 line-height: 25px;
+                padding-bottom: 10px;
             }
         }
     }
