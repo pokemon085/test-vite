@@ -64,9 +64,10 @@ const onImgLoad = () => {
     width: 200px;
     border: 1px solid #000;
     height: 315px;
-    display: grid;
-    grid-template-rows: 200px auto 50px;
     transition: all 0.1s linear;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-evenly;
 
     &:hover {
         transform: translateY(-3px);
@@ -96,7 +97,6 @@ const onImgLoad = () => {
         box-sizing: border-box;
 
         .content-item {
-            padding-top: 8px;
             overflow: hidden;
             white-space: nowrap;
             text-overflow: ellipsis;
@@ -109,14 +109,13 @@ const onImgLoad = () => {
         justify-content: space-around;
         align-items: center;
         width: 100%;
-        height: 40px;
 
         .button {
+            flex:1 1 auto;
             min-width: 70px;
-            padding: 0 5px;
+            padding: 5px;
             border: 3px solid var(--text-background-color);
             text-align: center;
-            line-height: 30px;
             cursor: pointer;
             font-size: 14px;
 

@@ -203,14 +203,12 @@ onMounted(async () => {
         }
 
         .category-list {
-            text-align: center;
             padding: 10px;
 
             .category-item {
                 margin: 20px auto 20px auto;
-                height: 30px;
-                line-height: 30px;
-                border-radius: 30px;
+                padding: 10px;
+                border-radius: 5px;
                 background: #faebd7;
                 box-shadow: 2px 2px 2px 1px rgba(0, 0, 0, 0.2);
                 cursor: pointer;
