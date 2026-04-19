@@ -63,11 +63,11 @@ const onImgLoad = () => {
 .item {
     width: 200px;
     border: 1px solid #000;
-    height: 315px;
     transition: all 0.1s linear;
     display: flex;
     flex-direction: column;
     justify-content: space-evenly;
+    padding-bottom: 10px;
 
     &:hover {
         transform: translateY(-3px);
@@ -93,7 +93,7 @@ const onImgLoad = () => {
 
     .content {
         width: 100%;
-        padding: 0 10px;
+        padding: 10px;
         box-sizing: border-box;
 
         .content-item {
@@ -101,6 +101,7 @@ const onImgLoad = () => {
             white-space: nowrap;
             text-overflow: ellipsis;
             width: 180px;
+            padding-bottom: 5px;
         }
     }
 

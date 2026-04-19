@@ -178,19 +178,12 @@ onMounted(async () => {
     grid-template-rows: 1fr;
 
     .left {
-        display: flex;
-        flex-direction: column;
-        justify-content: center;
-        align-items: center;
         width: 100%;
         position: sticky;
         top: 50px;
         left: 0;
-        height: 400px;
 
         .block {
-            width: 100%;
-            height: 100%;
             background: rgb(190, 164, 164);
             text-align: center;
         }

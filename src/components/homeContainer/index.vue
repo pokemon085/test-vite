@@ -182,10 +182,14 @@ onMounted(async () => {
                 > i {
                     margin: 10px 0;
                     width: 100px;
-                    font-size: 80px;
+                    height: 100px;
+                    font-size: 60px;
                     padding: 10px;
                     border: 2px solid;
                     border-radius: 50%;
+                    display: flex;
+                    justify-content: center;
+                    align-items: center;
 
                     &.ingredient {
                         border-color: pink;

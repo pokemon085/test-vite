@@ -92,7 +92,6 @@ onMounted(() => {
 
     .input-wrap {
         margin: 10px 0;
-        width: 100%;
         height: 50px;
         background: url('@/assets/search/search.png') 2% 50% no-repeat;
         background-size: 25px 25px;
