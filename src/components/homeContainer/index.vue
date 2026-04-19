@@ -181,7 +181,7 @@ onMounted(async () => {
 
                 > i {
                     margin: 10px 0;
-                    width: 110px;
+                    width: 100px;
                     font-size: 80px;
                     padding: 10px;
                     border: 2px solid;
