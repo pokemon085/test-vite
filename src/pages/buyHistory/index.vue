@@ -70,10 +70,12 @@ onMounted(() => {
         min-height: 80px;
         display: flex;
         align-items: center;
+        padding: 10px 0;
+        flex-wrap: wrap;
 
         .order {
             text-align: center;
-            width: 80px;
+            padding: 0 10px;
         }
 
         .image {
@@ -90,7 +92,6 @@ onMounted(() => {
 
         .content {
             margin: 0 10px;
-            flex: 1;
 
             .name {
                 word-break: break-all;
@@ -106,7 +107,9 @@ onMounted(() => {
         }
 
         .total {
+            width: 100%;
             padding: 0 20px;
+            text-align: right;
         }
     }
 }
@@ -139,6 +142,15 @@ onMounted(() => {
     .empty-text {
         margin-top: 10px;
         color: gray;
+    }
+}
+@media screen and (max-width:767px){
+    .history-list-wrap {
+        .item {
+            .image {
+                display: none;
+            }
+        }
     }
 }
 </style>
