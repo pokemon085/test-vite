@@ -1,30 +1,43 @@
-# Vue 3 + TypeScript + Vite
+# test-vite
+* Vue3 + Ts + Vite
+* scss
+* eslint + prettier
 
-This template should help get you started developing with Vue 3 and TypeScript in Vite. The template uses Vue 3 `<script setup>` SFCs, check out the [script setup docs](https://v3.vuejs.org/api/sfc-script-setup.html#sfc-script-setup) to learn more.
+# 指令列表
+### 啟動專案
+```bash
+npm run dev
+```
+### 建構專案
+```bash
+npm run build
+```
+### 建構專案後,本地測試應用
+```bash
+npm run preview
+```
 
-## Recommended IDE Setup
+# 快速連結
+線上展示: https://pokemon085.github.io/test-vite/
 
-- [VS Code](https://code.visualstudio.com/) + [Volar](https://marketplace.visualstudio.com/items?itemName=Vue.volar) (and disable Vetur) + [TypeScript Vue Plugin (Volar)](https://marketplace.visualstudio.com/items?itemName=Vue.vscode-typescript-vue-plugin).
 
-## Type Support For `.vue` Imports in TS
+# 資料夾架構
+```text
+├── public 靜態資源
+└── src
+    ├── api API接口
+    ├── assets 靜態資源
+    ├── components 共用元件
+    ├── pages 主要頁面
+    ├── router 路由
+    ├── utils 工具函數
+    └── store pinia 狀態模組
+```
 
-TypeScript cannot handle type information for `.vue` imports by default, so we replace the `tsc` CLI with `vue-tsc` for type checking. In editors, we need [TypeScript Vue Plugin (Volar)](https://marketplace.visualstudio.com/items?itemName=Vue.vscode-typescript-vue-plugin) to make the TypeScript language service aware of `.vue` types.
-
-If the standalone TypeScript plugin doesn't feel fast enough to you, Volar has also implemented a [Take Over Mode](https://github.com/johnsoncodehk/volar/discussions/471#discussioncomment-1361669) that is more performant. You can enable it by the following steps:
-
-1. Disable the built-in TypeScript Extension
-   1. Run `Extensions: Show Built-in Extensions` from VSCode's command palette
-   2. Find `TypeScript and JavaScript Language Features`, right click and select `Disable (Workspace)`
-2. Reload the VSCode window by running `Developer: Reload Window` from the command palette.
-
-## config
-
-https://juejin.cn/post/7079785777692934174
-
-https://www.jianshu.com/p/ff5abde951ac
-
-## vite-plugin-mkcert
-https://www.npmjs.com/package/vite-plugin-mkcert
-
-## page
-https://pokemon085.github.io/test-vite/
+# 技術
+1. 框架: Vue 3 (Composition API)
+2. 構建工具: Vite
+3. 狀態管理: Pinia
+4. 路由管理: Vue Router
+5. 樣式處理: SCSS
+6. 網路請求: Axios
