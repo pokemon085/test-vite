@@ -17,7 +17,7 @@ export const categoryList = () => {
 
 export const newsList = () => {
     return http.request({
-        url:'/api/news.json',
+        url: '/api/news.json',
         method: 'get',
     });
 };
