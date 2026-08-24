@@ -1,18 +1,7 @@
 <template>
     <div class="loadingio-spinner-spinner-1zrg8yebvbz">
         <div class="ldio-agdwhbekqcj">
-            <div></div>
-            <div></div>
-            <div></div>
-            <div></div>
-            <div></div>
-            <div></div>
-            <div></div>
-            <div></div>
-            <div></div>
-            <div></div>
-            <div></div>
-            <div></div>
+            <div v-for="i in 12" :key="i"></div>
         </div>
     </div>
 </template>
